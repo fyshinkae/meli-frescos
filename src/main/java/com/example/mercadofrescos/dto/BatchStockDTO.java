@@ -23,6 +23,11 @@ public class BatchStockDTO {
     private LocalDate manufacturingDate, dueTime;
     private BigDecimal price;
 
+    /**
+     * Converte um modelo do BatchStock para um DTO de BatchRequest
+     * @author Gabriel
+     * @param batchStock um objeto do modelo BatchStock a ser convertido
+     */
     public BatchStockDTO(BatchStock batchStock){
         Product product = batchStock.getProduct();
 

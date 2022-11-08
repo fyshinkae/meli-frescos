@@ -20,6 +20,12 @@ public class InboundOrderRequestDTO {
     private LocalDate orderDate;
     private Long sectionCode, orderNumber, warehouseCode;
     private List<BatchStockDTO> batchStock;
+
+    /**
+     * Converte um modelo de InboundOrder para um DTO de InboundOrder
+     * @author Gabriel
+     * @param inboundOrderParam um objeto do modelo InboundOrder a ser convertido
+     */
     public InboundOrderRequestDTO(InboundOrder inboundOrderParam) {
         Section section = inboundOrderParam.getSection();
 

@@ -13,6 +13,11 @@ import lombok.Setter;
 public class InsertBatchRequestDTO {
     private InboundOrderRequestDTO inboundOrder;
 
+    /**
+     * Converte o modelo InboundOrder para um DTO de Request de InsertBatch
+     * @author Gabriel
+     * @param inboundOrderParam um objeto do modelo InboundOrder para ser convertido
+     */
     public InsertBatchRequestDTO(InboundOrder inboundOrderParam){
         this.inboundOrder = new InboundOrderRequestDTO(inboundOrderParam);
     }
