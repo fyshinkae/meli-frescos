@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -48,5 +49,17 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(details, status);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionDetails> handlerNotFoundException(NotFoundException ex) {
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Resource not found")
+                .message(ex.getMessage())
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
 }
