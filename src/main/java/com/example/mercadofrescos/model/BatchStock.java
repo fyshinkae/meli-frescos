@@ -26,6 +26,11 @@ public class BatchStock {
     @JsonIgnoreProperties("batches")
     private Product product;
 
+    @ManyToOne
+    @JoinColumn(name = "inboundOrderId", nullable = false)
+    @JsonIgnoreProperties("inboundOrder")
+    private InboundOrder inboundOrder;
+
     @Column(nullable = false)
     private Float currentTemperature;
 

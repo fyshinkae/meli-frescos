@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.model;
 
-import com.example.mercadofrescos.model.enums.Role;
+import com.example.mercadofrescos.model.enums.Category;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,22 +15,23 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User {
+public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name, email, password;
-
-    @Column(nullable = false)
-    private Role role;
-
-    @OneToMany(mappedBy = "seller")
-    @JsonIgnoreProperties("seller")
-    private Set<Product> products;
-
-    @OneToOne(mappedBy = "agent", cascade = CascadeType.REFRESH)
-    @JsonIgnoreProperties("agent")
+    @ManyToOne
+    @JoinColumn(name = "warehouseId", nullable = false)
+    @JsonIgnoreProperties("warehouse")
     private Warehouse warehouse;
+
+    @Column(nullable = false)
+    private Category category;
+
+    @Column(nullable = false)
+    private Float capacity, minTemperature;
+
+    @OneToMany(mappedBy = "section")
+    @JsonIgnoreProperties("section")
+    private Set<InboundOrder> inboundOrders;
 }

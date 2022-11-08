@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +26,10 @@ public class Product {
     @JsonIgnoreProperties("seller")
     private User seller;
 
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties("product")
+    private Set<BatchStock> batches;
+
     @Column(nullable = false)
     private String name;
 
@@ -34,8 +38,4 @@ public class Product {
 
     @Column(nullable = false)
     private Category category;
-
-    @OneToMany(mappedBy = "product")
-    @JsonIgnoreProperties("products")
-    private List<BatchStock> batches;
 }
