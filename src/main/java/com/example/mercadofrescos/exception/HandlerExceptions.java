@@ -16,6 +16,11 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class HandlerExceptions extends ResponseEntityExceptionHandler {
 
+    /**
+     * Monta uma lista de erros com a "field" correspondente com o seu erro específico
+     * @author Theus
+     * @param errors uma lista de FieldErros
+     */
     private List<FieldMessage> mountFieldErrorMessage(List<FieldError> errors) {
         return errors.stream()
                 .map(error -> FieldMessage.builder()
