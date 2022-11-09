@@ -64,12 +64,26 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findByCategory(Category category) {
-        List<Product> productByCategory = repo.findAllByCategory(category);
+    public List<ProductDTO> findByCategory(String category) {
+        Category filterCategory = filterCategory(category);
+        List<Product> productByCategory = repo.findAllByCategory(filterCategory);
         return productByCategory.stream()
                 .map(product ->
                     new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getCategory())
                 ).collect(Collectors.toList());
+    }
+
+    private Category filterCategory(String word) {
+        switch (word) {
+            case "FS":
+                return Category.FRESH;
+            case "RF":
+                return Category.REFRIGERATED;
+            case "FR":
+                return Category.FROZEN;
+            default:
+                return null;
+        }
     }
 
 }

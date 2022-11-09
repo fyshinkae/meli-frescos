@@ -32,7 +32,7 @@ public class ProductController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<ProductDTO>> getAllByCategory(@RequestParam(required = false, name = "category") Category category) {
+    public ResponseEntity<List<ProductDTO>> getAllByCategory(@RequestParam(required = false, name = "category") String category) {
         List<ProductDTO> filterByCategory = service.findByCategory(category);
         return new ResponseEntity<>(filterByCategory, HttpStatus.OK);
     }
