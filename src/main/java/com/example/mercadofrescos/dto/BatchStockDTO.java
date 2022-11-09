@@ -3,6 +3,7 @@ package com.example.mercadofrescos.dto;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +23,10 @@ public class BatchStockDTO {
     private Long batchNumber, productId;
     private Float currentTemperature, volume;
     private Integer productQuantity;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime manufacturingTime;
-    private LocalDate manufacturingDate, dueTime;
+    private LocalDate manufacturingDate, dueDate;
     private BigDecimal price;
 
     /**
@@ -43,7 +46,7 @@ public class BatchStockDTO {
         this.productQuantity = batchStock.getProductQuantity();
         this.manufacturingDate = batchStock.getManufacturingDate();
         this.manufacturingTime = batchStock.getManufacturingTime();
-        this.dueTime = batchStock.getDueDate();
+        this.dueDate = batchStock.getDueDate();
     }
 
 
@@ -63,7 +66,7 @@ public class BatchStockDTO {
         response.setCurrentTemperature(batchDTO.getCurrentTemperature());
         response.setManufacturingDate(batchDTO.getManufacturingDate());
         response.setManufacturingTime(batchDTO.getManufacturingTime());
-        response.setDueDate(batchDTO.getDueTime());
+        response.setDueDate(batchDTO.getDueDate());
         response.setVolume(batchDTO.getVolume());
         response.setProductQuantity(batchDTO.getProductQuantity());
 
