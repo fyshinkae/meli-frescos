@@ -32,8 +32,11 @@ public class InboundOrderService implements IInboundOrderService {
      * @param request parametro do usuário contendo informacoes sobre o inboundorder e uma lista de batchstocks
      * @return a lista de batchstocks salva
      */
+
+    // todo: buscar o wirehouse e comparar se ele é o mesmo da section
     @Override
     public List<BatchStockDTO> save(InsertBatchRequestDTO request) {
+
         Section section = serviceSection.findById(request.getInboundOrder().getSectionCode());
 
         InboundOrder inboundOrder = new InboundOrder();

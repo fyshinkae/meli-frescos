@@ -16,12 +16,11 @@ public class InsertBatchRequestDTO {
     @Valid
     private InboundOrderRequestDTO inboundOrder;
 
-    /**
-     * Converte o modelo InboundOrder para um DTO de Request de InsertBatch
-     * @author Gabriel
-     * @param inboundOrderParam um objeto do modelo InboundOrder para ser convertido
-     */
-    public InsertBatchRequestDTO(InboundOrder inboundOrderParam) {
-        this.inboundOrder = new InboundOrderRequestDTO(inboundOrderParam);
+    public static InboundOrder convert(InboundOrderRequestDTO InboundOrderRequest)  {
+        InboundOrder inboundOrder = new InboundOrder();
+
+        inboundOrder.setOrderDate(InboundOrderRequest.getOrderDate());
+
+        return inboundOrder;
     }
 }
