@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 public class InboundOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -28,7 +29,7 @@ public class InboundOrder {
     @JsonIgnoreProperties("inboundOrders")
     private Section section;
 
-    @OneToMany(mappedBy = "inboundOrder")
+    @OneToMany(mappedBy = "inboundOrder", cascade = CascadeType.PERSIST)
     @JsonIgnoreProperties("batches")
     private List<BatchStock> batches;
 
