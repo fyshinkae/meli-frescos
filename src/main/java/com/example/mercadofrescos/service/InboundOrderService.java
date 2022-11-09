@@ -40,13 +40,13 @@ public class InboundOrderService implements IInboundOrderService {
         inboundOrder.setOrderDate(request.getInboundOrder().getOrderDate());
         inboundOrder.setSection(section);
 
-        List<BatchStock> batches = serviceBatchStock.convertToListBatchStock(
+        List<BatchStock> batches = serviceBatchStock.convertToValidBatchStockList(
                 request.getInboundOrder().getBatchStock(), inboundOrder);
 
         inboundOrder.setBatches(batches);
 
-        repoOrder.save(inboundOrder);
-        return request.getInboundOrder().getBatchStock();
+        InboundOrder response = repoOrder.save(inboundOrder);
+        return BatchStockDTO.convertToDTOList(response.getBatches());
     }
 
     @Override
