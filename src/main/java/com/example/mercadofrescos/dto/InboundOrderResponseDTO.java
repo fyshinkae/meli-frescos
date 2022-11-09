@@ -14,7 +14,7 @@ public class InboundOrderResponseDTO {
 
     private List<BatchStockDTO> batchStock;
 
-    // MATHEUS ALVES FAZER JAVA DOC
+    // todo: MATHEUS ALVES FAZER JAVA DOC
     public InboundOrderResponseDTO(InboundOrder inBoundOrder) {
         this.batchStock = BatchStockDTO.convertToDTOList(inBoundOrder.getBatches());
     }

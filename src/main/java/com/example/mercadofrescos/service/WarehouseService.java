@@ -15,6 +15,11 @@ public class WarehouseService implements IWarehouseService {
 
     private final IWarehouseRepo repo;
 
+    /**
+     * Busca uma Warehouse ou lança um erro caso não encontre
+     * @author Theus
+     * @param id da Warehouse
+     */
     @Override
     public Warehouse findById(Long id) {
         Optional<Warehouse> warehouse = repo.findById(id);

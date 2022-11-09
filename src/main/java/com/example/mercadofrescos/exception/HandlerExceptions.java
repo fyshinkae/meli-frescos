@@ -84,7 +84,6 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
 
-
             ExceptionDetails details = ExceptionDetails.builder()
                     .title("Invalid values")
                     .message("malformed JSON")

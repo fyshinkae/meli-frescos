@@ -27,6 +27,12 @@ public class SectionService implements ISectionService {
         return section.orElseThrow(() -> new NotFoundException("Section not found"));
     }
 
+    /**
+     * Busca uma Section relacionada a um Warehouse, e lança um erro caso não encontre
+     * @author Theus
+     * @param warehouseId id da Warehouse
+     * @param sectionId id da Section
+     */
     @Override
     public void findSectionByWarehouseId(Long warehouseId, Long sectionId) {
         Optional<Long> section = repo.findSectionByWarehouseId(warehouseId, sectionId);

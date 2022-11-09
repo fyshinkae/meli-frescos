@@ -21,12 +21,12 @@ public class InboundOrderService implements IInboundOrderService {
 
 
     /**
-     * Atualiza BatchStocks de um Section
+     * Cria uma noa InboundOrder
      * @author Felipe, Gabriel, Matheus, Theus
-     * @param request parametro do usuário contendo informacoes sobre o inboundorder e uma lista de batchstocks
-     * @return a lista de batchstocks salva
+     * @param request novo InboundOrder a ser criado
+     * @param warehouseId id do warehouse onde será armazenado
+     * @return uma lista de batchStock criado
      */
-
     @Override
     public InboundOrderResponseDTO save(InboundOrder request, Long warehouseId) {
         serviceWarehouse.findById(warehouseId);

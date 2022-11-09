@@ -24,11 +24,13 @@ public class BatchStockService implements IBatchStockService {
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
 
+    // todo: FAZER JAVADOC
     @Override
     public BatchStockDTO save(InsertBatchRequestDTO request) {
         return null;
     }
 
+    // todo: FAZER JAVADOC
     @Override
     public BatchStockDTO update(InsertBatchRequestDTO request) {
         return null;
