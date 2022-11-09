@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.BatchStockDTO;
+import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
 import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
@@ -35,21 +36,16 @@ public class InboundOrderService implements IInboundOrderService {
 
     // todo: buscar o wirehouse e comparar se ele é o mesmo da section
     @Override
-    public List<BatchStockDTO> save(InsertBatchRequestDTO request) {
+    public InboundOrderResponseDTO save(InboundOrder request) {
+        Section section = serviceSection.findById(request.getSection().getId());
+        request.setSection(section);
 
-        Section section = serviceSection.findById(request.getInboundOrder().getSectionCode());
+        List<BatchStock> batches = serviceBatchStock.validBatchStockList(request);
 
-        InboundOrder inboundOrder = new InboundOrder();
-        inboundOrder.setOrderDate(request.getInboundOrder().getOrderDate());
-        inboundOrder.setSection(section);
+        request.setBatches(batches);
 
-        List<BatchStock> batches = serviceBatchStock.convertToValidBatchStockList(
-                request.getInboundOrder().getBatchStock(), inboundOrder);
-
-        inboundOrder.setBatches(batches);
-
-        InboundOrder response = repoOrder.save(inboundOrder);
-        return BatchStockDTO.convertToDTOList(response.getBatches());
+        InboundOrder response = repoOrder.save(request);
+        return new InboundOrderResponseDTO(response);
     }
 
     @Override

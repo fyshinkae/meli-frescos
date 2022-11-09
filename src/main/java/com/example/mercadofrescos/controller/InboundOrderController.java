@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.BatchStockDTO;
+import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
 import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
 import com.example.mercadofrescos.service.InboundOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class InboundOrderController {
 
     // GIOVANA FAZER JAVADOC
     @PostMapping
-    public ResponseEntity<List<BatchStockDTO>> save(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
-        List<BatchStockDTO> data = service.save(inboundOrderRequestDTO);
+    public ResponseEntity<InboundOrderResponseDTO> save(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
+        InboundOrderResponseDTO data = service.save(InsertBatchRequestDTO.convert(inboundOrderRequestDTO));
         return new ResponseEntity<>(data, HttpStatus.CREATED);
     }
 }

@@ -82,8 +82,11 @@ public class BatchStockDTO {
 
     public static BatchStock convertToModelObject(BatchStockDTO batchDTO) {
         BatchStock response = new BatchStock();
+        Product product = new Product();
 
+        product.setId(batchDTO.getProductId());
         response.setId(batchDTO.getBatchNumber());
+        response.setProduct(product);
         response.setCurrentTemperature(batchDTO.getCurrentTemperature());
         response.setManufacturingDate(batchDTO.getManufacturingDate());
         response.setManufacturingTime(batchDTO.getManufacturingTime());

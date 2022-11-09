@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,31 +35,29 @@ public class BatchStockService implements IBatchStockService {
     }
 
     /**
-     * Converte uma lista de BatchesDTO para uma lista de BatchStocks validados
+     * Valida a lista de lotes de um InboundOrder
      * @author Gabriel
-     * @param batchesDTO Uma lista de lotes DTO
-     * @param inboundOrder Um objeto de inboundOrder com as informacoes onde o lote será alocado
+     * @param inboundOrder Um objeto de inboundOrder com as informacoes com uma lista de lotes
      * @return Retorna uma lista de lotes validados
      */
     @Override
-    public List<BatchStock> convertToValidBatchStockList(List<BatchStockDTO> batchesDTO, InboundOrder inboundOrder) {
+    public List<BatchStock> validBatchStockList(InboundOrder inboundOrder) {
         List<BatchStock> batches = new ArrayList<>();
         Section section = inboundOrder.getSection();
 
         float sectionCapacity = section.getCapacity();
         float batchStockListTotalVolume = 0;
 
-        for(BatchStockDTO batch : batchesDTO) {
-            Product product = serviceProduct.findById(batch.getProductId());
+        for(BatchStock batch : inboundOrder.getBatches()) {
+            Product product = serviceProduct.findById(batch.getProduct().getId());
 
-            BatchStock batchStockItem = BatchStockDTO.convertToModelObject(batch);
-            batchStockItem.setProduct(product);
-            batchStockItem.setInboundOrder(inboundOrder);
+            batch.setProduct(product);
+            batch.setInboundOrder(inboundOrder);
 
-            validateBatchStock(batchStockItem, section);
-            batchStockListTotalVolume += batchStockItem.getVolume();
+            validateBatchStock(batch, section);
+            batchStockListTotalVolume += batch.getVolume();
 
-            batches.add(batchStockItem);
+            batches.add(batch);
         }
 
         if(!validateBatchStockVolume(batchStockListTotalVolume, sectionCapacity)){
@@ -107,7 +104,7 @@ public class BatchStockService implements IBatchStockService {
      * @return Retorna true caso o setor tenha a capacidade suficiente
      */
     private boolean validateDueTime(BatchStock batchStock){
-        return batchStock.getDueDate().isBefore(LocalDate.now());
+        return batchStock.getDueDate().isAfter(LocalDate.now());
     }
 
     /**

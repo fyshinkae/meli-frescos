@@ -12,5 +12,5 @@ public interface IBatchStockService {
     BatchStockDTO save(InsertBatchRequestDTO request);
     BatchStockDTO update(InsertBatchRequestDTO request);
 
-    List<BatchStock> convertToValidBatchStockList(List<BatchStockDTO> batchesDTO, InboundOrder inboundOrder);
+    List<BatchStock> validBatchStockList(InboundOrder inboundOrder);
 }
