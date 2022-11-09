@@ -1,34 +1,47 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.BatchStockDTO;
 import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
 import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
+import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.service.InboundOrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/inboundorder")
+@RequiredArgsConstructor
 public class InboundOrderController {
 
-    @Autowired
-    private InboundOrderService service;
+    private final InboundOrderService service;
 
-    // GIOVANA FAZER JAVADOC
+    /** Controller que valida e salva uma nova InboundOrder
+     * @author Theus, Giovanna
+     * @param inboundOrderRequestDTO objeto json com as informações do novo InboundOrder
+     * @return Retorna um ResponseEntity como o novo InboundOrder criado
+     */
     @PostMapping
     public ResponseEntity<InboundOrderResponseDTO> save(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
-        InboundOrderResponseDTO data = service.save(InsertBatchRequestDTO.convert(inboundOrderRequestDTO));
+        Long warehouseId = inboundOrderRequestDTO.getInboundOrder().getWarehouseCode();
+        InboundOrder inboundOrderRequest = InsertBatchRequestDTO.convert(inboundOrderRequestDTO);
+
+        InboundOrderResponseDTO data = service.save(inboundOrderRequest, warehouseId);
+
         return new ResponseEntity<>(data, HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<InboundOrderResponseDTO> update(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
-        InboundOrderResponseDTO data = service.update(InsertBatchRequestDTO.convert(inboundOrderRequestDTO));
+        Long warehouseId = inboundOrderRequestDTO.getInboundOrder().getWarehouseCode();
+        InboundOrder inboundOrderRequest = InsertBatchRequestDTO.convert(inboundOrderRequestDTO);
+
+        InboundOrderResponseDTO data = service.update(inboundOrderRequest, warehouseId);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 }

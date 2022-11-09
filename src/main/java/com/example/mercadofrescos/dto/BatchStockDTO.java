@@ -1,17 +1,12 @@
 package com.example.mercadofrescos.dto;
 
 import com.example.mercadofrescos.model.BatchStock;
-import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -71,8 +66,7 @@ public class BatchStockDTO {
         this.dueDate = batchStock.getDueDate();
     }
 
-
-    // MATHEUS ALVES FAZER JAVA DOC
+    // todo: MATHEUS ALVES FAZER JAVA DOC
     public static List<BatchStockDTO> convertToDTOList (List<BatchStock> batchStockList){
         List<BatchStockDTO> batchStockListDTO = new ArrayList<>();
         for(BatchStock batchStock : batchStockList) {
@@ -81,6 +75,7 @@ public class BatchStockDTO {
         return batchStockListDTO;
     }
 
+    // todo: FAZER JAVA DOC
     public static BatchStock convertToModelObject(BatchStockDTO batchDTO) {
         BatchStock response = new BatchStock();
         Product product = new Product();
