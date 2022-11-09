@@ -1,0 +1,33 @@
+package com.example.mercadofrescos.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class PurchaseItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "product-id", nullable = false)
+    @JsonIgnoreProperties("productId")
+    private Product productId;
+
+    @ManyToOne
+    @JoinColumn(name = "purchase-order-id", nullable = false)
+    @JsonIgnoreProperties("purchaseOrderId")
+    private PurchaseOrder purchaseOrderId;
+
+    @Column(nullable = false)
+    private Integer productQuantity;
+}

@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -33,4 +35,8 @@ public class User {
     @OneToOne(mappedBy = "agent", cascade = CascadeType.REFRESH)
     @JsonIgnoreProperties("agent")
     private Warehouse warehouse;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnoreProperties("customer")
+    private List<PurchaseOrder> order;
 }

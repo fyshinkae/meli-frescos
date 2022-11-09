@@ -1,0 +1,31 @@
+package com.example.mercadofrescos.model;
+
+import com.example.mercadofrescos.model.enums.StatusOrder;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class PurchaseOrder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    @JoinColumn (name = "customer_id")
+    private User customer;
+
+    @Enumerated(EnumType.STRING)
+    private StatusOrder statusOrder;
+
+    @Column(nullable = false)
+    private LocalDate date;
+}

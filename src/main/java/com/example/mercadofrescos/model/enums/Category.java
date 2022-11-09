@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.model.enums;
 
 public enum Category {
-    FRESH, REFRIGERATED, FROZEN
+    FS, RF, FF
+    // FS - Fresco, RF - Refrigerado, FF - Congelado
 }
