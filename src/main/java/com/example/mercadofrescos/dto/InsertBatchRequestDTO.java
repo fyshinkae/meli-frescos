@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.dto;
 
 import com.example.mercadofrescos.model.InboundOrder;
+import com.example.mercadofrescos.model.Section;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,11 @@ public class InsertBatchRequestDTO {
     public static InboundOrder convert(InboundOrderRequestDTO InboundOrderRequest)  {
         InboundOrder inboundOrder = new InboundOrder();
 
+        Section section = new Section();
+        section.setId(InboundOrderRequest.getSectionCode());
+
         inboundOrder.setOrderDate(InboundOrderRequest.getOrderDate());
+        inboundOrder.setSection(section);
 
         return inboundOrder;
     }
