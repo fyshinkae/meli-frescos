@@ -10,6 +10,8 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,4 +44,15 @@ public class BatchStockDTO {
         this.manufacturingTime = batchStock.getManufacturingTime();
         this.dueTime = batchStock.getDueDate();
     }
+
+
+    // MATHEUS ALVES FAZER JAVA DOC
+    public static List<BatchStockDTO> convertToDTOList (List<BatchStock> batchStockList){
+        List<BatchStockDTO> batchStockListDTO = new ArrayList<>();
+        for(BatchStock batchStock : batchStockList) {
+            batchStockListDTO.add(new BatchStockDTO(batchStock));
+        }
+        return batchStockListDTO;
+    }
+
 }
