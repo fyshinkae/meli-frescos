@@ -31,6 +31,11 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+    /**
+     * Lista os produtos filtrados por categoria
+     * @param category categoria dos produtos
+     * @return lista de produtos filtrado e HTTP status
+     */
     @GetMapping("/list")
     public ResponseEntity<List<ProductDTO>> getAllByCategory(@RequestParam(required = false, name = "category") String category) {
         List<ProductDTO> filterByCategory = service.findByCategory(category);

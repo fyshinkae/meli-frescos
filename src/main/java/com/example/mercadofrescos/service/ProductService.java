@@ -10,6 +10,7 @@ import com.example.mercadofrescos.service.interfaces.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,14 +64,28 @@ public class ProductService implements IProductService {
         return product.orElseThrow(() -> new NotFoundException("Section not found"));
     }
 
+    /**
+     * Busca os produtos com o filtro de categoria
+     * @author Giovana, Ma e Felipe
+     * @param category categoria do produto
+     * @return lista de produtos filtrado
+     */
     @Override
     public List<ProductDTO> findByCategory(String category) {
         Category filterCategory = filterCategory(category);
         List<Product> productByCategory = repo.findAllByCategory(filterCategory);
-        return productByCategory.stream()
+
+        List<ProductDTO> products = productByCategory.stream()
                 .map(product ->
-                    new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.getCategory())
-                ).collect(Collectors.toList());
+                        new ProductDTO(
+                                product.getId(), product.getName(), product.getPrice(), product.getCategory())
+                    ).collect(Collectors.toList());
+
+        if(products.isEmpty()) {
+            throw new NotFoundException("Products not found");
+        }
+
+        return products;
     }
 
     private Category filterCategory(String word) {
@@ -82,7 +97,7 @@ public class ProductService implements IProductService {
             case "FR":
                 return Category.FROZEN;
             default:
-                return null;
+                throw new RuntimeException("No products with this category were found");
         }
     }
 
