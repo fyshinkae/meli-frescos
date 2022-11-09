@@ -29,7 +29,7 @@ public class InboundOrder {
     @JsonIgnoreProperties("inboundOrders")
     private Section section;
 
-    @OneToMany(mappedBy = "inboundOrder", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "inboundOrder", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("batches")
     private List<BatchStock> batches;
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class InboundOrderController {
 
     // GIOVANA FAZER JAVADOC
     @PostMapping
-    public ResponseEntity<List<BatchStockDTO>> save(@RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
+    public ResponseEntity<List<BatchStockDTO>> save(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
         List<BatchStockDTO> data = service.save(inboundOrderRequestDTO);
         return new ResponseEntity<>(data, HttpStatus.CREATED);
     }

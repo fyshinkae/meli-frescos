@@ -4,11 +4,16 @@ import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,13 +25,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BatchStockDTO {
+
+    @NotNull
+    @Min(1)
     private Long batchNumber, productId;
+
+    @NotNull
+    @Min(1)
     private Float currentTemperature, volume;
+
+    @NotNull
+    @Min(1)
     private Integer productQuantity;
 
+    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime manufacturingTime;
+
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate manufacturingDate, dueDate;
+
+    @NotNull
+    @Min(1)
     private BigDecimal price;
 
     /**
