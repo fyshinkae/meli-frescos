@@ -28,7 +28,6 @@ public class InsertBatchRequestDTO {
 
         inboundOrder.setOrderDate(inboundOrderRequest.getInboundOrder().getOrderDate());
         inboundOrder.setSection(section);
-        inboundOrderRequest.getInboundOrder().getWarehouseCode();
         List<BatchStock> batches = inboundOrderRequest.getInboundOrder().getBatchStock().stream()
                 .map(BatchStockDTO::convertToModelObject)
                 .collect(Collectors.toList());
