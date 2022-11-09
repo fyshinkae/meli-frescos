@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.dto;
 
 import com.example.mercadofrescos.model.BatchStock;
+import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +54,23 @@ public class BatchStockDTO {
             batchStockListDTO.add(new BatchStockDTO(batchStock));
         }
         return batchStockListDTO;
+    }
+
+    public static BatchStock convertToModelObject(BatchStockDTO batchDTO, Product product, InboundOrder inboundOrder) {
+        BatchStock response = new BatchStock();
+
+        response.setId(batchDTO.getBatchNumber());
+        response.setCurrentTemperature(batchDTO.getCurrentTemperature());
+        response.setManufacturingDate(batchDTO.getManufacturingDate());
+        response.setManufacturingTime(batchDTO.getManufacturingTime());
+        response.setDueDate(batchDTO.getDueTime());
+        response.setVolume(batchDTO.getVolume());
+        response.setProductQuantity(batchDTO.getProductQuantity());
+
+        response.setProduct(product);
+        response.setInboundOrder(inboundOrder);
+
+        return response;
     }
 
 }
