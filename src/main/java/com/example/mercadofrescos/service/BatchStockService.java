@@ -22,16 +22,6 @@ public class BatchStockService implements IBatchStockService {
     private final IProductService serviceProduct;
 
     @Override
-    public BatchStockDTO save(InsertBatchRequestDTO request) {
-        return null;
-    }
-
-    @Override
-    public BatchStockDTO update(InsertBatchRequestDTO request) {
-        return null;
-    }
-
-    @Override
     public List<BatchStock> convertToListBatchStock(List<BatchStockDTO> batchesDTO, InboundOrder inboundOrder) {
         List<BatchStock> batches = new ArrayList<>();
 

@@ -8,8 +8,5 @@ import com.example.mercadofrescos.model.InboundOrder;
 import java.util.List;
 
 public interface IBatchStockService {
-    BatchStockDTO save(InsertBatchRequestDTO request);
-    BatchStockDTO update(InsertBatchRequestDTO request);
-
     List<BatchStock> convertToListBatchStock(List<BatchStockDTO> batchesDTO, InboundOrder inboundOrder);
 }
