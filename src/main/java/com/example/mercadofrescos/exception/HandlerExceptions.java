@@ -1,8 +1,10 @@
 package com.example.mercadofrescos.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -61,5 +65,24 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
+    }
+
+    // todo: verificar com o mauri uma mensagem dinamica ao capturar erros de conversao do json
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+
+
+            ExceptionDetails details = ExceptionDetails.builder()
+                    .title("Invalid values")
+                    .message("malformed JSON")
+                    .status(status.value())
+                    .timestamps(LocalDateTime.now())
+                    .build();
+
+        return new ResponseEntity<>(details, status);
     }
 }
