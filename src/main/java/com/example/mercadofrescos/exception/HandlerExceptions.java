@@ -64,6 +64,18 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidBatchStockException.class)
+    public ResponseEntity<ExceptionDetails> handlerInvalidBatchStockException(InvalidBatchStockException ex){
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Invalid batch stock")
+                .message(ex.getMessage())
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
     // todo: verificar com o mauri uma mensagem dinamica ao capturar erros de conversao do json
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
