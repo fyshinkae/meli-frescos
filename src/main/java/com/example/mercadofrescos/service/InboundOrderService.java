@@ -23,11 +23,11 @@ public class InboundOrderService implements IInboundOrderService {
 
     private final IInboundOrderRepo repoOrder;
     private final ISectionService serviceSection;
-    private final IProductService serviceProduct;
-    private final IBatchStockService repoBatch;
+   private final IBatchStockService serviceBatchStock;
 
 
     /**
+     * Atualiza BatchStocks de um Section
      * @author Felipe, Gabriel, Matheus
      * @param request parametro do usuário contendo informacoes sobre o inboundorder e uma lista de batchstocks
      * @return a lista de batchstocks salva
@@ -40,13 +40,11 @@ public class InboundOrderService implements IInboundOrderService {
         inboundOrder.setOrderDate(request.getInboundOrder().getOrderDate());
         inboundOrder.setSection(section);
 
-        List<BatchStock> batches = new ArrayList<>();
-        for(BatchStockDTO batch : request.getInboundOrder().getBatchStock()) {
-            Product product = serviceProduct.findById(batch.getProductId());
-            batches.add(BatchStockDTO.convertToModelObject(batch, product, inboundOrder));
-        }
+        List<BatchStock> batches = serviceBatchStock.convertToListBatchStock(
+                request.getInboundOrder().getBatchStock(), inboundOrder);
 
         inboundOrder.setBatches(batches);
+
         repoOrder.save(inboundOrder);
         return request.getInboundOrder().getBatchStock();
     }
