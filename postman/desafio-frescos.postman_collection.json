@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "e582eb5f-46a5-46c8-8c85-83a962bf24df",
+		"name": "desafio-frescos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Requisito 1 - cadastrar lote",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inboundOrder\": {\n        \"orderNumber\": \"Long\",\n        \"orderDate\": \"LocalDate\",\n        \"sectionCode\": \"Long\",\n        \"warehouseCode\": \"Long\",\n        \"batchStock\": [\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            },\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/fresh-products/inboundorder/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Requisito 1 - editar lote",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"inboundOrder\": {\n        \"orderNumber\": \"Long\",\n        \"orderDate\": \"LocalDate\",\n        \"sectionCode\": \"Long\",\n        \"warehouseCode\": \"Long\",\n        \"batchStock\": [\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            },\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/fresh-products/inboundorder/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"fresh-products",
+						"inboundorder",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "default"
+		}
+	]
+}

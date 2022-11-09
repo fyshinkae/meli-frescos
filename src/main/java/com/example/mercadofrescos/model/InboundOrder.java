@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 public class InboundOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

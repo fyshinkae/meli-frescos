@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.dto;
 
 import com.example.mercadofrescos.model.BatchStock;
+import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -14,7 +15,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class BatchStockDTO {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime manufacturingTime;
-    private LocalDate manufacturingDate, dueTime;
+    private LocalDate manufacturingDate, dueDate;
     private BigDecimal price;
 
     /**
@@ -49,7 +49,7 @@ public class BatchStockDTO {
         this.productQuantity = batchStock.getProductQuantity();
         this.manufacturingDate = batchStock.getManufacturingDate();
         this.manufacturingTime = batchStock.getManufacturingTime();
-        this.dueTime = batchStock.getDueDate();
+        this.dueDate = batchStock.getDueDate();
     }
 
 
@@ -60,6 +60,23 @@ public class BatchStockDTO {
             batchStockListDTO.add(new BatchStockDTO(batchStock));
         }
         return batchStockListDTO;
+    }
+
+    public static BatchStock convertToModelObject(BatchStockDTO batchDTO, Product product, InboundOrder inboundOrder) {
+        BatchStock response = new BatchStock();
+
+        response.setId(batchDTO.getBatchNumber());
+        response.setCurrentTemperature(batchDTO.getCurrentTemperature());
+        response.setManufacturingDate(batchDTO.getManufacturingDate());
+        response.setManufacturingTime(batchDTO.getManufacturingTime());
+        response.setDueDate(batchDTO.getDueDate());
+        response.setVolume(batchDTO.getVolume());
+        response.setProductQuantity(batchDTO.getProductQuantity());
+
+        response.setProduct(product);
+        response.setInboundOrder(inboundOrder);
+
+        return response;
     }
 
 }
