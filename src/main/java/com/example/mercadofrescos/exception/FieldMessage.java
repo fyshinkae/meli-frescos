@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @Builder
 public class FieldMessage {
-    private String message, field;
+    private String field, message;
 }

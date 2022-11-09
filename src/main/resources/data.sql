@@ -1,30 +1,30 @@
 USE meli_frescos_bd;
 
 INSERT INTO user(id, name, email, password, role)
-VALUES  (1, 'sellerTest', 'seller_test@teste.com', '123456', 1),
-        (2, 'agentTest', 'agent_test@teste.com', '123456', 2),
-        (3, 'customerTest', 'customer_test@teste.com', '123456', 3);
+VALUES  (1, 'sellerTest', 'seller_test@teste.com', '123456', 0),
+        (2, 'agentTest', 'agent_test@teste.com', '123456', 1),
+        (3, 'customerTest', 'customer_test@teste.com', '123456', 2);
 
 INSERT INTO warehouse(id, address, name, agent_id)
 VALUES  (1, 'Rua teste 1, 1234', 'Armazém SP', 2);
 
 INSERT INTO product(id, category, name, price, seller_id)
-VALUES (1, 1, 'FRUTA 1', 10, 1),
-       (2, 1, 'FRUTA 2', 10, 1),
-       (3, 1, 'FRUTA 2', 10, 1),
+VALUES (1, 0, 'FRUTA 1', 10, 1),
+       (2, 0, 'FRUTA 2', 10, 1),
+       (3, 0, 'FRUTA 2', 10, 1),
 
-       (4, 2, 'CARNE 1', 10, 1),
-       (5, 2, 'CARNE 2', 10, 1),
-       (6, 2, 'CARNE 3', 10, 1),
+       (4, 1, 'CARNE 1', 10, 1),
+       (5, 1, 'CARNE 2', 10, 1),
+       (6, 1, 'CARNE 3', 10, 1),
 
-       (7, 3, 'PEIXE 1', 10, 1),
-       (8, 3, 'PEIXE 2', 10, 1),
-       (9, 3, 'PEIXE 3', 10, 1);
+       (7, 2, 'PEIXE 1', 10, 1),
+       (8, 2, 'PEIXE 2', 10, 1),
+       (9, 2, 'PEIXE 3', 10, 1);
 
 INSERT INTO section(id, capacity, category, min_temperature, warehouse_id)
-VALUES  (1, 500, 1, 15, 1),
-        (2, 500, 2, 10, 1),
-        (3, 500, 3, -5, 1);
+VALUES  (1, 500, 0, 15, 1),
+        (2, 500, 1, 10, 1),
+        (3, 500, 2, -5, 1);
 
 INSERT INTO inbound_order(id, order_date, section_id)
 VALUES  (1, '2022-04-25', 1),

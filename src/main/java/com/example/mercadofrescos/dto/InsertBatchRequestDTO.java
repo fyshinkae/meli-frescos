@@ -6,11 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class InsertBatchRequestDTO {
+    @Valid
     private InboundOrderRequestDTO inboundOrder;
 
     /**
@@ -18,7 +21,7 @@ public class InsertBatchRequestDTO {
      * @author Gabriel
      * @param inboundOrderParam um objeto do modelo InboundOrder para ser convertido
      */
-    public InsertBatchRequestDTO(InboundOrder inboundOrderParam){
+    public InsertBatchRequestDTO(InboundOrder inboundOrderParam) {
         this.inboundOrder = new InboundOrderRequestDTO(inboundOrderParam);
     }
 }
