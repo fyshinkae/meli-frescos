@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +19,7 @@ public class InsertBatchRequestDTO {
     @Valid
     private InboundOrderRequestDTO inboundOrder;
 
+    // todo: FAZER JAVA DOC
     public static InboundOrder convert(InsertBatchRequestDTO inboundOrderRequest)  {
         InboundOrder inboundOrder = new InboundOrder();
 
@@ -29,7 +29,6 @@ public class InsertBatchRequestDTO {
         inboundOrder.setId(inboundOrderRequest.getInboundOrder().getOrderNumber());
         inboundOrder.setOrderDate(inboundOrderRequest.getInboundOrder().getOrderDate());
         inboundOrder.setSection(section);
-        inboundOrderRequest.getInboundOrder().getWarehouseCode();
         List<BatchStock> batches = inboundOrderRequest.getInboundOrder().getBatchStock().stream()
                 .map(BatchStockDTO::convertToModelObject)
                 .collect(Collectors.toList());
