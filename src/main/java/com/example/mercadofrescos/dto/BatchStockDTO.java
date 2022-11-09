@@ -80,19 +80,19 @@ public class BatchStockDTO {
         return batchStockListDTO;
     }
 
-    public static BatchStock convertToModelObject(BatchStockDTO batchDTO, Product product, InboundOrder inboundOrder) {
+    public static BatchStock convertToModelObject(BatchStockDTO batchDTO) {
         BatchStock response = new BatchStock();
+        Product product = new Product();
 
+        product.setId(batchDTO.getProductId());
         response.setId(batchDTO.getBatchNumber());
+        response.setProduct(product);
         response.setCurrentTemperature(batchDTO.getCurrentTemperature());
         response.setManufacturingDate(batchDTO.getManufacturingDate());
         response.setManufacturingTime(batchDTO.getManufacturingTime());
         response.setDueDate(batchDTO.getDueDate());
         response.setVolume(batchDTO.getVolume());
         response.setProductQuantity(batchDTO.getProductQuantity());
-
-        response.setProduct(product);
-        response.setInboundOrder(inboundOrder);
 
         return response;
     }
