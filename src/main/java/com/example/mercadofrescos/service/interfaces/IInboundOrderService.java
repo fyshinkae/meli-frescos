@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface IInboundOrderService {
     InboundOrderResponseDTO save(InboundOrder request);
-    BatchStockDTO update(InsertBatchRequestDTO request);
+    InboundOrderResponseDTO update(InboundOrder request);
 }

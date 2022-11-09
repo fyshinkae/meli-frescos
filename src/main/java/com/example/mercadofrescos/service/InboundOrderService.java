@@ -24,7 +24,7 @@ public class InboundOrderService implements IInboundOrderService {
 
     private final IInboundOrderRepo repoOrder;
     private final ISectionService serviceSection;
-   private final IBatchStockService serviceBatchStock;
+    private final IBatchStockService serviceBatchStock;
 
 
     /**
@@ -41,15 +41,22 @@ public class InboundOrderService implements IInboundOrderService {
         request.setSection(section);
 
         List<BatchStock> batches = serviceBatchStock.validBatchStockList(request);
-
         request.setBatches(batches);
 
         InboundOrder response = repoOrder.save(request);
+        serviceBatchStock.saveBatchStockList(batches);
         return new InboundOrderResponseDTO(response);
     }
 
+    /**
+     * Atualiza os batchstocks
+     * @author Gabriel
+     * @param request parametro do usuário contendo informacoes sobre o inboundorder e uma lista de batchstocks
+     * @return  a lista de batchstocks atualizada
+     */
     @Override
-    public BatchStockDTO update(InsertBatchRequestDTO request) {
-        return null;
+    public InboundOrderResponseDTO update(InboundOrder request) {
+        serviceBatchStock.verifyIfAllBatchStockExists(request.getBatches());
+        return this.save(request);
     }
 }

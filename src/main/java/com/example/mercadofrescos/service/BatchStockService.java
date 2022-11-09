@@ -3,6 +3,7 @@ package com.example.mercadofrescos.service;
 import com.example.mercadofrescos.dto.BatchStockDTO;
 import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
 import com.example.mercadofrescos.exception.InvalidBatchStockException;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
@@ -13,9 +14,11 @@ import com.example.mercadofrescos.service.interfaces.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,14 +27,27 @@ public class BatchStockService implements IBatchStockService {
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
 
+    /**
+     * Busca um BatchStock ou lança um erro caso não encontre
+     * @author Gabriel
+     * @param id do BatchStock
+     */
     @Override
-    public BatchStockDTO save(InsertBatchRequestDTO request) {
-        return null;
+    public BatchStock findById(Long id) {
+        Optional<BatchStock> batchStock = repo.findById(id);
+        return batchStock.orElseThrow(() -> new NotFoundException("BatchStock not found"));
     }
 
+    // TODO: Documentar
     @Override
-    public BatchStockDTO update(InsertBatchRequestDTO request) {
-        return null;
+    public List<BatchStock> saveBatchStockList(List<BatchStock> batches) {
+        List<BatchStock> response = new ArrayList<>();
+
+        for(BatchStock batch :  batches){
+            response.add(this.repo.save(batch));
+        }
+
+        return response;
     }
 
     /**
@@ -65,6 +81,18 @@ public class BatchStockService implements IBatchStockService {
         }
 
         return batches;
+    }
+
+    @Override
+    public List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches) {
+        List<BatchStock> batchesResponse = new ArrayList<>();
+
+        for(BatchStock batch : batches) {
+           BatchStock response = this.findById(batch.getId());
+           batchesResponse.add(response);
+        }
+
+        return batchesResponse;
     }
 
     /**
