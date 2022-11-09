@@ -94,4 +94,7 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(details, status);
     }
+
+    // TODO: tratar InvalidDataAccessApiUsageException quando o ID do batchNumber é nulo no PUT
+
 }
