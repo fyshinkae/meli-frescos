@@ -68,28 +68,16 @@ public class BatchStockService implements IBatchStockService {
         List<BatchStock> batches = new ArrayList<>();
         Section section = inboundOrder.getSection();
 
-        float sectionCapacity = section.getCapacity();
-        float batchStockListTotalVolume = 0;
-
         for(BatchStock batch : inboundOrder.getBatches()) {
             Product product = serviceProduct.findById(batch.getProduct().getId());
-
             batch.setProduct(product);
             batch.setInboundOrder(inboundOrder);
 
             validateBatchStock(batch, section);
-            batchStockListTotalVolume += batch.getVolume();
-
             batches.add(batch);
         }
 
-        if(!validateBatchStockVolume(batchStockListTotalVolume, sectionCapacity)){
-            throw new InvalidBatchStockException("The section does have capacity");
-        }
-
-        section.setCapacity(sectionCapacity - batchStockListTotalVolume);
-
-        this.serviceSection.save(section);
+        updateSectionVolume(batches, section);
 
         return batches;
     }
@@ -152,18 +140,32 @@ public class BatchStockService implements IBatchStockService {
     }
 
     /**
-     * Valida se o setor possui espaco suficiente para os lotes
+     * Valida se o setor possui espaco suficiente para os lotes e atualiza
      * @author Gabriel
-     * @param batchStockTotalVolume Somatório das capacidades dos lotes
-     * @param sectionCapacity Capacidade restante do setor
-     * @return Retorna true caso o setor tenha capacidade suficiente
+     * @param batches A lista de batches a serem salvas
+     * @param section O setor onde os batches serão alocados
      */
-    private boolean validateBatchStockVolume(float batchStockTotalVolume, float sectionCapacity){
-        if(sectionCapacity - batchStockTotalVolume < 0){
-            return false;
+    private void updateSectionVolume(List<BatchStock> batches, Section section){
+        float sectionCapacity = section.getCapacity();
+        float batchStockListTotalVolume = 0;
+
+        for(BatchStock batch : batches){
+            float batchVolume = batch.getVolume();
+
+            if(batch.getId() != null){
+                BatchStock batchRepo = this.findById(batch.getId());
+                batchVolume -= batchRepo.getVolume();
+            }
+
+            batchStockListTotalVolume += batchVolume;
         }
 
-        return true;
+        if(sectionCapacity - batchStockListTotalVolume < 0) {
+            throw new InvalidBatchStockException("The batchStock volume is larger than the section capacity");
+        }
+
+        section.setCapacity(sectionCapacity - batchStockListTotalVolume);
+        this.serviceSection.save(section);
     }
 
 }
