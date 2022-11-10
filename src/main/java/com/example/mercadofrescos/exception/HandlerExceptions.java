@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -102,6 +103,23 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
                     .status(status.value())
                     .timestamps(LocalDateTime.now())
                     .build();
+
+        return new ResponseEntity<>(details, status);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMissingServletRequestParameter(
+            MissingServletRequestParameterException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request) {
+
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Required parameter not found")
+                .message(ex.getMessage())
+                .status(status.value())
+                .timestamps(LocalDateTime.now())
+                .build();
 
         return new ResponseEntity<>(details, status);
     }
