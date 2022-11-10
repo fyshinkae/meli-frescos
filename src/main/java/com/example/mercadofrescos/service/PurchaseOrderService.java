@@ -14,21 +14,42 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PurchaseOrderService {
 
-//    private final IPurchaseOrderRepo repo;
-//
-//    public Double getPurchaseItems(PurchaseOrder purchaseOrder) {
-//
-//
-//    }
-//
-//    public Double getTotalPrice(InboundOrder inboundOrder) {
-//        double totalPrice = 0;
-//
-//
-//
-//
-//        return totalPrice;
-//    }
+    private final IBatchStockRepo repo;
+
+    public Double getPurchaseItems(PurchaseOrder purchaseOrder) {
+
+
+    }
+
+    public Double getCartAmount(<List<PurchaseItem> purchaseItemList) {
+        int availableQuantity = 0;
+        double totalCartAmount = 0d;
+        BigDecimal singleCartAmount;
+
+        for (PurchaseItem item : purchaseItemList) {
+
+            Product productId = item.getProductId();
+            Optional<BatchStock> product = repo.findById(item.getId());
+            if (product.isPresent()) {
+                BatchStock product1 = product.get();
+                Product productPrice = product.get().getProduct();
+                if (product1.getProductQuantity() < item.getProductQuantity()) {
+                   singleCartAmount = productPrice.getPrice().multiply(BigDecimal.valueOf(product1.getProductQuantity()));
+                    item.setProductQuantity(product1.getProductQuantity());
+                } else {
+                    singleCartAmount = productPrice.getPrice().multiply(BigDecimal.valueOf(item.getProductQuantity()));
+                    availableQuantity = product1.getProductQuantity() - item.getProductQuantity();
+                }
+                // totalCartAmount = total
+                        // totalCartAmount + singleCartAmount;
+            }
+        }
+
+
+
+
+
+    }
 
 
 }
