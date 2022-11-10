@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.ProductDTO;
+import com.example.mercadofrescos.dto.ProductListResponseDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.enums.Category;
@@ -37,9 +38,18 @@ public class ProductController {
      * @return lista de produtos filtrado e HTTP status
      */
     @GetMapping("/list")
-    public ResponseEntity<List<ProductDTO>> getAllByCategory(@RequestParam(required = false, name = "category") String category) {
+    public ResponseEntity<List<ProductDTO>> getAllByCategory(
+            @RequestParam(required = false, name = "category") String category,
+            @RequestParam(required = false, name = "productId") Long productId
+    ) {
+        if (category.isEmpty() && productId == null) {
+            this.getAll();
+        }
+
         List<ProductDTO> filterByCategory = service.findByCategory(category);
         return new ResponseEntity<>(filterByCategory, HttpStatus.OK);
     }
+
+
 
 }
