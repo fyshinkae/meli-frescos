@@ -1,8 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
-import com.example.mercadofrescos.dto.ProductDTO;
-import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
@@ -15,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -96,13 +91,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> findAllForAgent() {
-         List<Product> products = repo.findAll();
-
-         return products;
-    }
-
-    @Override
     public ProductAgentResponseDTO findByIdForAgent(Long id) {
         Optional<Product> product = repo.findById(id);
 
@@ -112,6 +100,49 @@ public class ProductService implements IProductService {
         Section sectionProduct = batches.iterator().next().getInboundOrder().getSection();
 
         return new ProductAgentResponseDTO(product.get(), sectionProduct, batches);
+    }
+
+    public ProductAgentResponseDTO orderProductForAgent(ProductAgentResponseDTO product, String typeOrder) {
+        switch (typeOrder.toUpperCase()) {
+            case "L":
+                return this.sortByBatch(product);
+            case "Q":
+                return this.sortByQuantity(product);
+            case "V":
+                return this.sortByDueDate(product);
+            default:
+                throw new RuntimeException("Invalid ordering");
+        }
+    }
+
+    private ProductAgentResponseDTO sortByBatch(ProductAgentResponseDTO product) {
+        List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
+                .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getBatchNumber))
+                .collect(Collectors.toList());
+
+        product.setBatchStock(batchesOrdered);
+
+        return product;
+    }
+
+    private ProductAgentResponseDTO sortByQuantity(ProductAgentResponseDTO product) {
+        List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
+                .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getCurrentQuantity))
+                .collect(Collectors.toList());
+
+        product.setBatchStock(batchesOrdered);
+
+        return product;
+    }
+
+    private ProductAgentResponseDTO sortByDueDate(ProductAgentResponseDTO product) {
+        List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
+                .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getDueDate))
+                .collect(Collectors.toList());
+
+        product.setBatchStock(batchesOrdered);
+
+        return product;
     }
 
     private Category filterCategory(String word) {

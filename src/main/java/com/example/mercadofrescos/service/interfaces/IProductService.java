@@ -13,9 +13,7 @@ public interface IProductService {
     Product updatedProduct(Product product);
     List<ProductResponseDTO> findAllProducts();
     Product findById(Long id);
-
     List<ProductDTO> findByCategory(String category);
-
-    List<Product> findAllForAgent();
     ProductAgentResponseDTO findByIdForAgent(Long id);
+    ProductAgentResponseDTO orderProductForAgent(ProductAgentResponseDTO product, String typeOrder);
 }

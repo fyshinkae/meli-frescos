@@ -43,11 +43,17 @@ public class ProductController {
         return new ResponseEntity<>(filterByCategory, HttpStatus.OK);
     }
 
+    // todo: tratar erro quando nao passar product id
     @GetMapping("/agent/list")
     public ResponseEntity<ProductAgentResponseDTO> getAllForAgent(
-            @RequestParam(required = false, name = "productId") Long productId
+            @RequestParam(name = "productId") Long productId,
+            @RequestParam(name = "order", required = false) String order
     ) {
         ProductAgentResponseDTO product = service.findByIdForAgent(productId);
+        if (order != null) {
+            product = service.orderProductForAgent(product, order);
+        }
+
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
