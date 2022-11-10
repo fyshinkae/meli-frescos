@@ -76,6 +76,18 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidQueryParamException.class)
+    public ResponseEntity<ExceptionDetails> handlerInvalidQueryParamException(InvalidQueryParamException ex){
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Invalid query parameter")
+                .message(ex.getMessage())
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
     // todo: verificar com o mauri uma mensagem dinamica ao capturar erros de conversao do json
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(

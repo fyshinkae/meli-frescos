@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.*;
+import com.example.mercadofrescos.exception.InvalidQueryParamException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
@@ -111,7 +112,7 @@ public class ProductService implements IProductService {
             case "V":
                 return this.sortByDueDate(product);
             default:
-                throw new RuntimeException("Invalid ordering");
+                throw new InvalidQueryParamException("Invalid sort parameter");
         }
     }
 
@@ -154,7 +155,7 @@ public class ProductService implements IProductService {
             case "FR":
                 return Category.FROZEN;
             default:
-                throw new RuntimeException("No products with this category were found");
+                throw new InvalidQueryParamException("No products with this category were found");
         }
     }
 
