@@ -23,7 +23,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "sellerId", nullable = false)
-    @JsonIgnoreProperties("seller")
+    @JsonIgnoreProperties("products")
     private User seller;
 
     @OneToMany(mappedBy = "product")

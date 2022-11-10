@@ -15,6 +15,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableSwagger2
+// todo: alterar nome para deixar a classe de Config mais genérica
 public class SwaggerConfig {
 
     @Bean

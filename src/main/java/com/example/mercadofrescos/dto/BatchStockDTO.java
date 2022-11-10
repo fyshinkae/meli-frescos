@@ -75,7 +75,11 @@ public class BatchStockDTO {
         return batchStockListDTO;
     }
 
-    // todo: FAZER JAVA DOC
+    /**
+     * @author Gabriel
+     * @param batchDTO
+     * @return
+     */
     public static BatchStock convertToModelObject(BatchStockDTO batchDTO) {
         BatchStock response = new BatchStock();
         Product product = new Product();
