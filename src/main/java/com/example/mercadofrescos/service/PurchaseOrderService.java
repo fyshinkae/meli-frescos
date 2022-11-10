@@ -8,6 +8,7 @@ import com.example.mercadofrescos.dto.PurchasePriceDTO;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
+import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PurchaseOrderService implements IPurchaseOrderService {
 
-    private final IBatchStockRepo repo;
+    private final IBatchStockRepo batchStockRepo;
+    private final IPurchaseOrderRepo purchaseOrderRepo;
     private final IProductService productService;
+    private final IPurchaseItemService purchaseItemService;
 
 
     @Override
@@ -57,6 +60,10 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         if (!productIdErrors.isEmpty()) {
             throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " is not avaliable");
         }
+
+        this.purchaseOrderRepo();
+        this.purchaseItemService.savePurchaseItemList();
+
         return new PurchasePriceDTO(totalCartAmount);
     }
 
