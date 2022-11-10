@@ -14,4 +14,7 @@ public interface IProductService {
     Product findById(Long id);
 
     List<ProductDTO> findByCategory(String category);
+
+    List<Product> findAllForAgent();
+    Product findByIdForAgent(Long id);
 }

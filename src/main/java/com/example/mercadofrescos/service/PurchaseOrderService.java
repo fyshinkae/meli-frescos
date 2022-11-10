@@ -18,7 +18,7 @@ public class PurchaseOrderService {
 
     public Double getPurchaseItems(PurchaseOrder purchaseOrder) {
 
-
+        return null;
     }
 
     public Double getTotalPrice(InboundOrder inboundOrder) {

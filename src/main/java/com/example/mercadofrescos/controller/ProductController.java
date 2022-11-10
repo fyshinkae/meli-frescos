@@ -42,14 +42,16 @@ public class ProductController {
             @RequestParam(required = false, name = "category") String category,
             @RequestParam(required = false, name = "productId") Long productId
     ) {
-        if (category.isEmpty() && productId == null) {
-            this.getAll();
-        }
-
         List<ProductDTO> filterByCategory = service.findByCategory(category);
         return new ResponseEntity<>(filterByCategory, HttpStatus.OK);
     }
 
-
+    @GetMapping("/agent/list")
+    public ResponseEntity<List<Product>> getAllForAgent(
+            @RequestParam(required = false, name = "productId") Long productId
+    ) {
+        List<Product> products = service.findAllForAgent();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 
 }

@@ -91,6 +91,22 @@ public class ProductService implements IProductService {
         return products;
     }
 
+    @Override
+    public List<Product> findAllForAgent() {
+         List<Product> products = repo.findAll();
+
+         return products;
+    }
+
+    @Override
+    public Product findByIdForAgent(Long id) {
+        Optional<Product> product = repo.findById(id);
+
+        if (product.isEmpty()) throw new NotFoundException("Product not found");
+
+        return product.get();
+    }
+
     private Category filterCategory(String word) {
         switch (word) {
             case "FS":
