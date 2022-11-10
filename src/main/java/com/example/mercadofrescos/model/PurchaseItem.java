@@ -19,12 +19,12 @@ public class PurchaseItem {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product-id", nullable = false)
+    @JoinColumn(name = "productId", nullable = false)
     @JsonIgnoreProperties("productId")
     private Product productId;
 
     @ManyToOne
-    @JoinColumn(name = "purchase-order-id", nullable = false)
+    @JoinColumn(name = "purchaseOrderId", nullable = false)
     @JsonIgnoreProperties("purchaseOrderId")
     private PurchaseOrder purchaseOrderId;
 

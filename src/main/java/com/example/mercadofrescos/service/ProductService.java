@@ -1,17 +1,21 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
+import com.example.mercadofrescos.model.enums.Category;
 import com.example.mercadofrescos.repository.IProductRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -62,4 +66,42 @@ public class ProductService implements IProductService {
 
         return product.orElseThrow(() -> new NotFoundException("Section not found"));
     }
+
+    /**
+     * Busca os produtos com o filtro de categoria
+     * @author Giovana, Ma e Felipe
+     * @param category categoria do produto
+     * @return lista de produtos filtrado
+     */
+    @Override
+    public List<ProductDTO> findByCategory(String category) {
+        Category filterCategory = filterCategory(category);
+        List<Product> productByCategory = repo.findAllByCategory(filterCategory);
+
+        List<ProductDTO> products = productByCategory.stream()
+                .map(product ->
+                        new ProductDTO(
+                                product.getId(), product.getName(), product.getPrice(), product.getCategory())
+                    ).collect(Collectors.toList());
+
+        if(products.isEmpty()) {
+            throw new NotFoundException("Products not found");
+        }
+
+        return products;
+    }
+
+    private Category filterCategory(String word) {
+        switch (word) {
+            case "FS":
+                return Category.FRESH;
+            case "RF":
+                return Category.REFRIGERATED;
+            case "FR":
+                return Category.FROZEN;
+            default:
+                throw new RuntimeException("No products with this category were found");
+        }
+    }
+
 }
