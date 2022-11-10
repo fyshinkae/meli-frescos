@@ -49,7 +49,6 @@ public class ProductController {
      * @param order ordernação opcional dos lotes do produto
      * @return um ProductAgentResponseDTO com os dados do produto
      */
-    // todo: tratar erro quando nao passar product id
     @GetMapping("/agent/list")
     public ResponseEntity<ProductAgentResponseDTO> getAllForAgent(
             @RequestParam(name = "productId") Long productId,
