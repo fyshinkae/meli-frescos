@@ -2,7 +2,9 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.exception.CategoryNotFoundException;
 import com.example.mercadofrescos.exception.NotFoundException;
+import com.example.mercadofrescos.exception.ProductsListNotFoundException;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.enums.Category;
@@ -85,7 +87,7 @@ public class ProductService implements IProductService {
                     ).collect(Collectors.toList());
 
         if(products.isEmpty()) {
-            throw new NotFoundException("Products not found");
+            throw new ProductsListNotFoundException("Products not found");
         }
 
         return products;
@@ -100,7 +102,7 @@ public class ProductService implements IProductService {
             case "FR":
                 return Category.FROZEN;
             default:
-                throw new RuntimeException("No products with this category were found");
+                throw new CategoryNotFoundException("Category not found");
         }
     }
 

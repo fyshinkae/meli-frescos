@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/fresh-products/orders/")
 public class PurchaseOrderController {
-
-    @PostMapping("/insert")
-    ResponseEntity<> createNewOrder(@RequestBody PurchaseOrder purchaseOrder) {
-
-    }
+//
+//    @PostMapping("/insert")
+//    ResponseEntity<> createNewOrder(@RequestBody PurchaseOrder purchaseOrder) {
+//
+//    }
 
 }
