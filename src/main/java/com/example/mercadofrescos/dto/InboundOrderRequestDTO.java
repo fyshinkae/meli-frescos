@@ -21,13 +21,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InboundOrderRequestDTO {
+    private Long orderNumber;
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
 
     @NotNull
     @Min(0)
-    private Long sectionCode, orderNumber, warehouseCode;
+    private Long sectionCode, warehouseCode;
 
     @NotEmpty
     @Valid

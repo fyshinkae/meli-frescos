@@ -31,7 +31,7 @@ public class Section {
     @Column(nullable = false)
     private Float capacity, minTemperature;
 
-    @OneToMany(mappedBy = "section")
+    @OneToMany(mappedBy = "section", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("section")
     private Set<InboundOrder> inboundOrders;
 }

@@ -26,6 +26,7 @@ public class InsertBatchRequestDTO {
         Section section = new Section();
         section.setId(inboundOrderRequest.getInboundOrder().getSectionCode());
 
+        inboundOrder.setId(inboundOrderRequest.getInboundOrder().getOrderNumber());
         inboundOrder.setOrderDate(inboundOrderRequest.getInboundOrder().getOrderDate());
         inboundOrder.setSection(section);
         List<BatchStock> batches = inboundOrderRequest.getInboundOrder().getBatchStock().stream()

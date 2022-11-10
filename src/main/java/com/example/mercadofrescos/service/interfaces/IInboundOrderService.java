@@ -8,6 +8,6 @@ import com.example.mercadofrescos.model.InboundOrder;
 import java.util.List;
 
 public interface IInboundOrderService {
+    InboundOrderResponseDTO update(InboundOrder request, Long warehouseId);
     InboundOrderResponseDTO save(InboundOrder request, Long warehouseId);
-    BatchStockDTO update(InsertBatchRequestDTO request);
 }

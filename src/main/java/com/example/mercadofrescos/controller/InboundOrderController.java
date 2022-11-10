@@ -7,6 +7,7 @@ import com.example.mercadofrescos.service.InboundOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +34,14 @@ public class InboundOrderController {
         InboundOrderResponseDTO data = service.save(inboundOrderRequest, warehouseId);
 
         return new ResponseEntity<>(data, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<InboundOrderResponseDTO> update(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
+        Long warehouseId = inboundOrderRequestDTO.getInboundOrder().getWarehouseCode();
+        InboundOrder inboundOrderRequest = InsertBatchRequestDTO.convert(inboundOrderRequestDTO);
+
+        InboundOrderResponseDTO data = service.update(inboundOrderRequest, warehouseId);
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 }
