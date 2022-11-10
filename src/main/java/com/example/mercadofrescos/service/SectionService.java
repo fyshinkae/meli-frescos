@@ -28,6 +28,17 @@ public class SectionService implements ISectionService {
     }
 
     /**
+     * Salva um Setor na base de dados
+     * @author Gabriel
+     * @param section Informacoes do setor a ser salvo na base de dados
+     * @return O setor salvo na base de dados
+     */
+    @Override
+    public Section save(Section section) {
+        return this.repo.save(section);
+    }
+
+    /**
      * Busca uma Section relacionada a um Warehouse, e lança um erro caso não encontre
      * @author Theus
      * @param warehouseId id da Warehouse
