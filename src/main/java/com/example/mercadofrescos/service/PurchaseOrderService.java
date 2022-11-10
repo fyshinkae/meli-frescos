@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.dto.PurchaseItemDTO;
 import com.example.mercadofrescos.dto.PurchaseOrderRequestDTO;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,6 +33,8 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         BigDecimal singleCartAmount;
 
         List<PurchaseItemDTO> purchaseItemList = purchaseOrder.getPurchaseOrder().getProducts();
+        List<Long> productIdErrors = new ArrayList<>();
+
 
         for (PurchaseItemDTO item : purchaseItemList) {
             Product product = productService.findById(item.getProductId());
@@ -38,7 +42,8 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             BatchStock batchStock = batches.iterator().next();
             Product productPrice = batchStock.getProduct();
             if (item.getQuantity() > batchStock.getProductQuantity()) {
-                throw new RuntimeException("Deu ruim!");
+                productIdErrors.add(product.getId());
+
             }
             singleCartAmount = productPrice.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
             item.setQuantity(batchStock.getProductQuantity());
@@ -48,6 +53,9 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             //batchStock.setProductQuantity(availableQuantity);
             //item.setProductId(batchStock.getId());
             //repo.save(batchStock);
+        }
+        if (!productIdErrors.isEmpty()) {
+            throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " is not avaliable");
         }
         return new PurchasePriceDTO(totalCartAmount);
     }

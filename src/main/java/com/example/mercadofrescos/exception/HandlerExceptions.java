@@ -113,6 +113,18 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidPurchaseException.class)
+    public ResponseEntity<ExceptionDetails> InvalidPurchaseException(InvalidPurchaseException ex){
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Invalid Purchase Order")
+                .message(ex.getMessage())
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
     // todo: verificar com o mauri uma mensagem dinamica ao capturar erros de conversao do json
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
