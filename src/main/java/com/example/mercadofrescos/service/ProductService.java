@@ -91,6 +91,12 @@ public class ProductService implements IProductService {
         return products;
     }
 
+    /**
+     * Busca um produto para o representante
+     * @author Theus
+     * @param id do produto
+     * @return Um ProductAgentResponseDTO com os dados da Section e Warehouse do produto
+     */
     @Override
     public ProductAgentResponseDTO findByIdForAgent(Long id) {
         Optional<Product> product = repo.findById(id);
@@ -103,6 +109,13 @@ public class ProductService implements IProductService {
         return new ProductAgentResponseDTO(product.get(), sectionProduct, batches);
     }
 
+    /**
+     * Ordena os lotes do produto
+     * @author Theus
+     * @param product um ProductAgentResponseDTO
+     * @param typeOrder qual a ordenação aplicará
+     * @return Um ProductAgentResponseDTO com os lotes ordenados
+     */
     public ProductAgentResponseDTO orderProductForAgent(ProductAgentResponseDTO product, String typeOrder) {
         switch (typeOrder.toUpperCase()) {
             case "L":
@@ -116,6 +129,12 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Ordena os lotes do produto por BatchNumber
+     * @author Theus
+     * @param product um ProductAgentResponseDTO
+     * @return Um ProductAgentResponseDTO com os lotes ordenados
+     */
     private ProductAgentResponseDTO sortByBatch(ProductAgentResponseDTO product) {
         List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
                 .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getBatchNumber))
@@ -126,6 +145,12 @@ public class ProductService implements IProductService {
         return product;
     }
 
+    /**
+     * Ordena os lotes do produto por quantidade de produtos no lote
+     * @author Theus
+     * @param product um ProductAgentResponseDTO
+     * @return Um ProductAgentResponseDTO com os lotes ordenados
+     */
     private ProductAgentResponseDTO sortByQuantity(ProductAgentResponseDTO product) {
         List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
                 .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getCurrentQuantity))
@@ -136,6 +161,12 @@ public class ProductService implements IProductService {
         return product;
     }
 
+    /**
+     * Ordena os lotes do produto por data de validade do produto
+     * @author Theus
+     * @param product um ProductAgentResponseDTO
+     * @return Um ProductAgentResponseDTO com os lotes ordenados
+     */
     private ProductAgentResponseDTO sortByDueDate(ProductAgentResponseDTO product) {
         List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
                 .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getDueDate))
@@ -146,6 +177,7 @@ public class ProductService implements IProductService {
         return product;
     }
 
+    // todo: FAZER JAVADOC
     private Category filterCategory(String word) {
         switch (word) {
             case "FS":

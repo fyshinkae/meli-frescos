@@ -43,6 +43,12 @@ public class ProductController {
         return new ResponseEntity<>(filterByCategory, HttpStatus.OK);
     }
 
+    /**
+     * Lista os dados do produto para o representante
+     * @param productId id do produto
+     * @param order ordernação opcional dos lotes do produto
+     * @return um ProductAgentResponseDTO com os dados do produto
+     */
     // todo: tratar erro quando nao passar product id
     @GetMapping("/agent/list")
     public ResponseEntity<ProductAgentResponseDTO> getAllForAgent(
