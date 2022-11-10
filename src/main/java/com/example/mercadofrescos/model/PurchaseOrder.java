@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.model;
 
 import com.example.mercadofrescos.model.enums.StatusOrder;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,4 +30,8 @@ public class PurchaseOrder {
 
     @Column(nullable = false)
     private LocalDate date;
+
+    @OneToMany(mappedBy = "purchaseOrderId")
+    @JsonIgnoreProperties("purchaseOrderId")
+    private List<PurchaseItem> itemList;
 }
