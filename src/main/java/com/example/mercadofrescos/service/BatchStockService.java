@@ -1,7 +1,5 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.BatchStockDTO;
-import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
 import com.example.mercadofrescos.exception.InvalidBatchStockException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
@@ -15,7 +13,6 @@ import com.example.mercadofrescos.service.interfaces.ISectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,6 @@ import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidQueryParamException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
-import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.model.enums.Category;
@@ -13,7 +12,6 @@ import com.example.mercadofrescos.service.interfaces.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 

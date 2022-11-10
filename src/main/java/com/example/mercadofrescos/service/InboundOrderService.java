@@ -1,8 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.BatchStockDTO;
 import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
-import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.*;
