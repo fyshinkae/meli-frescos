@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service.interfaces;
 
+import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
 import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.model.Product;
@@ -16,5 +17,5 @@ public interface IProductService {
     List<ProductDTO> findByCategory(String category);
 
     List<Product> findAllForAgent();
-    Product findByIdForAgent(Long id);
+    ProductAgentResponseDTO findByIdForAgent(Long id);
 }

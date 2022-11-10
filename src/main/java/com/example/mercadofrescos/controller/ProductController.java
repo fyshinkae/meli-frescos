@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.controller;
 
+import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
 import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.service.interfaces.IProductService;
@@ -43,11 +44,11 @@ public class ProductController {
     }
 
     @GetMapping("/agent/list")
-    public ResponseEntity<List<Product>> getAllForAgent(
+    public ResponseEntity<ProductAgentResponseDTO> getAllForAgent(
             @RequestParam(required = false, name = "productId") Long productId
     ) {
-        List<Product> products = service.findAllForAgent();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        ProductAgentResponseDTO product = service.findByIdForAgent(productId);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
 }

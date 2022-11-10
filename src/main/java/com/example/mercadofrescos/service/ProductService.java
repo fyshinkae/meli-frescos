@@ -1,10 +1,13 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
 import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
+import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
+import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.model.enums.Category;
 import com.example.mercadofrescos.repository.IProductRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
@@ -15,6 +18,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,12 +103,15 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product findByIdForAgent(Long id) {
+    public ProductAgentResponseDTO findByIdForAgent(Long id) {
         Optional<Product> product = repo.findById(id);
 
         if (product.isEmpty()) throw new NotFoundException("Product not found");
 
-        return product.get();
+        Set<BatchStock> batches = product.get().getBatches();
+        Section sectionProduct = batches.iterator().next().getInboundOrder().getSection();
+
+        return new ProductAgentResponseDTO(product.get(), sectionProduct, batches);
     }
 
     private Category filterCategory(String word) {
