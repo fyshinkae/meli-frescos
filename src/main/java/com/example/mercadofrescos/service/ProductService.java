@@ -66,7 +66,7 @@ public class ProductService implements IProductService {
     public Product findById(Long id) {
         Optional<Product> product = repo.findById(id);
 
-        return product.orElseThrow(() -> new NotFoundException("Section not found"));
+        return product.orElseThrow(() -> new NotFoundException("Product not found"));
     }
 
     /**
