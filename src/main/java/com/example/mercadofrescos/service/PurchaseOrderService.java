@@ -16,19 +16,6 @@ public class PurchaseOrderService {
 
     private final IPurchaseOrderRepo repo;
 
-    public Double getPurchaseItems(PurchaseOrder purchaseOrder) {
-
-
-    }
-
-    public Double getTotalPrice(InboundOrder inboundOrder) {
-        double totalPrice = 0;
-
-
-
-
-        return totalPrice;
-    }
 
 
 }

@@ -11,6 +11,7 @@ import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IProductService;
+import com.example.mercadofrescos.service.interfaces.ISectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class BatchStockService implements IBatchStockService {
 
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
+    private final ISectionService serviceSection;
 
     /**
      * Busca um BatchStock ou lança um erro caso não encontre
@@ -38,7 +40,12 @@ public class BatchStockService implements IBatchStockService {
         return batchStock.orElseThrow(() -> new NotFoundException("BatchStock not found"));
     }
 
-    // TODO: Documentar
+    /**
+     * Salva uma lista de batches na base de dados
+     * @author Gabriel
+     * @param batches uma lista de batches a ser salva na base de dados
+     * @return a lista de batches salva na base de dados
+     */
     @Override
     public List<BatchStock> saveBatchStockList(List<BatchStock> batches) {
         List<BatchStock> response = new ArrayList<>();
@@ -61,28 +68,25 @@ public class BatchStockService implements IBatchStockService {
         List<BatchStock> batches = new ArrayList<>();
         Section section = inboundOrder.getSection();
 
-        float sectionCapacity = section.getCapacity();
-        float batchStockListTotalVolume = 0;
-
         for(BatchStock batch : inboundOrder.getBatches()) {
             Product product = serviceProduct.findById(batch.getProduct().getId());
-
             batch.setProduct(product);
             batch.setInboundOrder(inboundOrder);
 
             validateBatchStock(batch, section);
-            batchStockListTotalVolume += batch.getVolume();
-
             batches.add(batch);
         }
 
-        if(!validateBatchStockVolume(batchStockListTotalVolume, sectionCapacity)){
-            throw new InvalidBatchStockException("The section does have capacity");
-        }
+        updateSectionVolume(batches, section);
 
         return batches;
     }
 
+    /**
+     * Verifica se todos os batches de uma lista existem na base de dados
+     * @param batches a lista ser verificada
+     * @return
+     */
     @Override
     public List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches) {
         List<BatchStock> batchesResponse = new ArrayList<>();
@@ -136,18 +140,32 @@ public class BatchStockService implements IBatchStockService {
     }
 
     /**
-     * Valida se o setor possui espaco suficiente para os lotes
+     * Valida se o setor possui espaco suficiente para os lotes e atualiza
      * @author Gabriel
-     * @param batchStockTotalVolume Somatório das capacidades dos lotes
-     * @param sectionCapacity Capacidade restante do setor
-     * @return Retorna true caso o setor tenha capacidade suficiente
+     * @param batches A lista de batches a serem salvas
+     * @param section O setor onde os batches serão alocados
      */
-    private boolean validateBatchStockVolume(float batchStockTotalVolume, float sectionCapacity){
-        if(sectionCapacity - batchStockTotalVolume < 0){
-            return false;
+    private void updateSectionVolume(List<BatchStock> batches, Section section){
+        float sectionCapacity = section.getCapacity();
+        float batchStockListTotalVolume = 0;
+
+        for(BatchStock batch : batches){
+            float batchVolume = batch.getVolume();
+
+            if(batch.getId() != null){
+                BatchStock batchRepo = this.findById(batch.getId());
+                batchVolume -= batchRepo.getVolume();
+            }
+
+            batchStockListTotalVolume += batchVolume;
         }
 
-        return true;
+        if(sectionCapacity - batchStockListTotalVolume < 0) {
+            throw new InvalidBatchStockException("The batchStock volume is larger than the section capacity");
+        }
+
+        section.setCapacity(sectionCapacity - batchStockListTotalVolume);
+        this.serviceSection.save(section);
     }
 
 }
