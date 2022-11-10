@@ -1,11 +1,7 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.ProductDTO;
-import com.example.mercadofrescos.dto.ProductListResponseDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
-import com.example.mercadofrescos.model.Product;
-import com.example.mercadofrescos.model.enums.Category;
-import com.example.mercadofrescos.service.ProductService;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
