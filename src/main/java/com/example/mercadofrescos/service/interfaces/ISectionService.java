@@ -4,4 +4,5 @@ import com.example.mercadofrescos.model.Section;
 
 public interface ISectionService {
     Section findById(Long id);
+    void findSectionByWarehouseId(Long wirehouseId, Long sectionId);
 }

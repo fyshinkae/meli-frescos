@@ -1,7 +1,6 @@
 package com.example.mercadofrescos.dto;
 
 import com.example.mercadofrescos.model.Product;
-import com.example.mercadofrescos.model.User;
 import com.example.mercadofrescos.model.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
