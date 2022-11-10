@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -28,7 +27,7 @@ public class BatchStock {
 
     @ManyToOne
     @JoinColumn(name = "inboundOrderId", nullable = false)
-    @JsonIgnoreProperties("inboundOrder")
+    @JsonIgnoreProperties("batches")
     private InboundOrder inboundOrder;
 
     @Column(nullable = false)
