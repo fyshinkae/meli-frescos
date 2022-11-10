@@ -84,7 +84,6 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
 
-
             ExceptionDetails details = ExceptionDetails.builder()
                     .title("Invalid values")
                     .message("malformed JSON")
@@ -94,4 +93,7 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(details, status);
     }
+
+    // TODO: tratar InvalidDataAccessApiUsageException quando o ID do batchNumber é nulo no PUT
+
 }

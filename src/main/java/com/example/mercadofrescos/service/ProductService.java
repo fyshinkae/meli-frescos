@@ -3,6 +3,7 @@ package com.example.mercadofrescos.service;
 import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
+import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.enums.Category;
 import com.example.mercadofrescos.repository.IProductRepo;
@@ -42,11 +43,13 @@ public class ProductService implements IProductService {
         return response;
     }
 
+    // todo: FAZER JAVADOC
     @Override
     public Product saveProduct(Product newProduct) {
         return repo.save(newProduct);
     }
 
+    // todo: FAZER JAVADOC
     @Override
     public Product updatedProduct(Product product) {
         return repo.save(product);
