@@ -11,6 +11,7 @@ import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IProductService;
+import com.example.mercadofrescos.service.interfaces.ISectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class BatchStockService implements IBatchStockService {
 
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
+    private final ISectionService serviceSection;
 
     /**
      * Busca um BatchStock ou lança um erro caso não encontre
@@ -38,7 +40,12 @@ public class BatchStockService implements IBatchStockService {
         return batchStock.orElseThrow(() -> new NotFoundException("BatchStock not found"));
     }
 
-    // TODO: Documentar
+    /**
+     * Salva uma lista de batches na base de dados
+     * @author Gabriel
+     * @param batches uma lista de batches a ser salva na base de dados
+     * @return a lista de batches salva na base de dados
+     */
     @Override
     public List<BatchStock> saveBatchStockList(List<BatchStock> batches) {
         List<BatchStock> response = new ArrayList<>();
@@ -80,9 +87,18 @@ public class BatchStockService implements IBatchStockService {
             throw new InvalidBatchStockException("The section does have capacity");
         }
 
+        section.setCapacity(sectionCapacity - batchStockListTotalVolume);
+
+        this.serviceSection.save(section);
+
         return batches;
     }
 
+    /**
+     * Verifica se todos os batches de uma lista existem na base de dados
+     * @param batches a lista ser verificada
+     * @return
+     */
     @Override
     public List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches) {
         List<BatchStock> batchesResponse = new ArrayList<>();
