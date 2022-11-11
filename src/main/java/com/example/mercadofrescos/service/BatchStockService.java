@@ -57,7 +57,7 @@ public class BatchStockService implements IBatchStockService {
     /**
      * Valida a lista de lotes de um InboundOrder
      * @author Gabriel
-     * @param inboundOrder Um objeto de inboundOrder com as informacoes com uma lista de lotes
+     * @param inboundOrder Um objeto de inboundOrder com as informações com uma lista de lotes
      * @return Retorna uma lista de lotes validados
      */
     @Override
@@ -81,8 +81,9 @@ public class BatchStockService implements IBatchStockService {
 
     /**
      * Verifica se todos os batches de uma lista existem na base de dados
+     * @author Gabriel
      * @param batches a lista ser verificada
-     * @return
+     * @return uma lista de objetos do modelo BatchStock
      */
     @Override
     public List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches) {
@@ -120,7 +121,7 @@ public class BatchStockService implements IBatchStockService {
      * @author Gabriel
      * @param batchStock o lote a ser validado
      * @param sectionTemperature a temperatura minima permitida no setor
-     * @return retorna true caso o setor tenha a temperatura permitida para os etor
+     * @return retorna true caso o setor tenha a temperatura permitida para o setor
      */
     private boolean validateTemperature(BatchStock batchStock, float sectionTemperature){
         return batchStock.getCurrentTemperature() >= sectionTemperature;
@@ -137,7 +138,7 @@ public class BatchStockService implements IBatchStockService {
     }
 
     /**
-     * Valida se o setor possui espaco suficiente para os lotes e atualiza
+     * Valida se o setor possui espaço suficiente para os lotes e atualiza
      * @author Gabriel
      * @param batches A lista de batches a serem salvas
      * @param section O setor onde os batches serão alocados
