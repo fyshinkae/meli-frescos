@@ -11,4 +11,5 @@ public interface IBatchStockService {
     List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches);
 
     BatchStock findById(Long id);
+
 }

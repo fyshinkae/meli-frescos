@@ -2,8 +2,13 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidQueryParamException;
+import com.example.mercadofrescos.dto.ProductDTO;
+import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.exception.CategoryNotFoundException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
+import com.example.mercadofrescos.exception.ProductsListNotFoundException;
+import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.model.enums.Category;
@@ -62,7 +67,7 @@ public class ProductService implements IProductService {
     public Product findById(Long id) {
         Optional<Product> product = repo.findById(id);
 
-        return product.orElseThrow(() -> new NotFoundException("Section not found"));
+        return product.orElseThrow(() -> new NotFoundException("Product not found"));
     }
 
     /**
@@ -83,7 +88,7 @@ public class ProductService implements IProductService {
                     ).collect(Collectors.toList());
 
         if(products.isEmpty()) {
-            throw new NotFoundException("Products not found");
+            throw new ProductsListNotFoundException("Products not found");
         }
 
         return products;
