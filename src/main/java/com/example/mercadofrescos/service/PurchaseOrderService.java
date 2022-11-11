@@ -57,13 +57,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             totalCartAmount = singleCartAmount.add(BigDecimal.valueOf(totalCartAmount)).doubleValue();
         }
 
-        if(purchaseOrder.getDate() == null){
-            purchaseOrder.setDate(LocalDate.now());
-        }
-
-        this.purchaseOrderRepo.save(purchaseOrder);
-        this.purchaseItemService.savePurchaseItemList(purchaseOrder.getItemList());
-
+        this.savePurchaseOrder(purchaseOrder, purchaseItemList);
         return new PurchasePriceDTO(totalCartAmount);
     }
 
@@ -110,4 +104,12 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         return null;
     }
 
+    private void savePurchaseOrder(PurchaseOrder purchaseOrder, List<PurchaseItem> items){
+        if(purchaseOrder.getDate() == null){
+            purchaseOrder.setDate(LocalDate.now());
+        }
+
+        this.purchaseOrderRepo.save(purchaseOrder);
+        this.purchaseItemService.savePurchaseItemList(purchaseOrder.getItemList());
+    }
 }
