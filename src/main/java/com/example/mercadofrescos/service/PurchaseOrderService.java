@@ -1,10 +1,8 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
-import com.example.mercadofrescos.dto.PurchaseItemDTO;
-import com.example.mercadofrescos.dto.PurchaseOrderRequestDTO;
-import com.example.mercadofrescos.dto.PurchasePriceDTO;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
@@ -16,10 +14,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,14 +68,24 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
         List<Product> response = new ArrayList<>();
         List<Long> productIdErrors = new ArrayList<>();
-
+        LocalDate date;
         for(PurchaseItem item : purchaseItems){
             Product product = productService.findById(item.getProductId().getId());
             BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
             if (batchStock == null) {
                 productIdErrors.add(product.getId());
             }
-            response.add(product);
+
+
+            LocalDate today = LocalDate.now();
+
+            long daysBetween = today.until(batchStock.getDueDate(), ChronoUnit.DAYS);
+            if (daysBetween > 21) {
+                response.add(product);
+            } else {
+                throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " close to expiration");
+            }
+
         }
 
         if (!productIdErrors.isEmpty()) {
@@ -116,5 +124,22 @@ public class PurchaseOrderService implements IPurchaseOrderService {
 
         this.purchaseOrderRepo.save(purchaseOrder);
         this.purchaseItemService.savePurchaseItemList(purchaseOrder.getItemList());
+    }
+
+    /**
+     * Salva uma ordem de compra e seus itens na base de dados
+     * @author Ma, Theus, Giovanna
+     * @param id da Ordem de compra
+     */
+    public List<PurchaseItemResponseDTO> getPurchaseOrderById(Long id) {
+        Optional<PurchaseOrder> purchaseOrder = this.purchaseOrderRepo.findById(id);
+        if(purchaseOrder.isEmpty()) {
+            throw new InvalidPurchaseException("Produtos não encontrados");
+        }
+        List<PurchaseItem> purchaseItems = purchaseOrder.get().getItemList();
+
+        return purchaseItems.stream()
+                .map(PurchaseItemResponseDTO::new)
+                .collect(Collectors.toList());
     }
 }
