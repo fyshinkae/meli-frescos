@@ -6,7 +6,9 @@ import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
 import com.example.mercadofrescos.exception.InvalidQueryParamException;
 import com.example.mercadofrescos.exception.NotFoundException;
+import com.example.mercadofrescos.exception.ProductsListNotFoundException;
 import com.example.mercadofrescos.mocks.BatchStockMock;
+import com.example.mercadofrescos.mocks.InboundOrderMock;
 import com.example.mercadofrescos.mocks.ProductMock;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.model.enums.Category;
@@ -206,8 +208,8 @@ public class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("FindByCategory throws NotFoundException when ProductList is empty")
-    void findByCategory_throwsNotFoundException(){
+    @DisplayName("FindByCategory throws ProductsListNotFoundException when ProductList is empty")
+    void findByCategory_throwsProductsListNotFoundException(){
         Category category = Category.REFRIGERATED;
         String categoryString = "RF";
         List<Product> products = new ArrayList<>();
@@ -216,7 +218,7 @@ public class ProductServiceTest {
                 .thenReturn(products);
 
         assertThatThrownBy(() -> productService.findByCategory(categoryString))
-                .isInstanceOf(NotFoundException.class);
+                .isInstanceOf(ProductsListNotFoundException.class);
     }
 
     @Test
@@ -225,7 +227,9 @@ public class ProductServiceTest {
         Long validId = 1l;
         Product productFresh = ProductMock.getProductFresh();
 
-        BatchStock batchStock = BatchStockMock.batchStockTest();
+        BatchStock batchStock = BatchStockMock.BachStockTest();
+        InboundOrder inboundOrder = InboundOrderMock.InboundOrderTest();
+        batchStock.setInboundOrder(inboundOrder);
         Set<BatchStock> batches = new HashSet<>(){{
             add(batchStock);
         }};
@@ -262,10 +266,10 @@ public class ProductServiceTest {
         Product productFresh = ProductMock.getProductFresh();
         Section section = new Section();
 
-        BatchStock batchStock1 = BatchStockMock.batchStockTest();
+        BatchStock batchStock1 = BatchStockMock.BachStockTest();
         batchStock1.setId(2L);
 
-        BatchStock batchStock2 = BatchStockMock.batchStockTest();
+        BatchStock batchStock2 = BatchStockMock.BachStockTest();
         batchStock2.setId(1L);
         Set<BatchStock> batches = new HashSet<>(){{
             add(batchStock1);
@@ -292,11 +296,11 @@ public class ProductServiceTest {
         Product productFresh = ProductMock.getProductFresh();
         Section section = new Section();
 
-        BatchStock batchStock1 = BatchStockMock.batchStockTest();
+        BatchStock batchStock1 = BatchStockMock.BachStockTest();
         batchStock1.setId(1L);
         batchStock1.setProductQuantity(20);
 
-        BatchStock batchStock2 = BatchStockMock.batchStockTest();
+        BatchStock batchStock2 = BatchStockMock.BachStockTest();
         batchStock2.setId(2L);
         batchStock2.setProductQuantity(10);
         Set<BatchStock> batches = new HashSet<>(){{
@@ -324,11 +328,11 @@ public class ProductServiceTest {
         Product productFresh = ProductMock.getProductFresh();
         Section section = new Section();
 
-        BatchStock batchStock1 = BatchStockMock.batchStockTest();
+        BatchStock batchStock1 = BatchStockMock.BachStockTest();
         batchStock1.setId(1L);
         batchStock1.setDueDate(LocalDate.parse("2018-01-20", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-        BatchStock batchStock2 = BatchStockMock.batchStockTest();
+        BatchStock batchStock2 = BatchStockMock.BachStockTest();
         batchStock2.setId(2L);
         batchStock2.setDueDate(LocalDate.parse("2014-07-22", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         Set<BatchStock> batches = new HashSet<>(){{
