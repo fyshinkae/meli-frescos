@@ -1,16 +1,15 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.PurchaseOrderRequestDTO;
-import com.example.mercadofrescos.dto.PurchasePriceDTO;
+import com.example.mercadofrescos.dto.*;
+import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/fresh-products/orders")
@@ -24,6 +23,17 @@ public class PurchaseOrderController {
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    /**
+     * Retorna uma lista de produtos pelo id da Ordem de compra passado pelo parâmetro
+     * @author Ma, Theus, Giovanna
+     * @param id da Ordem de compra
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<List<PurchaseItemResponseDTO>> getOrderById(@PathVariable Long id) {
+        List<PurchaseItemResponseDTO> order = service.getPurchaseOrderById(id);
+        return ResponseEntity.ok(order);
     }
 
 }
