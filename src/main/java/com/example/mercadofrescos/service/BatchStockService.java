@@ -41,17 +41,10 @@ public class BatchStockService implements IBatchStockService {
      * Salva uma lista de batches na base de dados
      * @author Gabriel
      * @param batches uma lista de batches a ser salva na base de dados
-     * @return a lista de batches salva na base de dados
      */
     @Override
-    public List<BatchStock> saveBatchStockList(List<BatchStock> batches) {
-        List<BatchStock> response = new ArrayList<>();
-
-        for(BatchStock batch :  batches){
-            response.add(this.repo.save(batch));
-        }
-
-        return response;
+    public void saveBatchStockList(List<BatchStock> batches) {
+        this.repo.saveAll(batches);
     }
 
     /**
@@ -83,18 +76,12 @@ public class BatchStockService implements IBatchStockService {
      * Verifica se todos os batches de uma lista existem na base de dados
      * @author Gabriel
      * @param batches a lista ser verificada
-     * @return uma lista de objetos do modelo BatchStock
      */
-    @Override
-    public List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches) {
-        List<BatchStock> batchesResponse = new ArrayList<>();
 
+    public void verifyIfAllBatchStockExists(List<BatchStock> batches) {
         for(BatchStock batch : batches) {
-           BatchStock response = this.findById(batch.getId());
-           batchesResponse.add(response);
+           this.findById(batch.getId());
         }
-
-        return batchesResponse;
     }
 
     /**
