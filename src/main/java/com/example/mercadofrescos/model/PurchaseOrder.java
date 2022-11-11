@@ -32,6 +32,6 @@ public class PurchaseOrder {
     private LocalDate date;
 
     @OneToMany(mappedBy = "purchaseOrderId")
-    @JsonIgnoreProperties("purchaseOrderId")
+    @JsonIgnoreProperties("productId")
     private List<PurchaseItem> itemList;
 }
