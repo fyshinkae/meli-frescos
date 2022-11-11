@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.exception;
 
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -114,7 +115,7 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(InvalidPurchaseException.class)
-    public ResponseEntity<ExceptionDetails> InvalidPurchaseException(InvalidPurchaseException ex){
+    public ResponseEntity<ExceptionDetails> handleInvalidPurchaseException(InvalidPurchaseException ex){
         ExceptionDetails details = ExceptionDetails.builder()
                 .title("Invalid Purchase Order")
                 .message(ex.getMessage())
@@ -125,7 +126,22 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
     }
 
-    // todo: verificar com o mauri uma mensagem dinamica ao capturar erros de conversao do json
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<ExceptionDetails> handleInvalidDataAccessApiUsageException(InvalidDataAccessApiUsageException ex){
+        String defaultMessage = "Field cannot be null";
+        boolean isNullMessage = ex.getMessage() == null;
+        String simpleMessage = isNullMessage ? defaultMessage : ex.getMessage().split(";")[0];
+
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Field cannot be null")
+                .message(simpleMessage)
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex,
@@ -133,9 +149,11 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
             HttpStatus status,
             WebRequest request) {
 
+        String message = "Malformed JSON, see documentation to send correct JSON";
+
             ExceptionDetails details = ExceptionDetails.builder()
                     .title("Invalid values")
-                    .message("malformed JSON")
+                    .message(message)
                     .status(status.value())
                     .timestamps(LocalDateTime.now())
                     .build();
@@ -159,7 +177,5 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(details, status);
     }
-
-    // TODO: tratar InvalidDataAccessApiUsageException quando o ID do batchNumber é nulo no PUT
 
 }

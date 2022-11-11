@@ -66,19 +66,26 @@ public class BatchStockDTO {
         this.dueDate = batchStock.getDueDate();
     }
 
-    // todo: MATHEUS ALVES FAZER JAVA DOC
+    /**
+     * Converte uma lista de modelo do BatchStock para uma lista de DTO de BatchRequest
+     * @author Matheus Alves
+     * @param batchStockList uma lista de objeto do modelo BatchStock a ser convertido
+     * @return uma lista do modelo BatchStockDTO
+     */
     public static List<BatchStockDTO> convertToDTOList (List<BatchStock> batchStockList){
         List<BatchStockDTO> batchStockListDTO = new ArrayList<>();
         for(BatchStock batchStock : batchStockList) {
             batchStockListDTO.add(new BatchStockDTO(batchStock));
         }
+
         return batchStockListDTO;
     }
 
     /**
+     * Converte um modelo BatchStockDTO para o modelo BatchStock
      * @author Gabriel
-     * @param batchDTO
-     * @return
+     * @param batchDTO objeto a ser convertido
+     * @return um objeto do modelo BatchStock
      */
     public static BatchStock convertToModelObject(BatchStockDTO batchDTO) {
         BatchStock response = new BatchStock();

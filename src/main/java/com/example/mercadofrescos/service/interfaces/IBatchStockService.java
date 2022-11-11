@@ -6,10 +6,8 @@ import com.example.mercadofrescos.model.InboundOrder;
 import java.util.List;
 
 public interface IBatchStockService {
-    List<BatchStock> saveBatchStockList(List<BatchStock> batches);
+    void saveBatchStockList(List<BatchStock> batches);
     List<BatchStock> validBatchStockList(InboundOrder inboundOrder);
-    List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches);
-
+    void verifyIfAllBatchStockExists(List<BatchStock> batches);
     BatchStock findById(Long id);
-
 }
