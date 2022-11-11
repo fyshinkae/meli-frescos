@@ -27,7 +27,7 @@ public class PurchaseItemDTO {
         purchaseItem.setProductQuantity(purchaseItemDTO.getQuantity());
 
         Product product = new Product();
-        product.setId(purchaseItem.getId());
+        product.setId(purchaseItemDTO.getProductId());
         purchaseItem.setProductId(product);
 
         return purchaseItem;
