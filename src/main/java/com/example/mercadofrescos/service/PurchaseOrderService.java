@@ -16,10 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -70,14 +69,24 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
         List<Product> response = new ArrayList<>();
         List<Long> productIdErrors = new ArrayList<>();
-
+        LocalDate date;
         for(PurchaseItem item : purchaseItems){
             Product product = productService.findById(item.getProductId().getId());
             BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
             if (batchStock == null) {
                 productIdErrors.add(product.getId());
             }
-            response.add(product);
+
+
+            LocalDate today = LocalDate.now();
+
+            long daysBetween = today.until(batchStock.getDueDate(), ChronoUnit.DAYS);
+            if (daysBetween > 21) {
+                response.add(product);
+            } else {
+                throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " close to expiration");
+            }
+
         }
 
         if (!productIdErrors.isEmpty()) {
