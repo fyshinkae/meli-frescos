@@ -57,7 +57,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             totalCartAmount = singleCartAmount.add(BigDecimal.valueOf(totalCartAmount)).doubleValue();
         }
 
-        this.savePurchaseOrder(purchaseOrder, purchaseItemList);
+        this.savePurchaseOrder(purchaseOrder);
         return new PurchasePriceDTO(totalCartAmount);
     }
 
@@ -104,7 +104,12 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         return null;
     }
 
-    private void savePurchaseOrder(PurchaseOrder purchaseOrder, List<PurchaseItem> items){
+    /**
+     * Salva uma ordem de compra e seus itens na base de dados
+     * @author Gabriel
+     * @param purchaseOrder Ordem de compra a ser salva
+     */
+    private void savePurchaseOrder(PurchaseOrder purchaseOrder){
         if(purchaseOrder.getDate() == null){
             purchaseOrder.setDate(LocalDate.now());
         }
