@@ -21,7 +21,7 @@ public class ProductMock {
       product.setBatches(batch);
       product.setName("product");
       product.setPrice(new BigDecimal(100.0));
-      product.setCategory(Category.FF);
+      product.setCategory(Category.FRESH);
       return product;
     }
 }
