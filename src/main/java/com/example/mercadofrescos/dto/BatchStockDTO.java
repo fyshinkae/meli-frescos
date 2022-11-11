@@ -70,6 +70,7 @@ public class BatchStockDTO {
      * Converte uma lista de modelo do BatchStock para uma lista de DTO de BatchRequest
      * @author Matheus Alves
      * @param batchStockList uma lista de objeto do modelo BatchStock a ser convertido
+     * @return uma lista do modelo BatchStockDTO
      */
     public static List<BatchStockDTO> convertToDTOList (List<BatchStock> batchStockList){
         List<BatchStockDTO> batchStockListDTO = new ArrayList<>();
