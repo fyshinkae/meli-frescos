@@ -64,7 +64,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
 
     /**
      * Obtém uma lista de produtos possiveis de compra a partir de uma lista de PurchaseItem
-     * @author Gabriel
+     * @author Felipe, Giovanna, Matheus, Gabriel, Theus
      * @param purchaseItems Lista de produtos recebida pelo request do usuário
      * @return Uma lista de produtos validada
      */
@@ -90,7 +90,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
 
     /**
      * Valida se o produto está suficientemente presente em algum BatchStock
-     * @author Gabriel
+     * @author Felipe, Giovanna, Matheus, Gabriel, Theus
      * @param product Produto a ser adquirido
      * @param purchaseQuantity Quantidade do produto a ser adquirido
      * @return BatchStock que possui o produto com quantidade suficiente para compra
