@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,10 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             Product product = products.iterator().next();
             singleCartAmount = product.getPrice().multiply(BigDecimal.valueOf(item.getProductQuantity()));
             totalCartAmount = singleCartAmount.add(BigDecimal.valueOf(totalCartAmount)).doubleValue();
+        }
+
+        if(purchaseOrder.getDate() == null){
+            purchaseOrder.setDate(LocalDate.now());
         }
 
         this.purchaseOrderRepo.save(purchaseOrder);
