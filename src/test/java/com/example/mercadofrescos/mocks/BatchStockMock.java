@@ -14,7 +14,6 @@ public class BatchStockMock {
 
         batch.setId(1L);
         batch.setProduct(ProductMock.productTest());
-        // batch.setInboundOrder(InboundOrderMock.InboundOrderTest());
         batch.setCurrentTemperature(18.0F);
         batch.setManufacturingDate(LocalDate.now());
         batch.setManufacturingTime(LocalDateTime.now());

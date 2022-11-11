@@ -101,7 +101,11 @@ public class ProductService implements IProductService {
         if (product.isEmpty()) throw new NotFoundException("Product not found");
 
         Set<BatchStock> batches = product.get().getBatches();
-        Section sectionProduct = batches.iterator().next().getInboundOrder().getSection();
+        Section sectionProduct = new Section();
+
+        if(!batches.isEmpty()) {
+            sectionProduct = batches.iterator().next().getInboundOrder().getSection();
+        }
 
         return new ProductAgentResponseDTO(product.get(), sectionProduct, batches);
     }
@@ -152,7 +156,7 @@ public class ProductService implements IProductService {
         List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
                 .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getCurrentQuantity))
                 .collect(Collectors.toList());
-
+    
         product.setBatchStock(batchesOrdered);
 
         return product;
