@@ -36,12 +36,18 @@ public class InboundOrderController {
         return new ResponseEntity<>(data, HttpStatus.CREATED);
     }
 
+    /** Controller que valida e atualiza uma nova InboundOrder
+     * @author Theus, Gabriel, Anderson
+     * @param inboundOrderRequestDTO objeto json com as informações do InboundOrder
+     * @return Retorna um ResponseEntity como o InboundOrder atualizado
+     */
     @PutMapping
     public ResponseEntity<InboundOrderResponseDTO> update(@Valid @RequestBody InsertBatchRequestDTO inboundOrderRequestDTO) {
         Long warehouseId = inboundOrderRequestDTO.getInboundOrder().getWarehouseCode();
         InboundOrder inboundOrderRequest = InsertBatchRequestDTO.convert(inboundOrderRequestDTO);
 
         InboundOrderResponseDTO data = service.update(inboundOrderRequest, warehouseId);
+
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 }
