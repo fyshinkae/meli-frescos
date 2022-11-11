@@ -2,7 +2,6 @@ package com.example.mercadofrescos.mocks;
 
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.Product;
-import com.example.mercadofrescos.model.User;
 import com.example.mercadofrescos.model.enums.Category;
 
 import java.math.BigDecimal;
@@ -25,5 +24,26 @@ public class ProductMock {
       product.setPrice(price);
       product.setCategory(Category.FRESH);
       return product;
+    }
+
+    public static Product getProductFrozen() {
+        Product product = ProductMock.productTest();
+        product.setCategory(Category.FROZEN);
+
+        return product;
+    }
+
+    public static Product getProductRefrigerated() {
+        Product product = ProductMock.productTest();
+        product.setCategory(Category.REFRIGERATED);
+
+        return product;
+    }
+
+    public static Product getProductFresh() {
+        Product product = ProductMock.productTest();
+        product.setCategory(Category.FRESH);
+
+        return product;
     }
 }
