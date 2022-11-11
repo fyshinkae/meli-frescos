@@ -10,6 +10,7 @@ import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
+import com.example.mercadofrescos.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,45 +28,81 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private final IPurchaseOrderRepo purchaseOrderRepo;
     private final IProductService productService;
     private final IPurchaseItemService purchaseItemService;
+    private final IUserService userService;
 
+    // TODO: Atualizar o productQuantity no batchStock
+    // TODO: Atualizar o capacity da Section do batchStock atualizado
 
+    /**
+     * Calcula o valor total dos itens do carrinho
+     * @author Felipe, Giovanna, Matheus, Gabriel, Theus
+     * @param purchaseOrder Uma ordem de compra mandada pelo usuário
+     * @return Retorna o preco total da ordem de compra
+     */
     @Override
-    public PurchasePriceDTO getCartAmount(PurchaseOrderRequestDTO purchaseOrder) {
-        int availableQuantity;
+    public PurchasePriceDTO getCartAmount(PurchaseOrder purchaseOrder) {
         double totalCartAmount = 0d;
         BigDecimal singleCartAmount;
 
-        List<PurchaseItemDTO> purchaseItemList = purchaseOrder.getPurchaseOrder().getProducts();
-        List<Long> productIdErrors = new ArrayList<>();
+        User customer = this.userService.findById(purchaseOrder.getCustomer().getId());
+        purchaseOrder.setCustomer(customer);
 
+        List<PurchaseItem> purchaseItemList = purchaseOrder.getItemList();
+        List<Product> products = this.getValidProductList(purchaseOrder.getItemList());
 
-        for (PurchaseItemDTO item : purchaseItemList) {
-            Product product = productService.findById(item.getProductId());
-            Set<BatchStock> batches = product.getBatches();
-            BatchStock batchStock = batches.iterator().next();
-            Product productPrice = batchStock.getProduct();
-            if (item.getQuantity() > batchStock.getProductQuantity()) {
-                productIdErrors.add(product.getId());
-
-            }
-            singleCartAmount = productPrice.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
-            item.setQuantity(batchStock.getProductQuantity());
-
+        for (PurchaseItem item : purchaseItemList) {
+            Product product = products.iterator().next();
+            singleCartAmount = product.getPrice().multiply(BigDecimal.valueOf(item.getProductQuantity()));
             totalCartAmount = singleCartAmount.add(BigDecimal.valueOf(totalCartAmount)).doubleValue();
-            //availableQuantity = batchStock.getProductQuantity() - item.getQuantity();
-            //batchStock.setProductQuantity(availableQuantity);
-            //item.setProductId(batchStock.getId());
-            //repo.save(batchStock);
-        }
-        if (!productIdErrors.isEmpty()) {
-            throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " is not avaliable");
         }
 
-        this.purchaseOrderRepo();
-        this.purchaseItemService.savePurchaseItemList();
+        this.purchaseOrderRepo.save(purchaseOrder);
+        this.purchaseItemService.savePurchaseItemList(purchaseOrder.getItemList());
 
         return new PurchasePriceDTO(totalCartAmount);
     }
 
+    /**
+     * Obtém uma lista de produtos possiveis de compra a partir de uma lista de PurchaseItem
+     * @author Gabriel
+     * @param purchaseItems Lista de produtos recebida pelo request do usuário
+     * @return Uma lista de produtos validada
+     */
+    private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
+        List<Product> response = new ArrayList<>();
+        List<Long> productIdErrors = new ArrayList<>();
+
+        for(PurchaseItem item : purchaseItems){
+            Product product = productService.findById(item.getProductId().getId());
+            BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
+            if (batchStock == null) {
+                productIdErrors.add(product.getId());
+            }
+            response.add(product);
+        }
+
+        if (!productIdErrors.isEmpty()) {
+            throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " is not avaliable");
+        }
+
+        return response;
+    }
+
+    /**
+     * Valida se o produto está suficientemente presente em algum BatchStock
+     * @author Gabriel
+     * @param product Produto a ser adquirido
+     * @param purchaseQuantity Quantidade do produto a ser adquirido
+     * @return BatchStock que possui o produto com quantidade suficiente para compra
+     */
+    private BatchStock getValidBatchStockByCapacity(Product product, int purchaseQuantity){
+        Set<BatchStock> batches = product.getBatches();
+        for(BatchStock batchStock : batches){
+            if(batchStock.getProductQuantity() > purchaseQuantity) {
+                return batchStock;
+            }
+        }
+        return null;
+    }
 
 }

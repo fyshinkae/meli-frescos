@@ -5,9 +5,11 @@ import com.example.mercadofrescos.model.User;
 import com.example.mercadofrescos.repository.IUserRepo;
 import com.example.mercadofrescos.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
