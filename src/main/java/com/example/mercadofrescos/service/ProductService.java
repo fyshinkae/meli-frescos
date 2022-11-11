@@ -157,7 +157,7 @@ public class ProductService implements IProductService {
         List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
                 .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getCurrentQuantity))
                 .collect(Collectors.toList());
-
+    
         product.setBatchStock(batchesOrdered);
 
         return product;

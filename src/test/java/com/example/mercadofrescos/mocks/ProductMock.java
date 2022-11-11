@@ -21,7 +21,28 @@ public class ProductMock {
       product.setBatches(batch);
       product.setName("product");
       product.setPrice(new BigDecimal(100.0));
-      product.setCategory(Category.FF);
+      product.setCategory(Category.FRESH);
       return product;
+    }
+
+    public static Product getProductFrozen() {
+        Product product = ProductMock.productTest();
+        product.setCategory(Category.FROZEN);
+
+        return product;
+    }
+
+    public static Product getProductRefrigerated() {
+        Product product = ProductMock.productTest();
+        product.setCategory(Category.REFRIGERATED);
+
+        return product;
+    }
+
+    public static Product getProductFresh() {
+        Product product = ProductMock.productTest();
+        product.setCategory(Category.FRESH);
+
+        return product;
     }
 }
