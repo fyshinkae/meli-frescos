@@ -75,7 +75,7 @@ public class ProductServiceTest {
         assertThat(result.getName()).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
         assertThat(result.getPrice()).isEqualTo(new BigDecimal(100.0));
-        assertThat(result.getCategory()).isEqualTo(Category.FF);
+        assertThat(result.getCategory()).isEqualTo(Category.FRESH);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ProductServiceTest {
         assertThat(result.getName()).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
         assertThat(result.getPrice()).isEqualTo(new BigDecimal(100.0));
-        assertThat(result.getCategory()).isEqualTo(Category.FF);
+        assertThat(result.getCategory()).isEqualTo(Category.FRESH);
     }
 
     @Test
