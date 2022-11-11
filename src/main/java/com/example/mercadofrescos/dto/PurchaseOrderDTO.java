@@ -17,8 +17,4 @@ public class PurchaseOrderDTO {
 
     private List<PurchaseItem> purchaseItemList;
 
-    public PurchaseOrderDTO(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
 }

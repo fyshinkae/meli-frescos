@@ -38,8 +38,7 @@ public class ProductService implements IProductService {
             throw new NotFoundException("Products not found");
         }
 
-        products.stream()
-                .forEach(product ->  response.add(new ProductResponseDTO(product)));
+        products.forEach(product ->  response.add(new ProductResponseDTO(product)));
 
         return response;
     }
@@ -179,7 +178,7 @@ public class ProductService implements IProductService {
      * De/Para da sigla de categoria para categoria de produto
      * @author Felipe, Gabriel, Giovanna, Ma
      * @param word sigla da categoria
-     * @return Uma categoria de acordo com a sigla, ou uma Exception caso não exista a Category
+     * @return Uma categoria conforme a sigla, ou uma Exception caso não exista a Category
      */
     private Category filterCategory(String word) {
         switch (word) {

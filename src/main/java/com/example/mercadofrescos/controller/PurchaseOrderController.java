@@ -1,8 +1,6 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.*;
-import com.example.mercadofrescos.model.PurchaseItem;
-import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,7 @@ public class PurchaseOrderController {
     }
 
     /**
-     * Retorna uma lista de produtos pelo id da Ordem de compra passado pelo parâmetro
+     * Retorna uma lista de produtos pelo "id" da ordem de compra passado pelo parâmetro
      * @author Ma, Theus, Giovanna
      * @param id da Ordem de compra
      */

@@ -22,8 +22,8 @@ public class ProductAgentResponseDTO {
     /** Cria um objeto esperado de resposta de produto por um agente
      * @author Gabriel
      * @param product produto a ser retornado
-     * @param section secao do produto a ser retornado
-     * @param batchStocks uma lista de batchstock do produto presente na secao
+     * @param section seção do produto a ser retornado
+     * @param batchStocks uma lista de BatchStock do produto presente na seção
      */
     public ProductAgentResponseDTO(Product product, Section section, Set<BatchStock> batchStocks){
         this.productId = product.getId();

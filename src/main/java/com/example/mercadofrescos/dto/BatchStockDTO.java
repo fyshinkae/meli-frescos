@@ -82,9 +82,10 @@ public class BatchStockDTO {
     }
 
     /**
+     * Converte um modelo BatchStockDTO para o modelo BatchStock
      * @author Gabriel
-     * @param batchDTO
-     * @return
+     * @param batchDTO objeto a ser convertido
+     * @return um objeto do modelo BatchStock
      */
     public static BatchStock convertToModelObject(BatchStockDTO batchDTO) {
         BatchStock response = new BatchStock();
