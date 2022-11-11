@@ -3,6 +3,7 @@ package com.example.mercadofrescos.controller;
 import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
+import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,19 @@ public class PurchaseOrderController {
     public ResponseEntity<List<PurchaseItemResponseDTO>> getOrderById(@PathVariable Long id) {
         List<PurchaseItemResponseDTO> order = service.getPurchaseOrderById(id);
         return ResponseEntity.ok(order);
+    }
+
+    /**
+     * Muda o status
+     * @author Ma, Gabriel, Giovanna
+     * @param status da Ordem
+     */
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PurchaseOrderRequestDTO> updateOrderStatus(@RequestBody StatusOrderDTO status, @PathVariable Long id) {
+        StatusOrder purchaseOrder = status.getOrderStatus();
+        PurchaseOrderRequestDTO orderUpdated = service.updateOrderStatus(purchaseOrder, id);
+        return ResponseEntity.ok(orderUpdated);
     }
 
 }

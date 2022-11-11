@@ -2,6 +2,7 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
+import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -141,5 +141,19 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         return purchaseItems.stream()
                 .map(PurchaseItemResponseDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Altera o 'orderStatus'
+     * @author Ma, Gabriel, Giovanna
+     * @param updateStatus da Ordem
+     */
+    public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
+
+        PurchaseOrder purchaseOrder = this.purchaseOrderRepo.getReferenceById(id);
+        if (purchaseOrder != null) {
+            purchaseOrder.setStatusOrder(updateStatus);
+        }
+        return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }
 }

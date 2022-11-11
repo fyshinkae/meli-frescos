@@ -45,4 +45,19 @@ public class PurchaseRequestDTO {
 
         return purchaseOrder;
     }
+    public static PurchaseRequestDTO convert(PurchaseOrder purchaseOrder){
+        PurchaseRequestDTO response = new PurchaseRequestDTO();
+        response.setId(purchaseOrder.getId());
+        response.setBuyerId(purchaseOrder.getCustomer().getId());
+        response.setDate(purchaseOrder.getDate());
+        response.setOrderStatus(purchaseOrder.getStatusOrder());
+        List<PurchaseItemDTO> items = new ArrayList<>();
+        for(PurchaseItem purchaseItem : purchaseOrder.getItemList()){
+            PurchaseItemDTO products = PurchaseItemDTO.convert(purchaseItem);
+            items.add(products);
+        }
+        response.setProducts(items);
+        return response;
+
+    }
 }
