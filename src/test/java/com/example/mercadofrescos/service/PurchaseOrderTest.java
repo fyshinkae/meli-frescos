@@ -9,6 +9,9 @@ import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IProductRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.repository.IUserRepo;
+import com.example.mercadofrescos.service.interfaces.IProductService;
+import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
+import com.example.mercadofrescos.service.interfaces.IUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,14 +36,19 @@ public class PurchaseOrderTest {
     IProductRepo productRepo;
 
     @Mock
-    IUserRepo userRepo;
+    IPurchaseOrderRepo purchaseOrderRepo;
 
     @Mock
-    IPurchaseOrderRepo purchaseOrderRepo;
+    IUserService userService;
+
+    @Mock
+    IProductService productService;
+
+    @Mock
+    IPurchaseItemService purchaseItemService;
 
     @InjectMocks
     PurchaseOrderService purchaseOrderService;
-
 
     private User customer = new User();
 
@@ -57,13 +65,6 @@ public class PurchaseOrderTest {
     @BeforeEach
     void setup() {
         customer.setId(UserMock.userTest().getId());
-        customer.setName(UserMock.userTest().getName());
-        customer.setEmail(UserMock.userTest().getEmail());
-        customer.setPassword(UserMock.userTest().getPassword());
-        customer.setProducts(UserMock.userTest().getProducts());
-        customer.setWarehouse(UserMock.userTest().getWarehouse());
-        customer.setRole(UserMock.userTest().getRole());
-        customer.setOrder(UserMock.userTest().getOrder());
 
         product1.setId(1L);
         product1.setSeller(UserSellerMock.sellerTest());
@@ -72,6 +73,7 @@ public class PurchaseOrderTest {
         product1.setPrice(new BigDecimal(100));
         product1.setCategory(Category.FRESH);
 
+        // com um produto só
         product2.setId(2L);
         product2.setSeller(UserSellerMock.sellerTest());
         product2.setBatches(BatchStockMock.BachStockTest().getProduct().getBatches());
@@ -84,13 +86,13 @@ public class PurchaseOrderTest {
         purchaseItem1.setPurchaseOrderId(purchaseOrder);
         purchaseItem1.setProductQuantity(10);
 
+
         purchaseItem2.setId(2L);
         purchaseItem2.setPurchaseOrderId(purchaseOrder);
         purchaseItem2.setProductQuantity(10);
         purchaseItem2.setProductId(product2);
 
         purchaseItemList.add(purchaseItem1);
-        purchaseItemList.add(purchaseItem2);
 
         purchaseOrder.setId(PurchaseOrderMock.purchaseOrderTest().getId());
         purchaseOrder.setCustomer(customer);
@@ -101,16 +103,14 @@ public class PurchaseOrderTest {
 
     @Test
     void newOrder_returnTotalPrice_whenSuccess() {
-
-        Mockito.when(userRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.ofNullable(customer));
-        Mockito.when(productRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.ofNullable(product1));
-        Mockito.when(productRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.ofNullable(product2));
+        // Mockito.when(userRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.ofNullable(customer));
+        Mockito.when(productService.findById(ArgumentMatchers.anyLong())).thenReturn(product1);
         Mockito.when(purchaseOrderRepo.save(purchaseOrder)).thenReturn(purchaseOrder);
+        Mockito.doNothing().when(purchaseItemService).savePurchaseItemList(purchaseOrder.getItemList());
 
         PurchasePriceDTO serviceReturn = purchaseOrderService.getCartAmount(purchaseOrder);
 
         assertThat(serviceReturn).isNotNull();
-        assertThat(serviceReturn.getTotalPrice()).isEqualTo(3000);
-
+        assertThat(serviceReturn.getTotalPrice()).isEqualTo(1000);
     }
 }

@@ -89,7 +89,7 @@ public class ProductServiceTest {
         Mockito.when(repo.save(ArgumentMatchers.any()))
                 .thenReturn(this.product);
 
-        Product result = productService.updatedProduct(this.product);
+        Product result = productService.saveProduct(this.product);
 
         assertThat(result).isNotNull();
         assertThat(result.getName()).isNotNull();
