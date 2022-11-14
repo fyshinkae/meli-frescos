@@ -15,7 +15,6 @@ public class SectionDTO {
     private Long sectionCode;
     private Long warehouseCode;
 
-
     /**
      * Converte um objeto do tipo Section para um DTO
      * @author Gabriel
@@ -29,6 +28,5 @@ public class SectionDTO {
             this.warehouseCode = section.getWarehouse().getId();
         }
     }
-
 
 }

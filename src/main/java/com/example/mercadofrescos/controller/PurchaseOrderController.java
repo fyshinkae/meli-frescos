@@ -31,7 +31,7 @@ public class PurchaseOrderController {
     }
 
     /**
-     * Retorna uma lista de produtos pelo id da Ordem de compra passado pelo parâmetro
+     * Retorna uma lista de produtos pelo "id" da ordem de compra passado pelo parâmetro
      * @author Ma, Theus, Giovanna
      * @param id da Ordem de compra
      */

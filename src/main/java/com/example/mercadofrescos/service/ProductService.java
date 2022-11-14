@@ -4,11 +4,9 @@ import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidQueryParamException;
 import com.example.mercadofrescos.dto.ProductDTO;
 import com.example.mercadofrescos.dto.ProductResponseDTO;
-import com.example.mercadofrescos.exception.CategoryNotFoundException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.exception.ProductsListNotFoundException;
-import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.model.enums.Category;
@@ -40,22 +38,18 @@ public class ProductService implements IProductService {
             throw new NotFoundException("Products not found");
         }
 
-        products.stream()
-                .forEach(product ->  response.add(new ProductResponseDTO(product)));
+        products.forEach(product ->  response.add(new ProductResponseDTO(product)));
 
         return response;
     }
 
-    // todo: FAZER JAVADOC
+    /** Salva os dados do produto
+     * @author Felipe
+     * @return os novos dados do produto
+     */
     @Override
     public Product saveProduct(Product newProduct) {
         return repo.save(newProduct);
-    }
-
-    // todo: FAZER JAVADOC
-    @Override
-    public Product updatedProduct(Product product) {
-        return repo.save(product);
     }
 
     /**
@@ -107,7 +101,11 @@ public class ProductService implements IProductService {
         if (product.isEmpty()) throw new NotFoundException("Product not found");
 
         Set<BatchStock> batches = product.get().getBatches();
-        Section sectionProduct = batches.iterator().next().getInboundOrder().getSection();
+        Section sectionProduct = new Section();
+
+        if(!batches.isEmpty()) {
+            sectionProduct = batches.iterator().next().getInboundOrder().getSection();
+        }
 
         return new ProductAgentResponseDTO(product.get(), sectionProduct, batches);
     }
@@ -158,7 +156,7 @@ public class ProductService implements IProductService {
         List<BatchStockAgentResponseDTO> batchesOrdered = product.getBatchStock().stream()
                 .sorted(Comparator.comparing(BatchStockAgentResponseDTO::getCurrentQuantity))
                 .collect(Collectors.toList());
-
+    
         product.setBatchStock(batchesOrdered);
 
         return product;
@@ -180,7 +178,12 @@ public class ProductService implements IProductService {
         return product;
     }
 
-    // todo: FAZER JAVADOC
+    /**
+     * De/Para da sigla de categoria para categoria de produto
+     * @author Felipe, Gabriel, Giovanna, Ma
+     * @param word sigla da categoria
+     * @return Uma categoria conforme a sigla, ou uma Exception caso não exista a Category
+     */
     private Category filterCategory(String word) {
         switch (word) {
             case "FS":

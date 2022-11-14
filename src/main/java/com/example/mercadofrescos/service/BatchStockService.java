@@ -48,23 +48,16 @@ public class BatchStockService implements IBatchStockService {
      * Salva uma lista de batches na base de dados
      * @author Gabriel
      * @param batches uma lista de batches a ser salva na base de dados
-     * @return a lista de batches salva na base de dados
      */
     @Override
-    public List<BatchStock> saveBatchStockList(List<BatchStock> batches) {
-        List<BatchStock> response = new ArrayList<>();
-
-        for(BatchStock batch :  batches){
-            response.add(this.repo.save(batch));
-        }
-
-        return response;
+    public void saveBatchStockList(List<BatchStock> batches) {
+        this.repo.saveAll(batches);
     }
 
     /**
      * Valida a lista de lotes de um InboundOrder
      * @author Gabriel
-     * @param inboundOrder Um objeto de inboundOrder com as informacoes com uma lista de lotes
+     * @param inboundOrder Um objeto de inboundOrder com as informações com uma lista de lotes
      * @return Retorna uma lista de lotes validados
      */
     @Override
@@ -88,19 +81,14 @@ public class BatchStockService implements IBatchStockService {
 
     /**
      * Verifica se todos os batches de uma lista existem na base de dados
+     * @author Gabriel
      * @param batches a lista ser verificada
-     * @return
      */
-    @Override
-    public List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches) {
-        List<BatchStock> batchesResponse = new ArrayList<>();
 
+    public void verifyIfAllBatchStockExists(List<BatchStock> batches) {
         for(BatchStock batch : batches) {
-           BatchStock response = this.findById(batch.getId());
-           batchesResponse.add(response);
+           this.findById(batch.getId());
         }
-
-        return batchesResponse;
     }
 
     /**
@@ -127,7 +115,7 @@ public class BatchStockService implements IBatchStockService {
      * @author Gabriel
      * @param batchStock o lote a ser validado
      * @param sectionTemperature a temperatura minima permitida no setor
-     * @return retorna true caso o setor tenha a temperatura permitida para os etor
+     * @return retorna true caso o setor tenha a temperatura permitida para o setor
      */
     private boolean validateTemperature(BatchStock batchStock, float sectionTemperature){
         return batchStock.getCurrentTemperature() >= sectionTemperature;
@@ -144,7 +132,7 @@ public class BatchStockService implements IBatchStockService {
     }
 
     /**
-     * Valida se o setor possui espaco suficiente para os lotes e atualiza
+     * Valida se o setor possui espaço suficiente para os lotes e atualiza
      * @author Gabriel
      * @param batches A lista de batches a serem salvas
      * @param section O setor onde os batches serão alocados

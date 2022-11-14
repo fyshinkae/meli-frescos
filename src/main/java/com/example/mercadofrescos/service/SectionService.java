@@ -30,7 +30,7 @@ public class SectionService implements ISectionService {
     /**
      * Salva um Setor na base de dados
      * @author Gabriel
-     * @param section Informacoes do setor a ser salvo na base de dados
+     * @param section Informações do setor a ser salvo na base de dados
      * @return O setor salvo na base de dados
      */
     @Override
