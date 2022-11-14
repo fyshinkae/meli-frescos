@@ -1,8 +1,11 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.ProductWarehousesDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
+import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Warehouse;
 import com.example.mercadofrescos.repository.IWarehouseRepo;
+import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.IWarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ public class WarehouseService implements IWarehouseService {
 
     private final IWarehouseRepo repo;
 
+    private final IProductService productService;
+
     /**
      * Busca uma Warehouse ou lança um erro caso não encontre
      * @author Theus
@@ -26,4 +31,13 @@ public class WarehouseService implements IWarehouseService {
 
         return warehouse.orElseThrow(() -> new NotFoundException("Warehouse not found"));
     }
+
+    @Override
+    public ProductWarehousesDTO getProductsQuantity(Long productId) {
+        Product product = productService.findById(productId);
+
+        return null;
+    }
+
+
 }
