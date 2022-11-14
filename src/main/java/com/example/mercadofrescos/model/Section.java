@@ -20,7 +20,7 @@ public class Section {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouseId", nullable = false)
     @JsonIgnoreProperties("warehouse")
     private Warehouse warehouse;

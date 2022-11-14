@@ -24,7 +24,7 @@ public class InboundOrder {
     @Column(nullable = false)
     private LocalDate orderDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sectionId", nullable = false)
     @JsonIgnoreProperties("inboundOrders")
     private Section section;
