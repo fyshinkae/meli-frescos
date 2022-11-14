@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public ProductWarehousesDTO getProductsQuantity(Long productId) {
         Product product = productService.findById(productId);
-        List<Warehouse> warehouseList = repo.getWarehousesByProductId(productId);
+        Set<Warehouse> warehouseList = repo.getWarehousesByProductId(productId);
         return new ProductWarehousesDTO(product, warehouseList);
     }
 

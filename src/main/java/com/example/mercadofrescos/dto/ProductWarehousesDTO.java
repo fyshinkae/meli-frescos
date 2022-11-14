@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class ProductWarehousesDTO {
     private Long productId;
     private List<WarehouseProductsDTO> warehouses;
 
-    public ProductWarehousesDTO(Product product, List<Warehouse> warehouses) {
+    public ProductWarehousesDTO(Product product, Set<Warehouse> warehouses) {
         this.productId = product.getId();
 
         this.warehouses = new ArrayList<>();
