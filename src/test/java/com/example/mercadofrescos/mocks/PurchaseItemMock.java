@@ -1,34 +1,28 @@
 package com.example.mercadofrescos.mocks;
 
-import com.example.mercadofrescos.model.Product;
+import com.example.mercadofrescos.dto.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
-import org.assertj.core.util.Arrays;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PurchaseItemMock {
-    public static List<PurchaseItem> puchaseItemTest() {
-        PurchaseItem purchaseItem1 = new PurchaseItem();
-        PurchaseItem purchaseItem2 = new PurchaseItem();
+    public static PurchaseItem puchaseItemTest() {
+        PurchaseItem purchaseItem = new PurchaseItem();
         PurchaseOrder purchaseOrder = new PurchaseOrder();
 
-        purchaseItem1.setId(1L);
-        purchaseItem1.setProductId(ProductMock.productTest());
-        purchaseItem1.setPurchaseOrderId(purchaseOrder);
-        purchaseItem1.setProductQuantity(10);
+        purchaseItem.setId(1L);
+        purchaseItem.setProductId(ProductMock.productTest());
+        purchaseItem.setPurchaseOrderId(purchaseOrder);
+        purchaseItem.setProductQuantity(10);
 
-        purchaseItem2.setId(2L);
-        purchaseItem2.setProductId(ProductMock.productTest());
-        purchaseItem2.setPurchaseOrderId(purchaseOrder);
-        purchaseItem2.setProductQuantity(20);
+        return purchaseItem;
+    }
 
-        return new ArrayList<>(){
-            {
-                add(purchaseItem1);
-                add(purchaseItem2);
-            }
-        };
+    public static List<PurchaseItemResponseDTO> convertoToDTO(List<PurchaseItem> items) {
+        return items.stream()
+                .map(PurchaseItemResponseDTO::new)
+                .collect(Collectors.toList());
     }
 }
