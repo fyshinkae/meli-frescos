@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,12 @@ public class InsertBatchRequestDTO {
     @Valid
     private InboundOrderRequestDTO inboundOrder;
 
-    // todo: FAZER JAVA DOC
+    /**
+     * Converte um InsertBatchRequestDTO para um InboundOrder
+     * @author Theus
+     * @param inboundOrderRequest um objeto do modelo InsertBatchRequestDTO a ser convertido
+     * @return um modelo InboundOrder
+     */
     public static InboundOrder convert(InsertBatchRequestDTO inboundOrderRequest)  {
         InboundOrder inboundOrder = new InboundOrder();
 

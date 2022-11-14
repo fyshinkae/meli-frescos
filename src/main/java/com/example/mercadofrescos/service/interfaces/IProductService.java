@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface IProductService {
     Product saveProduct(Product product);
-    Product updatedProduct(Product product);
     List<ProductResponseDTO> findAllProducts();
     Product findById(Long id);
     List<ProductDTO> findByCategory(String category);

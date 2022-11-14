@@ -5,5 +5,5 @@ import com.example.mercadofrescos.model.PurchaseItem;
 import java.util.List;
 
 public interface IPurchaseItemService {
-    List<PurchaseItem> savePurchaseItemList(List<PurchaseItem> purchaseItems);
+    void savePurchaseItemList(List<PurchaseItem> purchaseItems);
 }

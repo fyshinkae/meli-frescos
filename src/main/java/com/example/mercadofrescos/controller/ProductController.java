@@ -21,7 +21,7 @@ public class ProductController {
     /**
      * Lista todos os produtos cadastrados na base de dados
      * @author Gabriel
-     * @return HTTP Status e a lista de todos os produtos
+     * @return HTTP status e a lista de todos os produtos
      */
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> getAll(){
@@ -36,17 +36,17 @@ public class ProductController {
      */
     @GetMapping("/list")
     public ResponseEntity<List<ProductDTO>> getAllByCategory(
-            @RequestParam(required = false, name = "category") String category,
-            @RequestParam(required = false, name = "productId") Long productId
+            @RequestParam(required = false, name = "category") String category
     ) {
         List<ProductDTO> filterByCategory = service.findByCategory(category);
+
         return new ResponseEntity<>(filterByCategory, HttpStatus.OK);
     }
 
     /**
      * Lista os dados do produto para o representante
      * @param productId id do produto
-     * @param order ordernação opcional dos lotes do produto
+     * @param order ordenação opcional dos lotes do produto
      * @return um ProductAgentResponseDTO com os dados do produto
      */
     @GetMapping("/agent/list")

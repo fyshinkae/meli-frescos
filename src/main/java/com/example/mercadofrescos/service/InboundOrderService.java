@@ -41,10 +41,10 @@ public class InboundOrderService implements IInboundOrderService {
     }
 
     /**
-     * Atualiza os batchstocks
+     * Atualiza os batchStocks
      * @author Gabriel
-     * @param request parametro do usuário contendo informacoes sobre o inboundorder e uma lista de batchstocks
-     * @return  a lista de batchstocks atualizada
+     * @param request parâmetro do usuário contendo informações sobre o inboundOrder e uma lista de batchStocks
+     * @return  a lista de batchStocks atualizada
      */
     @Override
     public InboundOrderResponseDTO update(InboundOrder request, Long warehouseId) {

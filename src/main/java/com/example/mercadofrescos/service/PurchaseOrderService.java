@@ -2,9 +2,9 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
+import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.model.*;
-import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PurchaseOrderService implements IPurchaseOrderService {
 
-    private final IBatchStockRepo batchStockRepo;
     private final IPurchaseOrderRepo purchaseOrderRepo;
 
     @Autowired
@@ -41,7 +39,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * Calcula o valor total dos itens do carrinho
      * @author Felipe, Giovanna, Matheus, Gabriel, Theus
      * @param purchaseOrder Uma ordem de compra mandada pelo usuário
-     * @return Retorna o preco total da ordem de compra
+     * @return Retorna o preço total da ordem de compra
      */
     @Override
     public PurchasePriceDTO getCartAmount(PurchaseOrder purchaseOrder) {
@@ -65,7 +63,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
 
     /**
-     * Obtém uma lista de produtos possiveis de compra a partir de uma lista de PurchaseItem
+     * Obtém uma lista de produtos possíveis de compra a partir de uma lista de PurchaseItem
      * @author Felipe, Giovanna, Matheus, Gabriel, Theus
      * @param purchaseItems Lista de produtos recebida pelo request do usuário
      * @return Uma lista de produtos validada
@@ -73,7 +71,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
         List<Product> response = new ArrayList<>();
         List<Long> productIdErrors = new ArrayList<>();
-        LocalDate date;
+
         for(PurchaseItem item : purchaseItems){
             Product product = productService.findById(item.getProductId().getId());
             BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
@@ -88,13 +86,13 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             if (daysBetween > 21) {
                 response.add(product);
             } else {
-                throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " close to expiration");
+                throw new InvalidPurchaseException("Products " + productIdErrors + " close to expiration");
             }
 
         }
 
         if (!productIdErrors.isEmpty()) {
-            throw new InvalidPurchaseException("Products " + productIdErrors.toString() + " is not avaliable");
+            throw new InvalidPurchaseException("Products " + productIdErrors + " is not available");
         }
 
         return response;
@@ -146,5 +144,19 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         return purchaseItems.stream()
                 .map(PurchaseItemResponseDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Altera o 'orderStatus'
+     * @author Ma, Gabriel, Giovanna
+     * @param updateStatus da Ordem
+     */
+    public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
+
+        PurchaseOrder purchaseOrder = this.purchaseOrderRepo.getReferenceById(id);
+        if (purchaseOrder != null) {
+            purchaseOrder.setStatusOrder(updateStatus);
+        }
+        return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }
 }
