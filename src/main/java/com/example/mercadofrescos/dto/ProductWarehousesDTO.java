@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,7 @@ public class ProductWarehousesDTO {
     public ProductWarehousesDTO(Product product, List<Warehouse> warehouses) {
         this.productId = product.getId();
 
+        this.warehouses = new ArrayList<>();
         for(Warehouse warehouse: warehouses) {
             this.warehouses.add(new WarehouseProductsDTO(warehouse, product));
         }

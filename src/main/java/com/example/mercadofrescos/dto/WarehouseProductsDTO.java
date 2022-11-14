@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class WarehouseProductsDTO {
     private Long warehouseCode;
-    private Integer totalQuantity;
+    private int totalQuantity;
 
     public WarehouseProductsDTO(Warehouse warehouse, Product product) {
         this.warehouseCode = warehouse.getId();

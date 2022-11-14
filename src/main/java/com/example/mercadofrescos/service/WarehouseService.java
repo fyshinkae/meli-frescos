@@ -10,6 +10,7 @@ import com.example.mercadofrescos.service.interfaces.IWarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,8 +36,8 @@ public class WarehouseService implements IWarehouseService {
     @Override
     public ProductWarehousesDTO getProductsQuantity(Long productId) {
         Product product = productService.findById(productId);
-
-        return null;
+        List<Warehouse> warehouseList = repo.getWarehousesByProductId(productId);
+        return new ProductWarehousesDTO(product, warehouseList);
     }
 
 
