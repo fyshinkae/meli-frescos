@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service.interfaces;
 
+import com.example.mercadofrescos.dto.BatchStockResponseDTO;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 
@@ -11,5 +12,7 @@ public interface IBatchStockService {
     List<BatchStock> verifyIfAllBatchStockExists(List<BatchStock> batches);
 
     BatchStock findById(Long id);
+
+    BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id);
 
 }

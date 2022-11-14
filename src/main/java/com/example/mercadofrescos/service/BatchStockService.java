@@ -1,12 +1,15 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.BatchStockResponseDTO;
 import com.example.mercadofrescos.exception.InvalidBatchStockException;
+import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
+import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.ISectionService;
@@ -14,9 +17,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +30,8 @@ public class BatchStockService implements IBatchStockService {
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
     private final ISectionService serviceSection;
+
+    private final IInboundOrderRepo inboundOrderRepo;
 
     /**
      * Busca um BatchStock ou lança um erro caso não encontre
@@ -163,6 +170,44 @@ public class BatchStockService implements IBatchStockService {
 
         section.setCapacity(sectionCapacity - batchStockListTotalVolume);
         this.serviceSection.save(section);
+    }
+
+    /**
+     * Ordena pela data de vencimento
+     *
+     * @param id da 'section'
+     * @return retorna uma lista de 'batchStocks'
+     * @author Ma, Giovanna e Gabriel
+     */
+    public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id) {
+        Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(id);
+        Section section = inboundOrder.get().getSection();
+        List<BatchStock> batchStock = inboundOrder.get().getBatches();
+        if (batchStock == null) {
+            throw new InvalidPurchaseException("Produtos não encontrados");
+        }
+        // BatchStock batch = new BatchStock();
+        for (BatchStock batchStock1 : batchStock) {
+            LocalDate today = LocalDate.now();
+            long daysBetween = today.until(batchStock1.getDueDate(), ChronoUnit.DAYS);
+            if (daysBetween > days) {
+                batchStock = batchStock.stream().filter(batchStock2 -> batchStock2.getId() != batchStock1.getId()).collect(Collectors.toList());
+            }
+        }
+        List<BatchStock> dueDate = batchStock.stream().sorted((o1, o2) -> {
+            if (o2.getDueDate().isEqual(o1.getDueDate())) {
+                return 0;
+            }
+            if (o2.getDueDate().isBefore(o1.getDueDate())) {
+                return -1;
+            }
+            return 1;
+        }).collect(Collectors.toList());
+
+        if (dueDate.isEmpty()) {
+            throw new InvalidPurchaseException("Produtos não encontrados");
+        }
+        return new BatchStockResponseDTO(dueDate);
     }
 
 }
