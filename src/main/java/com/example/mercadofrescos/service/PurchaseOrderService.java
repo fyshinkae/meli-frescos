@@ -10,6 +10,7 @@ import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import com.example.mercadofrescos.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -25,9 +26,13 @@ public class PurchaseOrderService implements IPurchaseOrderService {
 
     private final IBatchStockRepo batchStockRepo;
     private final IPurchaseOrderRepo purchaseOrderRepo;
-    private final IProductService productService;
-    private final IPurchaseItemService purchaseItemService;
-    private final IUserService userService;
+
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private IProductService productService;
+    @Autowired
+    private IPurchaseItemService purchaseItemService;
 
     // TODO: Atualizar o productQuantity no batchStock
     // TODO: Atualizar o capacity da Section do batchStock atualizado
