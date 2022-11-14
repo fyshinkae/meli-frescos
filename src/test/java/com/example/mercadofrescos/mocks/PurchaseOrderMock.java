@@ -10,20 +10,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PruchaseOrderMock {
+public class PurchaseOrderMock {
     public static PurchaseOrder purchaseOrderTest() {
         User costumer = new User();
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        List<PurchaseItem> itemMockList = new ArrayList<>(){
-            { add(PurchaseItemMock.puchaseItemTest()); }
-        };
-        
+        PurchaseItem purchaseItemMock = PurchaseItemMock.puchaseItemTest();
+        List<PurchaseItem> purchaseItemList = new ArrayList<>();
+
+        purchaseItemList.add(purchaseItemMock);
+
         purchaseOrder.setId(1L);
         purchaseOrder.setCustomer(costumer);
         purchaseOrder.setStatusOrder(StatusOrder.ABERTO);
         purchaseOrder.setDate(LocalDate.parse("2018-01-20", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        purchaseOrder.setItemList(itemMockList);
-
+        purchaseOrder.setItemList(purchaseItemList);
 
         return purchaseOrder;
     }

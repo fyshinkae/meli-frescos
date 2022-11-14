@@ -2,6 +2,7 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.*;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.model.*;
@@ -23,9 +24,9 @@ import java.util.stream.Collectors;
 public class PurchaseOrderService implements IPurchaseOrderService {
 
     private final IPurchaseOrderRepo purchaseOrderRepo;
+    private final IUserService userService;
     private final IProductService productService;
     private final IPurchaseItemService purchaseItemService;
-    private final IUserService userService;
 
     // TODO: Atualizar o productQuantity no batchStock
     // TODO: Atualizar o capacity da Section do batchStock atualizado
@@ -66,29 +67,28 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
         List<Product> response = new ArrayList<>();
         List<Long> productIdErrors = new ArrayList<>();
+        List<Long> productIdExpiration = new ArrayList<>();
 
         for(PurchaseItem item : purchaseItems){
             Product product = productService.findById(item.getProductId().getId());
             BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
             if (batchStock == null) {
                 productIdErrors.add(product.getId());
-            }
-
-
-            LocalDate today = LocalDate.now();
-
-            long daysBetween = today.until(batchStock.getDueDate(), ChronoUnit.DAYS);
-            if (daysBetween > 21) {
-                response.add(product);
             } else {
-                throw new InvalidPurchaseException("Products " + productIdErrors + " close to expiration");
-            }
+                LocalDate today = LocalDate.now();
+                long daysBetween = today.until(batchStock.getDueDate(), ChronoUnit.DAYS);
 
+                if (daysBetween <= 21) productIdExpiration.add(product.getId());
+                else response.add(product);
+            }
         }
 
         if (!productIdErrors.isEmpty()) {
             throw new InvalidPurchaseException("Products " + productIdErrors + " is not available");
         }
+
+        if (!productIdExpiration.isEmpty())
+            throw new InvalidPurchaseException("Products " + productIdExpiration + " close to expiration");
 
         return response;
     }
@@ -130,15 +130,24 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param id da Ordem de compra
      */
     public List<PurchaseItemResponseDTO> getPurchaseOrderById(Long id) {
-        Optional<PurchaseOrder> purchaseOrder = this.purchaseOrderRepo.findById(id);
-        if(purchaseOrder.isEmpty()) {
-            throw new InvalidPurchaseException("Produtos não encontrados");
-        }
-        List<PurchaseItem> purchaseItems = purchaseOrder.get().getItemList();
+        PurchaseOrder purchaseOrder = this.findById(id);
+        List<PurchaseItem> purchaseItems = purchaseOrder.getItemList();
 
         return purchaseItems.stream()
                 .map(PurchaseItemResponseDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Busca uma ordem de compra e seus itens na base de dados
+     * @author Theus
+     * @param id da Ordem de compra
+     */
+    @Override
+    public PurchaseOrder findById(Long id) {
+        Optional<PurchaseOrder> purchaseOrder = this.purchaseOrderRepo.findById(id);
+
+        return purchaseOrder.orElseThrow(() -> new NotFoundException("Purchase order not found"));
     }
 
     /**
@@ -147,11 +156,8 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param updateStatus da Ordem
      */
     public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
-
-        PurchaseOrder purchaseOrder = this.purchaseOrderRepo.getReferenceById(id);
-        if (purchaseOrder != null) {
-            purchaseOrder.setStatusOrder(updateStatus);
-        }
+        PurchaseOrder purchaseOrder = this.findById(id);
+        purchaseOrder.setStatusOrder(updateStatus);
         return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }
 }
