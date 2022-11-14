@@ -19,6 +19,12 @@ public class WarehouseProductsDTO {
     private Long warehouseCode;
     private int totalQuantity;
 
+    /**
+     * Cria um WarehouseProductsDTO a partir de um armazém e seu respectivo produto
+     * @author Anderson e Gabriel
+     * @param warehouse armazém a ser convertida
+     * @param product Produto a ser convertido
+     */
     public WarehouseProductsDTO(Warehouse warehouse, Product product) {
         this.warehouseCode = warehouse.getId();
         Set<BatchStock> batchStocks = product.getBatches().stream().filter(batchStock -> batchStock.getInboundOrder()

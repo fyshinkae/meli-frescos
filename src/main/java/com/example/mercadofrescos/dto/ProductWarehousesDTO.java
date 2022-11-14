@@ -19,6 +19,12 @@ public class ProductWarehousesDTO {
     private Long productId;
     private List<WarehouseProductsDTO> warehouses;
 
+    /**
+     * Cria um ProductWarehousesDTO a partir da lista de armazéns e seu respectivo produto
+     * @author Anderson e Gabriel
+     * @param product Produto a ser convertido
+     * @param warehouses lista de armazéns a ser convertida
+     */
     public ProductWarehousesDTO(Product product, Set<Warehouse> warehouses) {
         this.productId = product.getId();
 

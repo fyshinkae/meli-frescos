@@ -34,11 +34,22 @@ public class WarehouseService implements IWarehouseService {
         return warehouse.orElseThrow(() -> new NotFoundException("Warehouse not found"));
     }
 
+    /**
+     * Obtém um produto e uma lista armazéns com suas devidas quantidades
+     * @author Anderson e Gabriel
+     * @param productId id do produto a ser pesquisado
+     * @return Um produto com sua lista de armazéns
+     */
     @Override
     public ProductWarehousesDTO getProductsQuantity(Long productId) {
         Product product = productService.findById(productId);
-        Set<Warehouse> warehouseList = repo.getWarehousesByProductId(productId);
-        return new ProductWarehousesDTO(product, warehouseList);
+        Set<Warehouse> warehouses = repo.getWarehousesByProductId(productId);
+
+        if(warehouses.isEmpty()){
+            throw new NotFoundException("Warehouses for product " + product + " not found");
+        }
+
+        return new ProductWarehousesDTO(product, warehouses);
     }
 
 
