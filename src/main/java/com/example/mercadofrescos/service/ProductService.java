@@ -198,6 +198,11 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Valida se todos os produtos existem
+     * @author Theus
+     * @param ids Lista de ids dos produtos
+     */
     @Override
     public void validAllExists(List<Long> ids) {
         for(Long idProduct : ids) {

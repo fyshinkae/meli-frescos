@@ -1,6 +1,5 @@
 package com.example.mercadofrescos.dto.purchase;
 
-import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +19,11 @@ public class PurchaseReservationResponseDTO {
     private LocalDateTime createdAt;
     private List<PurchaseItemResponseDTO> items;
 
+    /**
+     * Converte o modelo PurchaseOrder para um DTO
+     * @author Theus
+     * @param purchase objeto do modelo PurchaseOrder a ser convertido para dto
+     */
     public PurchaseReservationResponseDTO(PurchaseOrder purchase) {
         this.id = purchase.getId();
         this.createdAt = LocalDateTime.now();
