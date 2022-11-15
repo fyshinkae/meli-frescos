@@ -3,6 +3,7 @@ package com.example.mercadofrescos.service;
 import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.enums.StatusOrder;
@@ -32,8 +33,14 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private final IPurchaseItemService purchaseItemService;
     private final IPurchaseItemRepo purchaseItemRepo;
 
+    /**
+     * Cria uma reserva de pedido
+     * @author Theus
+     * @param purchase Uma ordem de reserva mandada pelo usuário
+     * @return Retorna um objeto do modelo PurchaseReservationResponseDTO
+     */
     @Override
-    public void createReservation(PurchaseOrder purchase) {
+    public PurchaseReservationResponseDTO createReservation(PurchaseOrder purchase) {
         User customer = this.userService.findById(purchase.getCustomer().getId());
         purchase.setCustomer(customer);
 
@@ -45,8 +52,10 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                         .collect(Collectors.toList())
         );
 
-        purchaseOrderRepo.save(purchase);
+        PurchaseOrder purchaseCreated = purchaseOrderRepo.save(purchase);
         purchaseItemRepo.saveAll(purchaseItemList);
+
+        return new PurchaseReservationResponseDTO(purchaseCreated);
     }
 
     /**
