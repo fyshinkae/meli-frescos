@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.ProductWarehousesDTO;
+import com.example.mercadofrescos.dto.product.ProductWarehousesDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Warehouse;
@@ -10,7 +10,6 @@ import com.example.mercadofrescos.service.interfaces.IWarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 

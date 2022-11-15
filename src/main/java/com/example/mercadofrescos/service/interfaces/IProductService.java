@@ -1,8 +1,8 @@
 package com.example.mercadofrescos.service.interfaces;
 
-import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
-import com.example.mercadofrescos.dto.ProductDTO;
-import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductAgentResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductDTO;
+import com.example.mercadofrescos.dto.product.ProductResponseDTO;
 import com.example.mercadofrescos.model.Product;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.service.interfaces;
 
-import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
+import com.example.mercadofrescos.dto.inboundOrder.InboundOrderResponseDTO;
 import com.example.mercadofrescos.model.InboundOrder;
 
 

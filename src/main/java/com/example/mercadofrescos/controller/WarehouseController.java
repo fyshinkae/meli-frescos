@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.ProductWarehousesDTO;
+import com.example.mercadofrescos.dto.product.ProductWarehousesDTO;
 import com.example.mercadofrescos.service.interfaces.IWarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

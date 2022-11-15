@@ -1,7 +1,7 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
-import com.example.mercadofrescos.dto.InsertBatchRequestDTO;
+import com.example.mercadofrescos.dto.inboundOrder.InboundOrderResponseDTO;
+import com.example.mercadofrescos.dto.batchStock.InsertBatchRequestDTO;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.service.InboundOrderService;
 import lombok.RequiredArgsConstructor;
@@ -49,10 +49,5 @@ public class InboundOrderController {
         InboundOrderResponseDTO data = service.update(inboundOrderRequest, warehouseId);
 
         return new ResponseEntity<>(data, HttpStatus.OK);
-    }
-
-    @PostMapping("/reservation")
-    public ResponseEntity<Void> createReservation() {
-    return null;
     }
 }

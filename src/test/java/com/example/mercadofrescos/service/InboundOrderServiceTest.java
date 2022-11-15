@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
+import com.example.mercadofrescos.dto.inboundOrder.InboundOrderResponseDTO;
 import com.example.mercadofrescos.mocks.InboundOrderMock;
 import com.example.mercadofrescos.mocks.SectionMock;
 import com.example.mercadofrescos.mocks.WarehouseMock;

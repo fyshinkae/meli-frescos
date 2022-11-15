@@ -1,5 +1,6 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.product;
 
+import com.example.mercadofrescos.dto.SellerResponseDTO;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.enums.Category;
 import lombok.AllArgsConstructor;

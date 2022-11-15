@@ -1,10 +1,11 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.*;
-import com.example.mercadofrescos.model.BatchStock;
-import com.example.mercadofrescos.model.PurchaseItem;
-import com.example.mercadofrescos.model.PurchaseOrder;
-import com.example.mercadofrescos.model.Section;
+import com.example.mercadofrescos.dto.batchStock.BatchStockResponseDTO;
+import com.example.mercadofrescos.dto.inboundOrder.InboundOrderResponseDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
+import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
@@ -28,6 +29,11 @@ public class PurchaseOrderController {
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/reservation")
+    public ResponseEntity<InboundOrderResponseDTO> createReservation(@RequestBody PurchaseOrderRequestDTO purchase) {
+        return null;
     }
 
     /**

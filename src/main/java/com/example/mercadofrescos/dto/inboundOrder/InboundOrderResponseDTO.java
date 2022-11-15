@@ -1,5 +1,6 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.inboundOrder;
 
+import com.example.mercadofrescos.dto.batchStock.BatchStockDTO;
 import com.example.mercadofrescos.model.InboundOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;

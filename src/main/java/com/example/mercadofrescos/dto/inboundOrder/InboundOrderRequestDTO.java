@@ -1,6 +1,7 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.inboundOrder;
 
 
+import com.example.mercadofrescos.dto.batchStock.BatchStockDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
