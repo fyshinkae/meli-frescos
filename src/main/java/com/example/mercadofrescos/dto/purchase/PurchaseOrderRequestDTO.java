@@ -28,4 +28,11 @@ public class PurchaseOrderRequestDTO {
         return response;
     }
 
+    public static PurchaseOrder convertToReservation(PurchaseOrderRequestDTO purchase) {
+        PurchaseOrder purchaseOrder = PurchaseOrderRequestDTO.convert(purchase);
+        purchaseOrder.setReservation(true);
+
+        return purchaseOrder;
+    }
+
 }

@@ -198,4 +198,10 @@ public class ProductService implements IProductService {
         }
     }
 
+    @Override
+    public void validAllExists(List<Long> ids) {
+        for(Long idProduct : ids) {
+            this.findById(idProduct);
+        }
+    }
 }

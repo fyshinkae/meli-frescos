@@ -32,8 +32,10 @@ public class PurchaseOrderController {
     }
 
     @PostMapping("/reservation")
-    public ResponseEntity<InboundOrderResponseDTO> createReservation(@RequestBody PurchaseOrderRequestDTO purchase) {
-        return null;
+    public ResponseEntity<String> createReservation(@RequestBody PurchaseOrderRequestDTO purchase) {
+        service.createReservation(PurchaseOrderRequestDTO.convertToReservation(purchase));
+
+        return new ResponseEntity<>("foi", HttpStatus.CREATED);
     }
 
     /**

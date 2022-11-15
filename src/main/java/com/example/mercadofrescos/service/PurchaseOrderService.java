@@ -6,6 +6,7 @@ import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.enums.StatusOrder;
+import com.example.mercadofrescos.repository.IPurchaseItemRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.service.interfaces.IProductService;
@@ -29,13 +30,23 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private final IUserService userService;
     private final IProductService productService;
     private final IPurchaseItemService purchaseItemService;
-
-    // TODO: Atualizar o productQuantity no batchStock
-    // TODO: Atualizar o capacity da Section do batchStock atualizado
+    private final IPurchaseItemRepo purchaseItemRepo;
 
     @Override
     public void createReservation(PurchaseOrder purchase) {
+        User customer = this.userService.findById(purchase.getCustomer().getId());
+        purchase.setCustomer(customer);
 
+        List<PurchaseItem> purchaseItemList = purchase.getItemList();
+
+        productService.validAllExists(
+                purchaseItemList.stream()
+                        .map(item -> item.getProductId().getId())
+                        .collect(Collectors.toList())
+        );
+
+        purchaseOrderRepo.save(purchase);
+        purchaseItemRepo.saveAll(purchaseItemList);
     }
 
     /**
