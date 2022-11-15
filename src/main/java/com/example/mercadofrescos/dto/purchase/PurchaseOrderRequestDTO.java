@@ -19,7 +19,10 @@ public class PurchaseOrderRequestDTO {
      * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
      */
     public static PurchaseOrder convert(PurchaseOrderRequestDTO purchaseOrderRequestDTO){
-        return PurchaseRequestDTO.convert(purchaseOrderRequestDTO.getPurchaseOrder());
+        PurchaseOrder purchaseOrder =  PurchaseRequestDTO.convert(purchaseOrderRequestDTO.getPurchaseOrder());
+        purchaseOrder.setReservation(false);
+
+        return  purchaseOrder;
     }
 
     public static PurchaseOrderRequestDTO convert(PurchaseOrder purchaseOrder){

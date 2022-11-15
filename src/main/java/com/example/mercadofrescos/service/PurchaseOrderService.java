@@ -130,7 +130,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private BatchStock getValidBatchStockByCapacity(Product product, int purchaseQuantity){
         Set<BatchStock> batches = product.getBatches();
         for(BatchStock batchStock : batches){
-            if(batchStock.getProductQuantity() > purchaseQuantity) {
+            if(batchStock.getProductQuantity() >= purchaseQuantity) {
                 return batchStock;
             }
         }
