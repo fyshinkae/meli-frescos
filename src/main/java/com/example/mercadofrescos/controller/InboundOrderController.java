@@ -50,4 +50,9 @@ public class InboundOrderController {
 
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
+
+    @PostMapping("/reservation")
+    public ResponseEntity<Void> createReservation() {
+    return null;
+    }
 }

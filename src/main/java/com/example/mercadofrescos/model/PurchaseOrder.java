@@ -22,7 +22,7 @@ public class PurchaseOrder {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn (name = "customer_id")
+    @JoinColumn(name = "customer_id")
     private User customer;
 
     @Enumerated(EnumType.STRING)
@@ -34,4 +34,7 @@ public class PurchaseOrder {
     @OneToMany(mappedBy = "purchaseOrderId")
     @JsonIgnoreProperties("productId")
     private List<PurchaseItem> itemList;
+
+    @Column(nullable = false)
+    private Boolean reservation;
 }
