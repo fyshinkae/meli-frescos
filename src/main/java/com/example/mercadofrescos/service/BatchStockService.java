@@ -163,46 +163,63 @@ public class BatchStockService implements IBatchStockService {
     }
 
     /**
-     * Ordena pela data de vencimento
-     *
-     * @param id da 'section'
-     * @return retorna uma lista de 'batchStocks'
+     * Ordena a lista de BatchStock pela data de vencimento
      * @author Ma, Giovanna e Gabriel
+     * @param sectionId da 'section'
+     * @return retorna uma lista de 'batchStocks'
      */
-    public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id) {
-        Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(id);
+    @Override
+    public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long sectionId) {
+        Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(sectionId);
 
-        // Section section = inboundOrder.get().getSection();
+        List<BatchStock> batchStocks = inboundOrder.get().getBatches();
+        batchStocks = this.validateBatchStockListByDueDate(batchStocks, days);
 
-        List<BatchStock> batchStock = inboundOrder.get().getBatches();
-        if (batchStock == null) {
-            throw new InvalidPurchaseException("Produtos não encontrados");
-        }
-        // BatchStock batch = new BatchStock();
-        for (BatchStock batchStock1 : batchStock) {
-            LocalDate today = LocalDate.now();
-            long daysBetween = today.until(batchStock1.getDueDate(), ChronoUnit.DAYS);
-            if (daysBetween > days) {
-                batchStock = batchStock.stream().filter(batchStock2 -> batchStock2.getId() != batchStock1.getId()).collect(Collectors.toList());
-            }
-        }
-        List<BatchStock> dueDate = batchStock.stream().sorted((o1, o2) -> {
-            if (o2.getDueDate().isEqual(o1.getDueDate())) {
-                return 0;
-            }
-            if (o2.getDueDate().isBefore(o1.getDueDate())) {
-                return -1;
-            }
-            return 1;
-        }).collect(Collectors.toList());
+        List<BatchStock> sortedBatchStocks = batchStocks.stream()
+                .sorted((o1, o2) -> this.sortedByDueDateDesc(o1,o2))
+                .collect(Collectors.toList());
 
-        if (dueDate.isEmpty()) {
-            throw new InvalidPurchaseException("Produtos não encontrados");
-        }
-
-        return new BatchStockResponseDTO(dueDate);
+        return new BatchStockResponseDTO(sortedBatchStocks);
     }
 
+    /**
+     * Filtra a lista de BatchStock pela categoria e ordenada pela data de vencimento
+     * @author Ma, Gabriel e Giovanna
+     * @param days, category e orderBy
+     * @return Uma lista de 'batchStocks' ordenados pelo número de dias até o vencimento, categoria e ordem(crescente ou decrescente)
+     */
+    @Override
+    public BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, String category, OrderBy orderBy) {
+        Category filterCategory = serviceProduct.filterCategory(category);
+        List<BatchStock> batchStock = repo.getBatchStocksByCategory(filterCategory);
+        batchStock = this.validateBatchStockListByDueDate(batchStock, days);
+
+        if (orderBy != OrderBy.ASC) {
+            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateAsc(a1, a2)).collect(Collectors.toList()));
+        }
+        return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateDesc(a1, a2)).collect(Collectors.toList()));
+    }
+
+    private List<BatchStock> validateBatchStockListByDueDate(List<BatchStock> batchStocks, Integer days){
+        if(batchStocks == null){
+            throw new NotFoundException("Lotes não encontrados");
+        }
+
+        List<BatchStock> validBatchStocks = new ArrayList<>();
+        for (BatchStock batch : batchStocks) {
+            LocalDate today = LocalDate.now();
+            long daysBetween = today.until(batch.getDueDate(), ChronoUnit.DAYS);
+            if (daysBetween <= days) {
+                validBatchStocks.add(batch);
+            }
+        }
+
+        if (validBatchStocks.isEmpty()) {
+            throw new NotFoundException("Lotes não encontrados");
+        }
+
+        return validBatchStocks;
+    }
 
     private Integer sortedByDueDateDesc(BatchStock a1, BatchStock a2) {
         if (a2.getDueDate().isEqual(a1.getDueDate())) {
@@ -221,31 +238,6 @@ public class BatchStockService implements IBatchStockService {
             return 1;
         }
         return -1;
-    }
-
-    /**
-     * De/Para da sigla de categoria para categoria de produto
-     * @author Ma, Gabriel e Giovanna
-     * @param days, category e orderBy
-     * @return Uma lista de 'batchStocks' ordenados pelo número de dias até o vencimento, categoria e ordem(crescente ou decrescente)
-     */
-    public BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, String category, OrderBy orderBy) {
-        Category filterCategory = serviceProduct.filterCategory(category);
-        List<BatchStock> batchStock = repo.getBatchStocksByCategory(filterCategory);
-        for (BatchStock batchStock1 : batchStock) {
-            LocalDate today = LocalDate.now();
-            long daysBetween = today.until(batchStock1.getDueDate(), ChronoUnit.DAYS);
-            if (daysBetween > days) {
-                batchStock = batchStock.stream().filter(batchStock2 -> batchStock2.getId() != batchStock1.getId()).collect(Collectors.toList());
-            }
-        }
-        if (batchStock.isEmpty()) {
-            throw new InvalidPurchaseException("Produtos não encontrados");
-        }
-        if (orderBy == null || orderBy == OrderBy.DESC) {
-            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateDesc(a1, a2)).collect(Collectors.toList()));
-        }
-            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateAsc(a1, a2)).collect(Collectors.toList()));
     }
 
 }
