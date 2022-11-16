@@ -24,7 +24,12 @@ public class PurchaseRequestDTO {
 
     private List<PurchaseItemDTO> products;
 
-    // todo: javadoc
+    /**
+     * Converte um PurchaseRequestDTO para PurchaseOrder
+     * @author Gabriel
+     * @param PurchaseRequestDTO DTO a ser convertido
+     * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
+     */
     public static PurchaseOrder convert(PurchaseRequestDTO purchaseDTO){
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setDate(purchaseDTO.getDate());
@@ -47,7 +52,12 @@ public class PurchaseRequestDTO {
         return purchaseOrder;
     }
 
-    // todo: javadoc
+    /**
+     * Converte um PurchaseOrder para PurchaseRequestDTO
+     * @author Giovanna
+     * @param PurchaseOrder DTO a ser convertido
+     * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
+     */
     public static PurchaseRequestDTO convert(PurchaseOrder purchaseOrder){
         PurchaseRequestDTO response = new PurchaseRequestDTO();
 
