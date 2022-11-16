@@ -11,6 +11,17 @@ O objetivo deste projeto final é implementar uma API REST no âmbito do slogan 
 os conteúdos trabalhados durante o BOOTCAMP MELI. (Git, Java, Spring, Banco de Dados,
 Qualidade e Segurança).
 
+* [Enunciado Base](https://drive.google.com/file/d/1Oha8lfWwiXB6cYHB32Ppi3cB3hYWKVvE/view?usp=sharing)
+
+### Especificações de Requisitos
+
+* [Requisito 1](https://drive.google.com/file/d/1FpDBHMdlxCwSTP6txExJIgOgcAG8ujTD/view?usp=sharing)
+* [Requisito 2](https://drive.google.com/file/d/1oJgq7YcNL_KmGG-drmxEjrpRkfGsj5ft/view?usp=sharing)
+* [Requisito 3](https://drive.google.com/file/d/1peHIPZG7TJ-83FOewkoL6YqQVwSUIPcr/view?usp=sharing)
+* [Requisito 4](https://drive.google.com/file/d/1OC5XIy1PsnX8ulTfackc-a0w17pw2wyz/view?usp=sharing)
+* [Requisito 5](https://drive.google.com/file/d/1eREsXg-O1IBD2SeKmRxlMHjyt8GsLYTs/view?usp=sharing)
+* [Requisito 6](https://drive.google.com/file/d/1il0kj0iGrPnVuko06dqxelyTiHcrkB6c/view?usp=sharing)
+
 ---
 
 ### Tabela de endpoints
