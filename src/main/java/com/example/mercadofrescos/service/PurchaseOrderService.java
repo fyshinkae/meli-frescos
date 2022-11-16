@@ -84,14 +84,24 @@ public class PurchaseOrderService implements IPurchaseOrderService {
             }
         }
 
+        this.verifyErrors(productIdErrors, productIdExpiration);
+
+        return response;
+    }
+
+    /**
+     * Verifica se existem erros e lança exceções
+     * @author Felipe, Giovanna, Matheus, Gabriel, Theus
+     * @param productIdErrors Lista de IDs de produtos com lotes vazios
+     * @param productIdExpiration Lista de IDs de produtos expirados
+     */
+    private void verifyErrors(List<Long> productIdErrors, List<Long> productIdExpiration) {
         if (!productIdErrors.isEmpty()) {
             throw new InvalidPurchaseException("Products " + productIdErrors + " is not available");
         }
 
         if (!productIdExpiration.isEmpty())
             throw new InvalidPurchaseException("Products " + productIdExpiration + " close to expiration");
-
-        return response;
     }
 
     /**
