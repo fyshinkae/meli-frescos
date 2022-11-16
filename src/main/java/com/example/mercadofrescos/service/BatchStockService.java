@@ -8,6 +8,8 @@ import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;
+import com.example.mercadofrescos.model.enums.Category;
+import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
@@ -31,6 +33,7 @@ public class BatchStockService implements IBatchStockService {
     private final IProductService serviceProduct;
     private final ISectionService serviceSection;
     private final IInboundOrderRepo inboundOrderRepo;
+
 
     /**
      * Busca um BatchStock ou lança um erro caso não encontre
@@ -169,6 +172,8 @@ public class BatchStockService implements IBatchStockService {
     public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id) {
         Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(id);
 
+        // Section section = inboundOrder.get().getSection();
+
         List<BatchStock> batchStock = inboundOrder.get().getBatches();
         if (batchStock == null) {
             throw new InvalidPurchaseException("Produtos não encontrados");
@@ -196,6 +201,51 @@ public class BatchStockService implements IBatchStockService {
         }
 
         return new BatchStockResponseDTO(dueDate);
+    }
+
+
+    private Integer sortedByDueDateDesc(BatchStock a1, BatchStock a2) {
+        if (a2.getDueDate().isEqual(a1.getDueDate())) {
+            return 0;
+        }
+        if (a2.getDueDate().isBefore(a1.getDueDate())) {
+            return -1;
+        }
+        return 1;
+    }
+    private Integer sortedByDueDateAsc(BatchStock a1, BatchStock a2) {
+        if (a2.getDueDate().isEqual(a1.getDueDate())) {
+            return 0;
+        }
+        if (a2.getDueDate().isBefore(a1.getDueDate())) {
+            return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * De/Para da sigla de categoria para categoria de produto
+     * @author Ma, Gabriel e Giovanna
+     * @param days, category e orderBy
+     * @return Uma lista de 'batchStocks' ordenados pelo número de dias até o vencimento, categoria e ordem(crescente ou decrescente)
+     */
+    public BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, String category, OrderBy orderBy) {
+        Category filterCategory = serviceProduct.filterCategory(category);
+        List<BatchStock> batchStock = repo.getBatchStocksByCategory(filterCategory);
+        for (BatchStock batchStock1 : batchStock) {
+            LocalDate today = LocalDate.now();
+            long daysBetween = today.until(batchStock1.getDueDate(), ChronoUnit.DAYS);
+            if (daysBetween > days) {
+                batchStock = batchStock.stream().filter(batchStock2 -> batchStock2.getId() != batchStock1.getId()).collect(Collectors.toList());
+            }
+        }
+        if (batchStock.isEmpty()) {
+            throw new InvalidPurchaseException("Produtos não encontrados");
+        }
+        if (orderBy == null || orderBy == OrderBy.DESC) {
+            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateDesc(a1, a2)).collect(Collectors.toList()));
+        }
+            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateAsc(a1, a2)).collect(Collectors.toList()));
     }
 
 }

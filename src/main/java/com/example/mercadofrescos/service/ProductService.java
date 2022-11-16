@@ -184,7 +184,7 @@ public class ProductService implements IProductService {
      * @param word sigla da categoria
      * @return Uma categoria conforme a sigla, ou uma Exception caso não exista a Category
      */
-    private Category filterCategory(String word) {
+    public Category filterCategory(String word) {
         switch (word) {
             case "FS":
                 return Category.FRESH;
