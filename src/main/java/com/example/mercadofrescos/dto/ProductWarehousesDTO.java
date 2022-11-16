@@ -16,7 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductWarehousesDTO {
+
     private Long productId;
+
     private List<WarehouseProductsDTO> warehouses;
 
     /**

@@ -32,12 +32,14 @@ public class PurchaseItemDTO {
 
         return purchaseItem;
     }
+
+    // todo: javadoc
     public static PurchaseItemDTO convert(PurchaseItem item) {
         PurchaseItemDTO response = new PurchaseItemDTO();
         response.setProductId(item.getProductId().getId());
         response.setQuantity(item.getProductQuantity());
-        return response;
 
+        return response;
     }
 
 }

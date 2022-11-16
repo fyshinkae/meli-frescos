@@ -14,9 +14,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponseDTO {
+
     private String name;
+
     private Category category;
+
     private BigDecimal price;
+
     private SellerResponseDTO seller;
 
     /**
