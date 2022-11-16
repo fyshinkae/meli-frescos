@@ -25,7 +25,11 @@ public class PurchaseOrderController {
     private final IPurchaseOrderService service;
     private final IBatchStockService serviceBatchStock;
 
-    // todo: JAVADOC
+    /**
+     * Cadastra um lote com o estoque de produtos que o compõe
+     * @author Ma e Giovanna
+     * @param purchaseOrder do lote
+     */
     @PostMapping("/orders")
     public ResponseEntity<PurchasePriceDTO> createNewOrder(@RequestBody PurchaseOrderRequestDTO purchaseOrder) {
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));

@@ -16,7 +16,7 @@ public class InboundOrderResponseDTO {
 
     /**
      * Converte um modelo do InboundOrder para um DTO de resposta
-     * @author Matheus Alves
+     * @author Ma
      * @param inBoundOrder um objeto do modelo InBoundOrder a ser convertido
      */
     public InboundOrderResponseDTO(InboundOrder inBoundOrder) {
