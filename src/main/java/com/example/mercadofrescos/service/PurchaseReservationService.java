@@ -50,6 +50,11 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         return new PurchaseReservationResponseDTO(purchaseCreated);
     }
 
+    /**
+     * Busca todos os pedidos reservados
+     * @author Theus
+     * @return Retorna uma lista de objetos do modelo PurchaseRequestDTO
+     */
     @Override
     public List<PurchaseRequestDTO> findAll() {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepo.findAllReservation();
