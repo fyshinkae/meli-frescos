@@ -14,5 +14,5 @@ public interface IBatchStockService {
     void verifyIfAllBatchStockExists(List<BatchStock> batches);
     BatchStock findById(Long id);
     BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id);
-    BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, Category category, OrderBy orderBy);
+    BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, String category, OrderBy orderBy);
 }

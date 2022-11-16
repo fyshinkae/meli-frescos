@@ -202,9 +202,48 @@ public class BatchStockService implements IBatchStockService {
     }
 
 
-    // Todo: Implementar getBatchStockOrderByDueDateAndCategory
-    public BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, Category category, OrderBy orderBy) {
-        return null;
+    private Integer sortedByDueDateDesc(BatchStock a1, BatchStock a2) {
+        if (a2.getDueDate().isEqual(a1.getDueDate())) {
+            return 0;
+        }
+        if (a2.getDueDate().isBefore(a1.getDueDate())) {
+            return -1;
+        }
+        return 1;
+    }
+    private Integer sortedByDueDateAsc(BatchStock a1, BatchStock a2) {
+        if (a2.getDueDate().isEqual(a1.getDueDate())) {
+            return 0;
+        }
+        if (a2.getDueDate().isBefore(a1.getDueDate())) {
+            return 1;
+        }
+        return -1;
+    }
+
+    /**
+     * De/Para da sigla de categoria para categoria de produto
+     * @author Ma, Gabriel e Giovanna
+     * @param days, category e orderBy
+     * @return Uma lista de 'batchStocks' ordenados pelo número de dias até o vencimento, categoria e ordem(crescente ou decrescente)
+     */
+    public BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, String category, OrderBy orderBy) {
+        Category filterCategory = serviceProduct.filterCategory(category);
+        List<BatchStock> batchStock = repo.getBatchStocksByCategory(filterCategory);
+        for (BatchStock batchStock1 : batchStock) {
+            LocalDate today = LocalDate.now();
+            long daysBetween = today.until(batchStock1.getDueDate(), ChronoUnit.DAYS);
+            if (daysBetween > days) {
+                batchStock = batchStock.stream().filter(batchStock2 -> batchStock2.getId() != batchStock1.getId()).collect(Collectors.toList());
+            }
+        }
+        if (batchStock.isEmpty()) {
+            throw new InvalidPurchaseException("Produtos não encontrados");
+        }
+        if (orderBy == null || orderBy == OrderBy.DESC) {
+            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateDesc(a1, a2)).collect(Collectors.toList()));
+        }
+            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateAsc(a1, a2)).collect(Collectors.toList()));
     }
 
 }

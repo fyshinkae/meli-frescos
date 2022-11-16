@@ -62,23 +62,25 @@ public class PurchaseOrderController {
      * @param sectionId e 'days'
      * @return retorna uma lista de 'batchStocks'
      */
-    @GetMapping("/due-date/{days}/{sectionId}")
-    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@PathVariable Integer days, @PathVariable Long sectionId) {
+    @GetMapping("/due-date")
+    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@RequestParam Integer days, @RequestParam Long sectionId) {
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
         return ResponseEntity.ok(batchStock);
     }
 
     /**
      * Retorna uma lista de lotes no prazo de validade solicitada com uma determinada categoria de produto de forma crescente
-     * @author Ma e Giovanna
+     * @author Ma, Gabriel e Giovanna
      * @param days, category e orderBy
      * @return retorna uma lista de 'batchStocks'
      */
-    @GetMapping("/due-date/{days}/{category}/{orderBy}")
+    @GetMapping("/due-date/list")
     public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDateAndCategory(
-            @PathVariable Integer days,
-            @PathVariable Category category,
-            @PathVariable OrderBy orderBy) {
+            @RequestParam Integer days,
+            @RequestParam String category,
+            @RequestParam(required=false
+            ) OrderBy orderBy
+    ) {
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDateAndCategory(days, category, orderBy);
         return ResponseEntity.ok(batchStock);
     }
