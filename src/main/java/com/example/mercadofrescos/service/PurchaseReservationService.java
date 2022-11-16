@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
@@ -47,5 +48,12 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         purchaseItemRepo.saveAll(purchaseItemList);
 
         return new PurchaseReservationResponseDTO(purchaseCreated);
+    }
+
+    @Override
+    public List<PurchaseRequestDTO> findAll() {
+        List<PurchaseOrder> purchaseOrders = purchaseOrderRepo.findAllReservation();
+
+        return purchaseOrders.stream().map(PurchaseRequestDTO::convert).collect(Collectors.toList());
     }
 }
