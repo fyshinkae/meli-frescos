@@ -170,9 +170,7 @@ public class BatchStockService implements IBatchStockService {
      */
     @Override
     public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long sectionId) {
-        Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(sectionId);
-
-        List<BatchStock> batchStocks = inboundOrder.get().getBatches();
+        List<BatchStock> batchStocks = this.repo.getBatchStocksBySectionId(sectionId);
         batchStocks = this.validateBatchStockListByDueDate(batchStocks, days);
 
         List<BatchStock> sortedBatchStocks = batchStocks.stream()
@@ -200,6 +198,13 @@ public class BatchStockService implements IBatchStockService {
         return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateDesc(a1, a2)).collect(Collectors.toList()));
     }
 
+    /**
+     * Valida a lida de BatchStocks de acordo com a data de vencimento
+     * @author Ma, Giovanna e Gabriel
+     * @param batchStocks lista de batchstocks a ser validada
+     * @param days numero de dias maximo de vencimento
+     * @return uma lista de batch stocks validados
+     */
     private List<BatchStock> validateBatchStockListByDueDate(List<BatchStock> batchStocks, Integer days){
         if(batchStocks == null){
             throw new NotFoundException("Lotes não encontrados");
@@ -221,6 +226,13 @@ public class BatchStockService implements IBatchStockService {
         return validBatchStocks;
     }
 
+    /**
+     * Ordena BatchStocks a partir da data de vencimento de forma decrescente
+     * @author Giovanna
+     * @param a1 BatchStock1
+     * @param a2 BatchStock2
+     * @return 0,1 ou -1
+     */
     private Integer sortedByDueDateDesc(BatchStock a1, BatchStock a2) {
         if (a2.getDueDate().isEqual(a1.getDueDate())) {
             return 0;
@@ -230,6 +242,14 @@ public class BatchStockService implements IBatchStockService {
         }
         return 1;
     }
+
+    /**
+     * Ordena BatchStocks a partir da data de vencimento de forma ascendente
+     * @author Giovanna
+     * @param a1 BatchStock1
+     * @param a2 BatchStock2
+     * @return 0,1 ou -1
+     */
     private Integer sortedByDueDateAsc(BatchStock a1, BatchStock a2) {
         if (a2.getDueDate().isEqual(a1.getDueDate())) {
             return 0;
