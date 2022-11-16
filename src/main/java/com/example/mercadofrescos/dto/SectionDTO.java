@@ -12,7 +12,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SectionDTO {
+
     private Long sectionCode;
+
     private Long warehouseCode;
 
     /**

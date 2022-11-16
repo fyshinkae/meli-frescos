@@ -13,8 +13,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BatchStockAgentResponseDTO {
+
     private Long batchNumber;
+
     private Integer currentQuantity;
+
     private LocalDate dueDate;
 
     /**

@@ -16,7 +16,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WarehouseProductsDTO {
+
     private Long warehouseCode;
+
     private int totalQuantity;
 
     /**

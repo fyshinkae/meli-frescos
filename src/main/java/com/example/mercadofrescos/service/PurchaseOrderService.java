@@ -55,6 +55,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         }
 
         this.savePurchaseOrder(purchaseOrder);
+
         return new PurchasePriceDTO(totalCartAmount);
     }
 
@@ -107,6 +108,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                 return batchStock;
             }
         }
+
         return null;
     }
 
@@ -158,6 +160,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
         PurchaseOrder purchaseOrder = this.findById(id);
         purchaseOrder.setStatusOrder(updateStatus);
+
         return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }
 }

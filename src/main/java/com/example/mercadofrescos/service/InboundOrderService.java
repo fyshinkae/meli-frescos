@@ -37,6 +37,7 @@ public class InboundOrderService implements IInboundOrderService {
 
         InboundOrder response = repoOrder.save(request);
         serviceBatchStock.saveBatchStockList(batches);
+
         return new InboundOrderResponseDTO(response);
     }
 
@@ -49,6 +50,7 @@ public class InboundOrderService implements IInboundOrderService {
     @Override
     public InboundOrderResponseDTO update(InboundOrder request, Long warehouseId) {
         serviceBatchStock.verifyIfAllBatchStockExists(request.getBatches());
+
         return this.save(request, warehouseId);
     }
 }

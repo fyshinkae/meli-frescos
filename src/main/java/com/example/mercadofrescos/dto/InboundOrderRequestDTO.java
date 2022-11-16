@@ -18,7 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InboundOrderRequestDTO {
+
     private Long orderNumber;
+
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;

@@ -22,9 +22,11 @@ public class PurchaseOrderRequestDTO {
         return PurchaseRequestDTO.convert(purchaseOrderRequestDTO.getPurchaseOrder());
     }
 
+    // todo: javadoc
     public static PurchaseOrderRequestDTO convert(PurchaseOrder purchaseOrder){
         PurchaseOrderRequestDTO response = new PurchaseOrderRequestDTO();
         response.setPurchaseOrder(PurchaseRequestDTO.convert(purchaseOrder));
+
         return response;
     }
 

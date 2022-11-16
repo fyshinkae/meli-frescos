@@ -15,8 +15,11 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class ProductAgentResponseDTO {
+
     private SectionDTO section;
+
     private Long productId;
+
     private List<BatchStockAgentResponseDTO> batchStock;
 
     /** Cria um objeto esperado de resposta de produto por um agente

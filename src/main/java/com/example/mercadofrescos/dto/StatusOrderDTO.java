@@ -7,5 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class StatusOrderDTO {
+
     private StatusOrder orderStatus;
 }

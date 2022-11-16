@@ -21,13 +21,13 @@ public class WarehouseController {
      * Obtém um produto e sua lista de armazéns
      * @author Anderson e Gabriel
      * @param id id do produto a ser pesquisado
-     * @return HTTP Status e um produto com sua lista de armazéns.
+     * @return HTTP status e um produto com sua lista de armazéns.
      */
     @GetMapping("/{id}")
     public ResponseEntity<ProductWarehousesDTO> getWarehousesByProductId(@PathVariable Long id) {
         ProductWarehousesDTO response = warehouseService.getProductsQuantity(id);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 
 }

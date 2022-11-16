@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseRequestDTO {
+
     private LocalDate date;
 
     private Long id, buyerId;
@@ -23,9 +24,9 @@ public class PurchaseRequestDTO {
 
     private List<PurchaseItemDTO> products;
 
+    // todo: javadoc
     public static PurchaseOrder convert(PurchaseRequestDTO purchaseDTO){
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-
         purchaseOrder.setDate(purchaseDTO.getDate());
         purchaseOrder.setId(purchaseDTO.getId());
         purchaseOrder.setStatusOrder(purchaseDTO.getOrderStatus());
@@ -45,19 +46,24 @@ public class PurchaseRequestDTO {
 
         return purchaseOrder;
     }
+
+    // todo: javadoc
     public static PurchaseRequestDTO convert(PurchaseOrder purchaseOrder){
         PurchaseRequestDTO response = new PurchaseRequestDTO();
+
         response.setId(purchaseOrder.getId());
         response.setBuyerId(purchaseOrder.getCustomer().getId());
         response.setDate(purchaseOrder.getDate());
         response.setOrderStatus(purchaseOrder.getStatusOrder());
+
         List<PurchaseItemDTO> items = new ArrayList<>();
         for(PurchaseItem purchaseItem : purchaseOrder.getItemList()){
             PurchaseItemDTO products = PurchaseItemDTO.convert(purchaseItem);
             items.add(products);
         }
-        response.setProducts(items);
-        return response;
 
+        response.setProducts(items);
+
+        return response;
     }
 }
