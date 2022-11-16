@@ -1,6 +1,12 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.*;
+import com.example.mercadofrescos.model.BatchStock;
+import com.example.mercadofrescos.model.PurchaseItem;
+import com.example.mercadofrescos.model.PurchaseOrder;
+import com.example.mercadofrescos.model.Section;
+import com.example.mercadofrescos.model.enums.Category;
+import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
@@ -44,7 +50,6 @@ public class PurchaseOrderController {
      * @author Ma, Gabriel, Giovanna
      * @param status da Ordem
      */
-
     @PutMapping("/orders/{id}")
     public ResponseEntity<PurchaseOrderRequestDTO> updateOrderStatus(@RequestBody StatusOrderDTO status, @PathVariable Long id) {
         StatusOrder purchaseOrder = status.getOrderStatus();
@@ -56,14 +61,28 @@ public class PurchaseOrderController {
     /**
      * Ordena pela data de vencimento
      * @author Ma, Giovanna e Gabriel
-     * @param id da 'section' e 'days'
+     * @param sectionId e 'days'
      * @return retorna uma lista de 'batchStocks'
      */
-    // todo: fix javadoc
-    @GetMapping("/due-date/{days}/{sectionId}")
-    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@PathVariable Integer days, @PathVariable Long sectionId) {
+    @GetMapping("/due-date")
+    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@RequestParam Integer days, @RequestParam Long sectionId) {
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
+        return ResponseEntity.ok(batchStock);
+    }
 
+    /**
+     * Retorna uma lista de lotes no prazo de validade solicitada com uma determinada categoria de produto de forma crescente
+     * @author Ma, Gabriel e Giovanna
+     * @param days, category e orderBy
+     * @return retorna uma lista de 'batchStocks'
+     */
+    @GetMapping("/due-date/list")
+    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDateAndCategory(
+            @RequestParam Integer days,
+            @RequestParam String category,
+            @RequestParam(required=false) OrderBy orderBy
+    ) {
+        BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDateAndCategory(days, category, orderBy);
         return ResponseEntity.ok(batchStock);
     }
 
