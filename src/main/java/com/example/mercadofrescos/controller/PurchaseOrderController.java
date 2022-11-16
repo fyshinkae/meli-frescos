@@ -68,13 +68,7 @@ public class PurchaseOrderController {
 
     @GetMapping("/due-date")
     public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@RequestParam Integer days, @RequestParam Long sectionId) {
-
-    // todo: fix javadoc
-    @GetMapping("/due-date/{days}/{sectionId}")
-    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@PathVariable Integer days, @PathVariable Long sectionId) {
-
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
-
         return ResponseEntity.ok(batchStock);
     }
 
@@ -88,8 +82,7 @@ public class PurchaseOrderController {
     public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDateAndCategory(
             @RequestParam Integer days,
             @RequestParam String category,
-            @RequestParam(required=false
-            ) OrderBy orderBy
+            @RequestParam(required=false) OrderBy orderBy
     ) {
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDateAndCategory(days, category, orderBy);
         return ResponseEntity.ok(batchStock);
