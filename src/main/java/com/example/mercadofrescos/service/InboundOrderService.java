@@ -1,12 +1,14 @@
 package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +41,19 @@ public class InboundOrderService implements IInboundOrderService {
         serviceBatchStock.saveBatchStockList(batches);
 
         return new InboundOrderResponseDTO(response);
+    }
+
+    /**
+     * Busca um InboundOrder e lança uma exceção caso não encontre
+     * @author Theus
+     * @param id do InboundOrder
+     * @return um objeto do modelo InboundOrder
+     */
+    @Override
+    public InboundOrder findById(Long id) {
+        Optional<InboundOrder> inboundOrder = this.repoOrder.findById(id);
+
+        return inboundOrder.orElseThrow(() -> new NotFoundException("Inbound order not found"));
     }
 
     /**
