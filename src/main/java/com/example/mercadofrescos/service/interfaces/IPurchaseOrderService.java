@@ -14,5 +14,4 @@ public interface IPurchaseOrderService {
     PurchasePriceDTO getCartAmount(PurchaseOrder purchaseOrder);
     List<PurchaseItemResponseDTO> getPurchaseOrderById(Long id);
     PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id);
-    PurchaseReservationResponseDTO createReservation(PurchaseOrder purchaseReservation);
 }
