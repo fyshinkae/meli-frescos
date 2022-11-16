@@ -50,7 +50,6 @@ public class PurchaseOrderController {
      * @author Ma, Gabriel, Giovanna
      * @param status da Ordem
      */
-
     @PutMapping("/orders/{id}")
     public ResponseEntity<PurchaseOrderRequestDTO> updateOrderStatus(@RequestBody StatusOrderDTO status, @PathVariable Long id) {
         StatusOrder purchaseOrder = status.getOrderStatus();
@@ -65,7 +64,6 @@ public class PurchaseOrderController {
      * @param sectionId e 'days'
      * @return retorna uma lista de 'batchStocks'
      */
-
     @GetMapping("/due-date")
     public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@RequestParam Integer days, @RequestParam Long sectionId) {
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
