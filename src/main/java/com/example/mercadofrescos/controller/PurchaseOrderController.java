@@ -5,6 +5,8 @@ import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.Section;
+import com.example.mercadofrescos.model.enums.Category;
+import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
@@ -57,12 +59,27 @@ public class PurchaseOrderController {
     /**
      * Ordena pela data de vencimento
      * @author Ma, Giovanna e Gabriel
-     * @param id da 'section' e 'days'
+     * @param sectionId e 'days'
      * @return retorna uma lista de 'batchStocks'
      */
     @GetMapping("/due-date/{days}/{sectionId}")
     public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@PathVariable Integer days, @PathVariable Long sectionId) {
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
+        return ResponseEntity.ok(batchStock);
+    }
+
+    /**
+     * Retorna uma lista de lotes no prazo de validade solicitada com uma determinada categoria de produto de forma crescente
+     * @author Ma e Giovanna
+     * @param days, category e orderBy
+     * @return retorna uma lista de 'batchStocks'
+     */
+    @GetMapping("/due-date/{days}/{category}/{orderBy}")
+    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDateAndCategory(
+            @PathVariable Integer days,
+            @PathVariable Category category,
+            @PathVariable OrderBy orderBy) {
+        BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDateAndCategory(days, category, orderBy);
         return ResponseEntity.ok(batchStock);
     }
 

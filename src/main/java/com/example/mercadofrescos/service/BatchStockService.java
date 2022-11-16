@@ -8,6 +8,8 @@ import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;
+import com.example.mercadofrescos.model.enums.Category;
+import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
@@ -32,6 +34,7 @@ public class BatchStockService implements IBatchStockService {
     private final ISectionService serviceSection;
 
     private final IInboundOrderRepo inboundOrderRepo;
+
 
     /**
      * Busca um BatchStock ou lança um erro caso não encontre
@@ -169,7 +172,7 @@ public class BatchStockService implements IBatchStockService {
      */
     public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id) {
         Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(id);
-        Section section = inboundOrder.get().getSection();
+        // Section section = inboundOrder.get().getSection();
         List<BatchStock> batchStock = inboundOrder.get().getBatches();
         if (batchStock == null) {
             throw new InvalidPurchaseException("Produtos não encontrados");
@@ -196,6 +199,12 @@ public class BatchStockService implements IBatchStockService {
             throw new InvalidPurchaseException("Produtos não encontrados");
         }
         return new BatchStockResponseDTO(dueDate);
+    }
+
+
+    // Todo: Implementar getBatchStockOrderByDueDateAndCategory
+    public BatchStockResponseDTO getBatchStockOrderByDueDateAndCategory(Integer days, Category category, OrderBy orderBy) {
+        return null;
     }
 
 }
