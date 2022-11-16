@@ -32,7 +32,6 @@ public class BatchStockService implements IBatchStockService {
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
     private final ISectionService serviceSection;
-
     private final IInboundOrderRepo inboundOrderRepo;
 
 
@@ -44,6 +43,7 @@ public class BatchStockService implements IBatchStockService {
     @Override
     public BatchStock findById(Long id) {
         Optional<BatchStock> batchStock = repo.findById(id);
+
         return batchStock.orElseThrow(() -> new NotFoundException("BatchStock not found"));
     }
 
@@ -87,7 +87,6 @@ public class BatchStockService implements IBatchStockService {
      * @author Gabriel
      * @param batches a lista ser verificada
      */
-
     public void verifyIfAllBatchStockExists(List<BatchStock> batches) {
         for(BatchStock batch : batches) {
            this.findById(batch.getId());
@@ -172,7 +171,9 @@ public class BatchStockService implements IBatchStockService {
      */
     public BatchStockResponseDTO getBatchStockOrderByDueDate(Integer days, Long id) {
         Optional<InboundOrder> inboundOrder = inboundOrderRepo.findById(id);
+
         // Section section = inboundOrder.get().getSection();
+
         List<BatchStock> batchStock = inboundOrder.get().getBatches();
         if (batchStock == null) {
             throw new InvalidPurchaseException("Produtos não encontrados");
@@ -198,6 +199,7 @@ public class BatchStockService implements IBatchStockService {
         if (dueDate.isEmpty()) {
             throw new InvalidPurchaseException("Produtos não encontrados");
         }
+
         return new BatchStockResponseDTO(dueDate);
     }
 

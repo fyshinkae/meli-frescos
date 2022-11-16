@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseItemResponseDTO {
+
     private Long productId;
+
     private Integer quantity;
 
     public PurchaseItemResponseDTO(PurchaseItem item) {

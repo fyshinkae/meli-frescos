@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchasePriceDTO {
+
     @JsonProperty("totalPrice")
     private Double totalPrice;
 }

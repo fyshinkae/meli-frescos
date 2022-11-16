@@ -22,9 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PurchaseOrderController {
 
-
     private final IPurchaseOrderService service;
     private final IBatchStockService serviceBatchStock;
+
+    // todo: JAVADOC
     @PostMapping("/orders")
     public ResponseEntity<PurchasePriceDTO> createNewOrder(@RequestBody PurchaseOrderRequestDTO purchaseOrder) {
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));
@@ -40,6 +41,7 @@ public class PurchaseOrderController {
     @GetMapping("/orders/{id}")
     public ResponseEntity<List<PurchaseItemResponseDTO>> getOrderById(@PathVariable Long id) {
         List<PurchaseItemResponseDTO> order = service.getPurchaseOrderById(id);
+
         return ResponseEntity.ok(order);
     }
 
@@ -53,6 +55,7 @@ public class PurchaseOrderController {
     public ResponseEntity<PurchaseOrderRequestDTO> updateOrderStatus(@RequestBody StatusOrderDTO status, @PathVariable Long id) {
         StatusOrder purchaseOrder = status.getOrderStatus();
         PurchaseOrderRequestDTO orderUpdated = service.updateOrderStatus(purchaseOrder, id);
+
         return ResponseEntity.ok(orderUpdated);
     }
 
@@ -62,9 +65,16 @@ public class PurchaseOrderController {
      * @param sectionId e 'days'
      * @return retorna uma lista de 'batchStocks'
      */
+
     @GetMapping("/due-date")
     public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@RequestParam Integer days, @RequestParam Long sectionId) {
+
+    // todo: fix javadoc
+    @GetMapping("/due-date/{days}/{sectionId}")
+    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@PathVariable Integer days, @PathVariable Long sectionId) {
+
         BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
+
         return ResponseEntity.ok(batchStock);
     }
 

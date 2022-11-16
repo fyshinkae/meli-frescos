@@ -14,6 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 public class PurchaseItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

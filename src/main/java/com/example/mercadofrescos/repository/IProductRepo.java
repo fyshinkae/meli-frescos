@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface IProductRepo extends JpaRepository<Product, Long> {
     List<Product> findAllByCategory(Category category);
-
 }

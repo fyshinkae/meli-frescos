@@ -11,8 +11,12 @@ import java.util.List;
 @Setter
 @Builder
 public class ExceptionDetails {
+
     private String title, message;
+
     private int status;
+
     private List<FieldMessage> fieldsMessage;
+
     private LocalDateTime timestamps;
 }
