@@ -10,7 +10,6 @@ import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.model.enums.Category;
 import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
-import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.ISectionService;
@@ -31,7 +30,6 @@ public class BatchStockService implements IBatchStockService {
     private final IBatchStockRepo repo;
     private final IProductService serviceProduct;
     private final ISectionService serviceSection;
-    private final IInboundOrderRepo inboundOrderRepo;
 
     /**
      * Busca um BatchStock ou lança um erro caso não encontre
@@ -172,7 +170,7 @@ public class BatchStockService implements IBatchStockService {
         batchStocks = this.validateBatchStockListByDueDate(batchStocks, days);
 
         List<BatchStock> sortedBatchStocks = batchStocks.stream()
-                .sorted((o1, o2) -> this.sortedByDueDateDesc(o1,o2))
+                .sorted(this::sortedByDueDateDesc)
                 .collect(Collectors.toList());
 
         return new BatchStockResponseDTO(sortedBatchStocks);
@@ -191,17 +189,22 @@ public class BatchStockService implements IBatchStockService {
         batchStock = this.validateBatchStockListByDueDate(batchStock, days);
 
         if (orderBy != OrderBy.ASC) {
-            return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateAsc(a1, a2)).collect(Collectors.toList()));
+            return new BatchStockResponseDTO(batchStock.stream()
+                    .sorted(this::sortedByDueDateAsc)
+                    .collect(Collectors.toList()));
         }
-        return new BatchStockResponseDTO(batchStock.stream().sorted((a1, a2) -> this.sortedByDueDateDesc(a1, a2)).collect(Collectors.toList()));
+
+        return new BatchStockResponseDTO(batchStock.stream()
+                .sorted(this::sortedByDueDateDesc)
+                .collect(Collectors.toList()));
     }
 
     /**
-     * Valida a lida de BatchStocks de acordo com a data de vencimento
+     * Valida a lista de BatchStocks conforme a data de vencimento
      * @author Ma, Giovanna e Gabriel
-     * @param batchStocks lista de batchstocks a ser validada
-     * @param days numero de dias maximo de vencimento
-     * @return uma lista de batch stocks validados
+     * @param batchStocks lista de batchStocks a ser validada
+     * @param days numero de dia máximo de vencimento
+     * @return uma lista de batchStocks validados
      */
     private List<BatchStock> validateBatchStockListByDueDate(List<BatchStock> batchStocks, Integer days){
         if(batchStocks == null){
