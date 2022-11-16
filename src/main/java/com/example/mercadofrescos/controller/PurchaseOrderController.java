@@ -1,11 +1,6 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.*;
-import com.example.mercadofrescos.model.BatchStock;
-import com.example.mercadofrescos.model.PurchaseItem;
-import com.example.mercadofrescos.model.PurchaseOrder;
-import com.example.mercadofrescos.model.Section;
-import com.example.mercadofrescos.model.enums.Category;
 import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
