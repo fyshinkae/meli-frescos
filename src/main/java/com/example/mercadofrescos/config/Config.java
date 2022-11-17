@@ -18,7 +18,7 @@ import java.util.Locale;
 public class Config {
 
     @Bean
-    public Docket api() {
+    public Docket swagger() {
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
             .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
