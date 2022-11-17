@@ -33,7 +33,12 @@ public class PurchaseItemDTO {
         return purchaseItem;
     }
 
-    // todo: javadoc
+    /**
+     * Converte PurchaseItem do modelo de banco para DTO
+     * @author Giovanna
+     * @param item item do modelo de banco a ser convertido
+     * @return objeto do tipo PurchaseItemDTO convertido
+     */
     public static PurchaseItemDTO convert(PurchaseItem item) {
         PurchaseItemDTO response = new PurchaseItemDTO();
         response.setProductId(item.getProductId().getId());
