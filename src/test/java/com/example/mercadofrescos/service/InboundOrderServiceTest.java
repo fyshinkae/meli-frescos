@@ -1,6 +1,7 @@
 package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.mocks.InboundOrderMock;
 import com.example.mercadofrescos.mocks.SectionMock;
 import com.example.mercadofrescos.mocks.WarehouseMock;
@@ -19,9 +20,11 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @ExtendWith(MockitoExtension.class)
 public class InboundOrderServiceTest {
@@ -65,8 +68,13 @@ public class InboundOrderServiceTest {
     }
 
     @Test
-    @DisplayName("should update an InboundOrder")
-    void updateInboundOrder () {
-        // pedir ajuda aqui
+    @DisplayName("findById throws NotFoundExceptio when id is invalid")
+    void findById_throwsNotFoundException_whenIdIsInvalid(){
+        Mockito.when(this.repoOrder.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(null);
+
+        assertThatThrownBy(() -> inboundOrderService.findById(ArgumentMatchers.anyLong()))
+                .isInstanceOf(NotFoundException.class);
     }
+
 }
