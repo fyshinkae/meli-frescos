@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -79,8 +80,17 @@ public class ProductControllerTestIT  {
     }
 
     @Test
-    void getAllAgents_returnsAllAgents_whenSuccess() throws Exception {
-//        List<Product> productList = productRepo.findById();
+    void getAllProducts_returnsAllProducts_whenSuccess() throws Exception {
+        Optional<Product> productResponse = productRepo.findById(1L);
+        System.out.println("Ola To aqui" + productResponse);
+
+
+        ResultActions response = mockMvc.perform(
+                get("/api/v1/fresh-products/list?productId=1&order=V", productResponse)
+                        .contentType(MediaType.APPLICATION_JSON) );
+
+        response.andExpect(status().isOk())
+                .andExpect(jsonPath("$").isNotEmpty());
     }
 
 }

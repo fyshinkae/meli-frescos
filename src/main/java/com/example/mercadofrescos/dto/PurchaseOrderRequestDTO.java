@@ -22,7 +22,12 @@ public class PurchaseOrderRequestDTO {
         return PurchaseRequestDTO.convert(purchaseOrderRequestDTO.getPurchaseOrder());
     }
 
-    // todo: javadoc
+    /**
+     * Converte PurchaseOrder do modelo de banco para DTO
+     * @author Giovanna
+     * @param purchaseOrder objeto de modelo de banco a ser convertido
+     * @return objeto do tipo PurchaseOrderRequestDTO convertido
+     */
     public static PurchaseOrderRequestDTO convert(PurchaseOrder purchaseOrder){
         PurchaseOrderRequestDTO response = new PurchaseOrderRequestDTO();
         response.setPurchaseOrder(PurchaseRequestDTO.convert(purchaseOrder));
