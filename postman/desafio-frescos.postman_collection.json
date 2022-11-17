@@ -304,11 +304,11 @@
 							"query": [
 								{
 									"key": "category",
-									"value": "FR"
+									"value": "FS"
 								},
 								{
 									"key": "days",
-									"value": "120"
+									"value": "1"
 								},
 								{
 									"key": "orderBy",
