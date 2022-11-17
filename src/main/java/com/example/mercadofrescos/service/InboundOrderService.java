@@ -1,12 +1,14 @@
 package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IInboundOrderRepo;
 import com.example.mercadofrescos.service.interfaces.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,37 +22,50 @@ public class InboundOrderService implements IInboundOrderService {
     /**
      * Cria uma noa InboundOrder
      * @author Felipe, Gabriel, Matheus, Theus
-     * @param request novo InboundOrder a ser criado
+     * @param inboundOrder novo InboundOrder a ser criado
      * @param warehouseId id do warehouse onde será armazenado
      * @return uma lista de batchStock criado
      */
     @Override
-    public InboundOrderResponseDTO save(InboundOrder request, Long warehouseId) {
+    public InboundOrderResponseDTO save(InboundOrder inboundOrder, Long warehouseId) {
         serviceWarehouse.findById(warehouseId);
-        Section section = serviceSection.findById(request.getSection().getId());
-        serviceSection.findSectionByWarehouseId(warehouseId, request.getSection().getId());
+        Section section = serviceSection.findById(inboundOrder.getSection().getId());
+        serviceSection.findSectionByWarehouseId(warehouseId, inboundOrder.getSection().getId());
 
-        request.setSection(section);
+        inboundOrder.setSection(section);
 
-        List<BatchStock> batches = serviceBatchStock.validBatchStockList(request);
-        request.setBatches(batches);
+        List<BatchStock> batches = serviceBatchStock.validBatchStockList(inboundOrder);
+        inboundOrder.setBatches(batches);
 
-        InboundOrder response = repoOrder.save(request);
+        InboundOrder response = repoOrder.save(inboundOrder);
         serviceBatchStock.saveBatchStockList(batches);
 
         return new InboundOrderResponseDTO(response);
     }
 
     /**
+     * Busca um InboundOrder e lança uma exceção caso não encontre
+     * @author Theus
+     * @param id do InboundOrder
+     * @return um objeto do modelo InboundOrder
+     */
+    @Override
+    public InboundOrder findById(Long id) {
+        Optional<InboundOrder> inboundOrder = this.repoOrder.findById(id);
+
+        return inboundOrder.orElseThrow(() -> new NotFoundException("Inbound order not found"));
+    }
+
+    /**
      * Atualiza os batchStocks
      * @author Gabriel
-     * @param request parâmetro do usuário contendo informações sobre o inboundOrder e uma lista de batchStocks
+     * @param inboundOrder parâmetro do usuário contendo informações sobre o inboundOrder e uma lista de batchStocks
      * @return  a lista de batchStocks atualizada
      */
     @Override
-    public InboundOrderResponseDTO update(InboundOrder request, Long warehouseId) {
-        serviceBatchStock.verifyIfAllBatchStockExists(request.getBatches());
+    public InboundOrderResponseDTO update(InboundOrder inboundOrder, Long warehouseId) {
+        serviceBatchStock.verifyIfAllBatchStockExists(inboundOrder.getBatches());
 
-        return this.save(request, warehouseId);
+        return this.save(inboundOrder, warehouseId);
     }
 }

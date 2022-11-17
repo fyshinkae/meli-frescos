@@ -1,11 +1,6 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.*;
-import com.example.mercadofrescos.model.BatchStock;
-import com.example.mercadofrescos.model.PurchaseItem;
-import com.example.mercadofrescos.model.PurchaseOrder;
-import com.example.mercadofrescos.model.Section;
-import com.example.mercadofrescos.model.enums.Category;
 import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
@@ -25,7 +20,11 @@ public class PurchaseOrderController {
     private final IPurchaseOrderService service;
     private final IBatchStockService serviceBatchStock;
 
-    // todo: JAVADOC
+    /**
+     * Cadastra um lote com o estoque de produtos que o compõe
+     * @author Ma e Giovanna
+     * @param purchaseOrder do lote
+     */
     @PostMapping("/orders")
     public ResponseEntity<PurchasePriceDTO> createNewOrder(@RequestBody PurchaseOrderRequestDTO purchaseOrder) {
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));

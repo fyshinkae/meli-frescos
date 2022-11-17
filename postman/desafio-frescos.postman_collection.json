@@ -6,64 +6,320 @@
 	},
 	"item": [
 		{
-			"name": "Requisito 1 - cadastrar lote",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"inboundOrder\": {\n        \"orderNumber\": \"Long\",\n        \"orderDate\": \"LocalDate\",\n        \"sectionCode\": \"Long\",\n        \"warehouseCode\": \"Long\",\n        \"batchStock\": [\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            },\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            }\n        ]\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "US1",
+			"item": [
+				{
+					"name": "Requisito 1 - cadastrar lote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"inboundOrder\": {\n        \"orderDate\": \"2022-11-09\",\n        \"sectionCode\": 2,\n        \"warehouseCode\": 1,\n        \"batchStock\": [\n            {\n                \"productId\": 1,\n                \"currentTemperature\": 20,\n                \"productQuantity\": 50,\n                \"manufacturingDate\": \"2022-11-09\",\n                \"manufacturingTime\": \"2022-11-09 12:00:00\",\n                \"volume\": 50,\n                \"dueDate\": \"2022-12-10\",\n                \"price\": 20.00\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/inboundorder/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								""
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/fresh-products/inboundorder/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"inboundorder",
-						""
-					]
+				{
+					"name": "Requisito 1 - editar lote",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"inboundOrder\": {\n\t\t\"orderDate\": \"2022-11-09\",\n\t\t\"sectionCode\": 2,\n\t\t\"warehouseCode\": 1,\n\t\t\"batchStock\": [\n\t\t\t{\n\t\t\t\t\"batchNumber\": 10,\n\t\t\t\t\"productId\": 1,\n\t\t\t\t\"currentTemperature\": 20,\n\t\t\t\t\"productQuantity\": 50,\n\t\t\t\t\"manufacturingDate\": \"2022-11-09\",\n\t\t\t\t\"manufacturingTime\": \"2022-11-09 12:00:00\",\n\t\t\t\t\"volume\": 30,\n\t\t\t\t\"dueDate\": \"2022-12-10\",\n\t\t\t\t\"price\": 20.00\n\t\t\t}\n\t\t]\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/inboundorder/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder",
+								""
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Requisito 1 - editar lote",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"inboundOrder\": {\n        \"orderNumber\": \"Long\",\n        \"orderDate\": \"LocalDate\",\n        \"sectionCode\": \"Long\",\n        \"warehouseCode\": \"Long\",\n        \"batchStock\": [\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            },\n            {\n                \"batchNumber\": \"Long\",\n                \"productId\": \"Long\",\n                \"currentTemperature\": \"Float\",\n                \"productQuantity\": \"int\",\n                \"manufacturingDate\": \"LocalDate\",\n                \"manufacturingTime\": \"LocalDateTime\",\n                \"volume\": \"Float\",\n                \"dueDate\": \"LocalDate\",\n                \"price\": \"BigDecimal\"\n            }\n        ]\n    }\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+			"name": "US2",
+			"item": [
+				{
+					"name": "Requisito 2 - listar todos produtos",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{base_url}}/api/v1/fresh-products/inboundorder/",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"fresh-products",
-						"inboundorder",
-						""
-					]
+				{
+					"name": "Requisito 2 - listar produtos por categoria",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 2 - registrar pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n\t\"purchaseOrder\": {\n\t\t\"buyerId\": \"1\",\n\t\t\"orderStatus\": \"ABERTO\",\n\t\t\"products\": [\n\t\t\t{\n\t\t\t\t\"productId\": \"1\",\n\t\t\t\t\"quantity\": \"1\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"productId\": \"2\",\n\t\t\t\t\"quantity\": \"3\"\n\t\t\t}\n\t\t]\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 2 - mostrar produtos de um pedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 2 - modificar pedido existente",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "US3",
+			"item": [
+				{
+					"name": "Requisito 3 - listar todos lotes do produto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/agent/list?productId=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"agent",
+								"list"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 3 - listar todos lotes do produto com ordenação",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/agent/list?productId=1&order=L",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"agent",
+								"list"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								},
+								{
+									"key": "order",
+									"value": "L"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US4",
+			"item": [
+				{
+					"name": "Requisito 4 - quantidade total de produtos por armazém",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/warehouse/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"warehouse",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US5",
+			"item": [
+				{
+					"name": "Requisto 5 - Obtenha todos os lotes armazenados em um setor de um armazém ordenados por sua data de vencimento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/due-date?sectionId=2&days=120",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"due-date"
+							],
+							"query": [
+								{
+									"key": "sectionId",
+									"value": "2"
+								},
+								{
+									"key": "days",
+									"value": "120"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 5 - Obtenha uma lista de lotes dentro do prazo de validade solicitado, que pertencem a uma determinada categoria de produto",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/due-date/list?category=FS&days=1&orderBy=DESC",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"due-date",
+								"list"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "FS"
+								},
+								{
+									"key": "days",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

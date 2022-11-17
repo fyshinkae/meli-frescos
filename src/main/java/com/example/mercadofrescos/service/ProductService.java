@@ -29,7 +29,7 @@ public class ProductService implements IProductService {
      * @return Retorna a lista de todos os produtos
      */
     @Override
-    public List<ProductResponseDTO> findAllProducts() {
+    public List<ProductResponseDTO> findAll() {
         List<Product> products = repo.findAll();
 
         List<ProductResponseDTO> response = new ArrayList<>();
