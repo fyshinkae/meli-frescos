@@ -290,7 +290,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/fresh-products/due-date/list?category=FR&days=120&orderBy=DESC",
+							"raw": "{{base_url}}/api/v1/fresh-products/due-date/list?category=FS&days=1&orderBy=DESC",
 							"host": [
 								"{{base_url}}"
 							],
