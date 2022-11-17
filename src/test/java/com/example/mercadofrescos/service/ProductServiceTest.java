@@ -62,7 +62,7 @@ public class ProductServiceTest {
 
         Mockito.when(repo.findAll()).thenReturn(productList);
 
-        List<ProductResponseDTO> result = productService.findAllProducts();
+        List<ProductResponseDTO> result = productService.findAll();
 
         assertThat(result).isNotNull();
         assertThat(result).size().isEqualTo(1);
@@ -104,7 +104,7 @@ public class ProductServiceTest {
         Mockito.when(repo.findAll())
                 .thenThrow(NotFoundException.class);
 
-        assertThatThrownBy(() -> productService.findAllProducts())
+        assertThatThrownBy(() -> productService.findAll())
                 .isInstanceOf(NotFoundException.class);
     }
 
@@ -114,7 +114,7 @@ public class ProductServiceTest {
         Mockito.when(repo.findAll())
                 .thenReturn(new ArrayList<>());
 
-        assertThatThrownBy(() -> productService.findAllProducts())
+        assertThatThrownBy(() -> productService.findAll())
                 .isInstanceOf(NotFoundException.class);
     }
 
