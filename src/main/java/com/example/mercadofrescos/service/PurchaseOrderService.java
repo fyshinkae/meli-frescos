@@ -1,6 +1,8 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.*;
+import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
+import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.enums.StatusOrder;

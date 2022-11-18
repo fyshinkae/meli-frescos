@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.mocks;
 
-import com.example.mercadofrescos.dto.PurchaseItemResponseDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 

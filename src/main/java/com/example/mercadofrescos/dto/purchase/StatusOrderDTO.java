@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.purchase;
 
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import lombok.Data;

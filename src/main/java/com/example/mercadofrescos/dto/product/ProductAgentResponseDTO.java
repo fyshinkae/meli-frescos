@@ -1,5 +1,7 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.product;
 
+import com.example.mercadofrescos.dto.section.SectionDTO;
+import com.example.mercadofrescos.dto.batchStock.BatchStockAgentResponseDTO;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Section;

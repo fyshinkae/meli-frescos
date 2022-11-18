@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.ProductWarehousesDTO;
+import com.example.mercadofrescos.dto.product.ProductWarehousesDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.mocks.BatchStockMock;
 import com.example.mercadofrescos.mocks.InboundOrderMock;
