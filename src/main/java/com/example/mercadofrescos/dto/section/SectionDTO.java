@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.section;
 
 import com.example.mercadofrescos.model.Section;
 import com.example.mercadofrescos.model.Warehouse;

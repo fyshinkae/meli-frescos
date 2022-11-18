@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.BatchStockResponseDTO;
+import com.example.mercadofrescos.dto.batchStock.BatchStockResponseDTO;
 import com.example.mercadofrescos.model.enums.OrderBy;
 import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import lombok.RequiredArgsConstructor;

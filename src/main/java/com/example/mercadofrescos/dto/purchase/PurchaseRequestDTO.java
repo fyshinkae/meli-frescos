@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.purchase;
 
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
@@ -27,7 +27,7 @@ public class PurchaseRequestDTO {
     /**
      * Converte um PurchaseRequestDTO para PurchaseOrder
      * @author Gabriel
-     * @param PurchaseRequestDTO DTO a ser convertido
+     * @param purchaseDTO DTO a ser convertido
      * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
      */
     public static PurchaseOrder convert(PurchaseRequestDTO purchaseDTO){
@@ -43,7 +43,7 @@ public class PurchaseRequestDTO {
         List<PurchaseItem> items = new ArrayList<>();
         for(PurchaseItemDTO purchaseItem : purchaseDTO.getProducts()){
             PurchaseItem convertedPurchaseItem = PurchaseItemDTO.convert(purchaseItem);
-            convertedPurchaseItem.setPurchaseOrderId(purchaseOrder);
+            convertedPurchaseItem.setPurchaseOrder(purchaseOrder);
             items.add(convertedPurchaseItem);
         }
 
@@ -55,7 +55,7 @@ public class PurchaseRequestDTO {
     /**
      * Converte um PurchaseOrder para PurchaseRequestDTO
      * @author Giovanna
-     * @param PurchaseOrder DTO a ser convertido
+     * @param purchaseOrder DTO a ser convertido
      * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
      */
     public static PurchaseRequestDTO convert(PurchaseOrder purchaseOrder){

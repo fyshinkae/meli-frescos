@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.InboundOrderResponseDTO;
+import com.example.mercadofrescos.dto.inboundOrder.InboundOrderResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.repository.IInboundOrderRepo;
