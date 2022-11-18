@@ -22,12 +22,12 @@ public class PurchaseItem {
     @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
     @JsonIgnoreProperties("productId")
-    private Product productId;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "purchaseOrderId", nullable = false)
     @JsonIgnoreProperties("purchaseOrderId")
-    private PurchaseOrder purchaseOrderId;
+    private PurchaseOrder purchaseOrder;
 
     @Column(nullable = false)
     private Integer productQuantity;

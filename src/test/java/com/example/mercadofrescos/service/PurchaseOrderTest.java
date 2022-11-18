@@ -32,7 +32,6 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PurchaseOrderTest {
@@ -76,8 +75,8 @@ public class PurchaseOrderTest {
         product.setCategory(ProductMock.productTest().getCategory());
 
         purchaseItem.setId(PurchaseItemMock.puchaseItemTest().getId());
-        purchaseItem.setProductId(product);
-        purchaseItem.setPurchaseOrderId(purchaseOrder);
+        purchaseItem.setProduct(product);
+        purchaseItem.setPurchaseOrder(purchaseOrder);
         purchaseItem.setProductQuantity(PurchaseItemMock.puchaseItemTest().getProductQuantity());
 
         purchaseItemList.add(purchaseItem);
@@ -115,7 +114,7 @@ public class PurchaseOrderTest {
 
         product.setBatches(batches);
 
-        purchaseItem.setProductId(product);
+        purchaseItem.setProduct(product);
 
         purchaseItemList.clear();
         purchaseItemList.add(purchaseItem);
@@ -144,7 +143,7 @@ public class PurchaseOrderTest {
 
         product.setBatches(batches);
 
-        purchaseItem.setProductId(product);
+        purchaseItem.setProduct(product);
 
         purchaseItemList.clear();
         purchaseItemList.add(purchaseItem);

@@ -71,7 +71,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         List<Long> productIdExpiration = new ArrayList<>();
 
         for(PurchaseItem item : purchaseItems){
-            Product product = productService.findById(item.getProductId().getId());
+            Product product = productService.findById(item.getProduct().getId());
             BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
             if (batchStock == null) {
                 productIdErrors.add(product.getId());

@@ -15,7 +15,7 @@ public class PurchaseItemResponseDTO {
     private Integer quantity;
 
     public PurchaseItemResponseDTO(PurchaseItem item) {
-        productId = item.getProductId().getId();
+        productId = item.getProduct().getId();
         quantity = item.getProductQuantity();
     }
 
