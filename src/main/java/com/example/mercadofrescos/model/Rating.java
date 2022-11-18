@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -29,7 +30,7 @@ public class Rating {
     private User customer;
 
     @Column(nullable = false)
-    private Float rating;
+    private BigDecimal rating;
 
     @Override
     public boolean equals(Object o) {
