@@ -77,7 +77,19 @@
 					"name": "Requisito 2 - listar todos produtos",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -85,7 +97,25 @@
 					"name": "Requisito 2 - listar produtos por categoria",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/list?category=RF",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"list"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "RF"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -143,8 +173,30 @@
 				{
 					"name": "Requisito 2 - modificar pedido existente",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderStatus\": \"FINALIZADO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
@@ -290,7 +342,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/v1/fresh-products/due-date/list?category=FS&days=1&orderBy=DESC",
+							"raw": "{{base_url}}/api/v1/fresh-products/due-date/list?category=FS&days=10&orderBy=DESC",
 							"host": [
 								"{{base_url}}"
 							],
@@ -308,7 +360,7 @@
 								},
 								{
 									"key": "days",
-									"value": "1"
+									"value": "10"
 								},
 								{
 									"key": "orderBy",
