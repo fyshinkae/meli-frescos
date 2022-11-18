@@ -28,6 +28,10 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
     @OneToMany(mappedBy = "seller")
     @JsonIgnoreProperties("seller")
     private Set<Product> products;
