@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -52,6 +53,8 @@ public class RatingDTO {
 
         response.setRating(ratingDTO.getRating());
         response.setId(id);
+
+        response.setCreatedAt(LocalDateTime.now());
 
         return response;
     }
