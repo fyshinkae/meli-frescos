@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.purchase;
 
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
@@ -43,7 +43,7 @@ public class PurchaseRequestDTO {
         List<PurchaseItem> items = new ArrayList<>();
         for(PurchaseItemDTO purchaseItem : purchaseDTO.getProducts()){
             PurchaseItem convertedPurchaseItem = PurchaseItemDTO.convert(purchaseItem);
-            convertedPurchaseItem.setPurchaseOrderId(purchaseOrder);
+            convertedPurchaseItem.setPurchaseOrder(purchaseOrder);
             items.add(convertedPurchaseItem);
         }
 

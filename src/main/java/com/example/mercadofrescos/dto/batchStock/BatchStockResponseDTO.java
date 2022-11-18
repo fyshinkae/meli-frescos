@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.batchStock;
 
 import com.example.mercadofrescos.model.BatchStock;
 import lombok.Getter;

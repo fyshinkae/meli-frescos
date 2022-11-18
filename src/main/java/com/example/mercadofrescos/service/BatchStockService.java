@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.BatchStockResponseDTO;
+import com.example.mercadofrescos.dto.batchStock.BatchStockResponseDTO;
 import com.example.mercadofrescos.exception.InvalidBatchStockException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;

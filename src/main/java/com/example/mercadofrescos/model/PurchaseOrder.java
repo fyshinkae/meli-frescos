@@ -32,7 +32,7 @@ public class PurchaseOrder {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "purchaseOrderId")
-    @JsonIgnoreProperties("productId")
+    @OneToMany(mappedBy = "purchaseOrder")
+    @JsonIgnoreProperties("product")
     private List<PurchaseItem> itemList;
 }
