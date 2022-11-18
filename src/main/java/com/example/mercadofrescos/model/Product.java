@@ -31,6 +31,10 @@ public class Product {
     @JsonIgnoreProperties("product")
     private Set<BatchStock> batches;
 
+    @OneToMany(mappedBy = "product")
+    @JsonIgnoreProperties("product")
+    private Set<Rating> ratings;
+
     @Column(nullable = false)
     private String name;
 

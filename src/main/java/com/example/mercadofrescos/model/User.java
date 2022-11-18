@@ -32,6 +32,10 @@ public class User {
     @JsonIgnoreProperties("seller")
     private Set<Product> products;
 
+    @OneToMany(mappedBy = "customer")
+    @JsonIgnoreProperties("customer")
+    private Set<Rating> ratings;
+
     @OneToOne(mappedBy = "agent", cascade = CascadeType.REFRESH)
     @JsonIgnoreProperties("agent")
     private Warehouse warehouse;
