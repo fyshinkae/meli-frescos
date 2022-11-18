@@ -30,7 +30,7 @@ public class ProductService implements IProductService {
      * @return Retorna a lista de todos os produtos
      */
     @Override
-    public List<ProductResponseDTO> findAllProducts() {
+    public List<ProductResponseDTO> findAll() {
         List<Product> products = repo.findAll();
 
         List<ProductResponseDTO> response = new ArrayList<>();
@@ -185,7 +185,7 @@ public class ProductService implements IProductService {
      * @param word sigla da categoria
      * @return Uma categoria conforme a sigla, ou uma Exception caso não exista a Category
      */
-    private Category filterCategory(String word) {
+    public Category filterCategory(String word) {
         switch (word) {
             case "FS":
                 return Category.FRESH;

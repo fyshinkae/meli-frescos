@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.dto.product;
 
-import com.example.mercadofrescos.dto.SellerResponseDTO;
+import com.example.mercadofrescos.dto.purchase.SellerResponseDTO;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.enums.Category;
 import lombok.AllArgsConstructor;
@@ -15,9 +15,13 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponseDTO {
+
     private String name;
+
     private Category category;
+
     private BigDecimal price;
+
     private SellerResponseDTO seller;
 
     /**

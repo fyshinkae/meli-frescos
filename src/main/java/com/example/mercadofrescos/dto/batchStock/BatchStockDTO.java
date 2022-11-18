@@ -20,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BatchStockDTO {
+
     private Long batchNumber;
 
     @NotNull

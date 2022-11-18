@@ -1,12 +1,10 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.*;
-import com.example.mercadofrescos.dto.batchStock.BatchStockResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
+import com.example.mercadofrescos.dto.purchase.StatusOrderDTO;
 import com.example.mercadofrescos.model.enums.StatusOrder;
-import com.example.mercadofrescos.service.interfaces.IBatchStockService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,8 +19,12 @@ import java.util.List;
 public class PurchaseOrderController {
 
     private final IPurchaseOrderService service;
-    private final IBatchStockService serviceBatchStock;
 
+    /**
+     * Cadastra um lote com o estoque de produtos que o compõe
+     * @author Ma e Giovanna
+     * @param purchaseOrder do lote
+     */
     @PostMapping("/orders")
     public ResponseEntity<PurchasePriceDTO> createNewOrder(@RequestBody PurchaseOrderRequestDTO purchaseOrder) {
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));
@@ -38,6 +40,7 @@ public class PurchaseOrderController {
     @GetMapping("/orders/{id}")
     public ResponseEntity<List<PurchaseItemResponseDTO>> getOrderById(@PathVariable Long id) {
         List<PurchaseItemResponseDTO> order = service.getPurchaseOrderById(id);
+
         return ResponseEntity.ok(order);
     }
 
@@ -46,24 +49,12 @@ public class PurchaseOrderController {
      * @author Ma, Gabriel, Giovanna
      * @param status da Ordem
      */
-
     @PutMapping("/orders/{id}")
     public ResponseEntity<PurchaseOrderRequestDTO> updateOrderStatus(@RequestBody StatusOrderDTO status, @PathVariable Long id) {
         StatusOrder purchaseOrder = status.getOrderStatus();
         PurchaseOrderRequestDTO orderUpdated = service.updateOrderStatus(purchaseOrder, id);
-        return ResponseEntity.ok(orderUpdated);
-    }
 
-    /**
-     * Ordena pela data de vencimento
-     * @author Ma, Giovanna e Gabriel
-     * @param id da 'section' e 'days'
-     * @return retorna uma lista de 'batchStocks'
-     */
-    @GetMapping("/due-date/{days}/{sectionId}")
-    public ResponseEntity<BatchStockResponseDTO> getBatchStockOrderByDueDate(@PathVariable Integer days, @PathVariable Long sectionId) {
-        BatchStockResponseDTO batchStock = serviceBatchStock.getBatchStockOrderByDueDate(days, sectionId);
-        return ResponseEntity.ok(batchStock);
+        return ResponseEntity.ok(orderUpdated);
     }
 
 }

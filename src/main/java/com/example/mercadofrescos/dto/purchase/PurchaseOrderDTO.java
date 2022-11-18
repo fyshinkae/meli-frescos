@@ -1,7 +1,6 @@
 package com.example.mercadofrescos.dto.purchase;
 
 import com.example.mercadofrescos.model.PurchaseItem;
-import com.example.mercadofrescos.model.PurchaseOrder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;

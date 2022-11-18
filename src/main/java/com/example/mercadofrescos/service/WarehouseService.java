@@ -18,7 +18,6 @@ import java.util.Set;
 public class WarehouseService implements IWarehouseService {
 
     private final IWarehouseRepo repo;
-
     private final IProductService productService;
 
     /**
@@ -50,6 +49,5 @@ public class WarehouseService implements IWarehouseService {
 
         return new ProductWarehousesDTO(product, warehouses);
     }
-
 
 }

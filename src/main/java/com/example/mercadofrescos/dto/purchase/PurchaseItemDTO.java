@@ -28,14 +28,20 @@ public class PurchaseItemDTO {
 
         Product product = new Product();
         product.setId(purchaseItemDTO.getProductId());
-        purchaseItem.setProductId(product);
+        purchaseItem.setProduct(product);
 
         return purchaseItem;
     }
 
+    /**
+     * Converte PurchaseItem do modelo de banco para DTO
+     * @author Giovanna
+     * @param item item do modelo de banco a ser convertido
+     * @return objeto do tipo PurchaseItemDTO convertido
+     */
     public static PurchaseItemDTO convert(PurchaseItem item) {
         PurchaseItemDTO response = new PurchaseItemDTO();
-        response.setProductId(item.getProductId().getId());
+        response.setProductId(item.getProduct().getId());
         response.setQuantity(item.getProductQuantity());
 
         return response;

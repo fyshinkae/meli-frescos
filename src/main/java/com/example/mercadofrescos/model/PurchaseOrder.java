@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class PurchaseOrder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,8 +32,8 @@ public class PurchaseOrder {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "purchaseOrderId")
-    @JsonIgnoreProperties("purchaseOrderId")
+    @OneToMany(mappedBy = "purchaseOrder")
+    @JsonIgnoreProperties("product")
     private List<PurchaseItem> itemList;
 
     @Column(nullable = false)

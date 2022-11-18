@@ -1,6 +1,5 @@
 package com.example.mercadofrescos.dto.product;
 
-import com.example.mercadofrescos.dto.WarehouseProductsDTO;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Warehouse;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductWarehousesDTO {
+
     private Long productId;
+
     private List<WarehouseProductsDTO> warehouses;
 
     /**

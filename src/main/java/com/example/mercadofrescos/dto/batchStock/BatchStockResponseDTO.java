@@ -19,6 +19,5 @@ public class BatchStockResponseDTO {
         for (BatchStock batchStock1 : batchStock) {
             this.batchStock.add(new BatchStockOrderByDueDateDTO(batchStock1));
         }
-
     }
 }

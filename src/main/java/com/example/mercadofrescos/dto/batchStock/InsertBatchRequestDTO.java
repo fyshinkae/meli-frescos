@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InsertBatchRequestDTO {
+
     @Valid
     private InboundOrderRequestDTO inboundOrder;
 

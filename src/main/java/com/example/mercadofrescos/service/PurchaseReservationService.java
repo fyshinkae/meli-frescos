@@ -40,7 +40,7 @@ public class PurchaseReservationService implements IPurchaseReservationService {
 
         productService.validAllExists(
                 purchaseItemList.stream()
-                        .map(item -> item.getProductId().getId())
+                        .map(item -> item.getProduct().getId())
                         .collect(Collectors.toList())
         );
 

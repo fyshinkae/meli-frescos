@@ -14,18 +14,20 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 public class PurchaseItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
-    private Product productId;
+    @JsonIgnoreProperties("productId")
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "purchaseOrderId", nullable = false)
-    @JsonIgnoreProperties("itemList")
-    private PurchaseOrder purchaseOrderId;
+    @JsonIgnoreProperties("purchaseOrderId")
+    private PurchaseOrder purchaseOrder;
 
     @Column(nullable = false)
     private Integer productQuantity;

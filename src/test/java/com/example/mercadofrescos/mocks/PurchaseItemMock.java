@@ -13,8 +13,8 @@ public class PurchaseItemMock {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
 
         purchaseItem.setId(1L);
-        purchaseItem.setProductId(ProductMock.productTest());
-        purchaseItem.setPurchaseOrderId(purchaseOrder);
+        purchaseItem.setProduct(ProductMock.productTest());
+        purchaseItem.setPurchaseOrder(purchaseOrder);
         purchaseItem.setProductQuantity(10);
 
         return purchaseItem;
