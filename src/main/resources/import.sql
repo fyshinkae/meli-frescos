@@ -1,5 +1,3 @@
-USE meli_frescos_bd;
-
 INSERT INTO user(id, name, email, password, role) VALUES (1, 'sellerTest', 'seller_test@teste.com', '123456', 0);
 INSERT INTO user(id, name, email, password, role) VALUES (2, 'agentTest', 'agent_test@teste.com', '123456', 1);
 INSERT INTO user(id, name, email, password, role) VALUES (3, 'customerTest', 'customer_test@teste.com', '123456', 2);
