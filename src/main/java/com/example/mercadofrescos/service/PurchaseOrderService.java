@@ -30,9 +30,6 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private final IProductService productService;
     private final IPurchaseItemService purchaseItemService;
 
-    // TODO: Atualizar o productQuantity no batchStock
-    // TODO: Atualizar o capacity da Section do batchStock atualizado
-
     /**
      * Calcula o valor total dos itens do carrinho
      * @author Felipe, Giovanna, Matheus, Gabriel, Theus
@@ -70,23 +67,17 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
         List<Product> response = new ArrayList<>();
         List<Long> productIdErrors = new ArrayList<>();
-        List<Long> productIdExpiration = new ArrayList<>();
 
         for(PurchaseItem item : purchaseItems){
             Product product = productService.findById(item.getProduct().getId());
-            BatchStock batchStock = getValidBatchStockByCapacity(product, item.getProductQuantity());
+            BatchStock batchStock = getValidBatchStockByCapacityAndDueDate(product, item.getProductQuantity());
             if (batchStock == null) {
                 productIdErrors.add(product.getId());
             } else {
-                LocalDate today = LocalDate.now();
-                long daysBetween = today.until(batchStock.getDueDate(), ChronoUnit.DAYS);
-
-                if (daysBetween <= 21) productIdExpiration.add(product.getId());
-                else response.add(product);
+                response.add(product);
             }
         }
-
-        this.verifyErrors(productIdErrors, productIdExpiration);
+        this.verifyErrors(productIdErrors);
 
         return response;
     }
@@ -95,15 +86,11 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * Verifica se existem erros e lança exceções
      * @author Felipe, Giovanna, Matheus, Gabriel, Theus
      * @param productIdErrors Lista de IDs de produtos com lotes vazios
-     * @param productIdExpiration Lista de IDs de produtos expirados
      */
-    private void verifyErrors(List<Long> productIdErrors, List<Long> productIdExpiration) {
+    private void verifyErrors(List<Long> productIdErrors) {
         if (!productIdErrors.isEmpty()) {
             throw new InvalidPurchaseException("Products " + productIdErrors + " is not available");
-        }
-
-        if (!productIdExpiration.isEmpty())
-            throw new InvalidPurchaseException("Products " + productIdExpiration + " close to expiration");
+        };
     }
 
     /**
@@ -113,15 +100,31 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param purchaseQuantity Quantidade do produto a ser adquirido
      * @return BatchStock que possui o produto com quantidade suficiente para compra
      */
-    private BatchStock getValidBatchStockByCapacity(Product product, int purchaseQuantity){
+    private BatchStock getValidBatchStockByCapacityAndDueDate(Product product, int purchaseQuantity){
         Set<BatchStock> batches = product.getBatches();
+        Integer threeWeeks = 21;
         for(BatchStock batchStock : batches){
-            if(batchStock.getProductQuantity() > purchaseQuantity) {
+            if(batchStock.getProductQuantity() > purchaseQuantity
+                    && validateDueDate(batchStock.getDueDate(), threeWeeks)) {
                 return batchStock;
             }
         }
 
         return null;
+    }
+
+    /**
+     * Valida se o lote está dentro do prazo esperado
+     * @author Gabriel
+     * @param batchStockDueDate prazo de validade do lote
+     * @param days numero de dias minimo
+     */
+    private Boolean validateDueDate(LocalDate batchStockDueDate, Integer days){
+        LocalDate today = LocalDate.now();
+        long daysBetween = today.until(batchStockDueDate, ChronoUnit.DAYS);
+        if (daysBetween <= days) return false;
+
+        return true;
     }
 
     /**

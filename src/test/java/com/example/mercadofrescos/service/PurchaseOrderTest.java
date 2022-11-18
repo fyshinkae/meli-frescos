@@ -131,35 +131,6 @@ public class PurchaseOrderTest {
     }
 
     @Test
-    @DisplayName("Testing return exceptions when have products with expirated date")
-    void newOrder_returnException_whenHaveExpiratedDate() {
-        BatchStock batch = new BatchStock();
-        Set<BatchStock> batches = new HashSet<>();
-
-        batch.setId(1L);
-        batch.setProductQuantity(100);
-        batch.setDueDate(LocalDate.now());
-        batches.add(batch);
-
-        product.setBatches(batches);
-
-        purchaseItem.setProduct(product);
-
-        purchaseItemList.clear();
-        purchaseItemList.add(purchaseItem);
-        purchaseOrder.setItemList(purchaseItemList);
-
-        Mockito.when(productService.findById(ArgumentMatchers.anyLong())).thenReturn(product);
-
-        Throwable exception = assertThrows(InvalidPurchaseException.class, () ->
-                purchaseOrderService.getCartAmount(purchaseOrder));
-
-        Assertions.assertEquals(
-                exception.getMessage(), ("Products " + "[1]" + " close to expiration")
-        );
-    }
-
-    @Test
     @DisplayName("Testing success when have correct order id")
     void getPurchaseOrderById_returnPurchaseItems_whenSuccess() {
         Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(purchaseOrder));
