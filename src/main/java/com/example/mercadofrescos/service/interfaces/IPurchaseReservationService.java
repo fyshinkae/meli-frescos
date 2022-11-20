@@ -10,4 +10,5 @@ import java.util.List;
 public interface IPurchaseReservationService {
     PurchaseReservationResponseDTO createReservation(PurchaseOrder purchaseReservation);
     List<PurchaseRequestDTO> findAll();
+    PurchaseReservationResponseDTO findById(Long id);
 }

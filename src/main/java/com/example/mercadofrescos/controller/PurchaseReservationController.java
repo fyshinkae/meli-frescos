@@ -4,6 +4,7 @@ import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
+import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.service.interfaces.IPurchaseReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -43,5 +44,17 @@ public class PurchaseReservationController {
         List<PurchaseRequestDTO> purchaseOrders = service.findAll();
 
         return new ResponseEntity<>(purchaseOrders, HttpStatus.OK);
+    }
+
+    /**
+     * Busca um pedido reservado
+     * @author Theus
+     * @return Retorna um objeto do modelo PurchaseOrder
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<PurchaseReservationResponseDTO> findById(@PathVariable Long id) {
+        PurchaseReservationResponseDTO purchaseOrder = service.findById(id);
+
+        return new ResponseEntity<>(purchaseOrder, HttpStatus.OK);
     }
 }

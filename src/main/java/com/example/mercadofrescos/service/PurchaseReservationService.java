@@ -2,8 +2,8 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Product;
-import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.User;
 import com.example.mercadofrescos.repository.IPurchaseItemRepo;
@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,5 +62,19 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         List<PurchaseOrder> purchaseOrders = purchaseOrderRepo.findAllReservation();
 
         return purchaseOrders.stream().map(PurchaseRequestDTO::convert).collect(Collectors.toList());
+    }
+
+    /**
+     * Busca apenas um pedido reservado
+     * @author Theus
+     * @return Retorna um objeto do modelo PurchaseRequestDTO ou uma exceção
+     */
+    @Override
+    public PurchaseReservationResponseDTO findById(Long id) {
+        Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepo.findById(id);
+
+        if (purchaseOrder.isEmpty()) throw new NotFoundException("Purchase order not found");
+
+        return new PurchaseReservationResponseDTO(purchaseOrder.get());
     }
 }

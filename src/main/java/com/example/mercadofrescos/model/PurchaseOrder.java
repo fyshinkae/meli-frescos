@@ -24,6 +24,7 @@ public class PurchaseOrder {
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "customer_id")
+    @JsonIgnoreProperties("order")
     private User customer;
 
     @Enumerated(EnumType.STRING)
@@ -33,7 +34,6 @@ public class PurchaseOrder {
     private LocalDate date;
 
     @OneToMany(mappedBy = "purchaseOrder")
-    @JsonIgnoreProperties("product")
     private List<PurchaseItem> itemList;
 
     @Column(nullable = false)
