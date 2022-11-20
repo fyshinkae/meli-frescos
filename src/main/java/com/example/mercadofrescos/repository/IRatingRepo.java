@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface IRatingRepo extends JpaRepository<Rating, CustomerProductId> {
     @Query("SELECT r FROM Rating r WHERE r.id.customerId = :customerId ORDER BY r.createdAt DESC")
-    List<Rating> findByCustomerId(Long customerId);
+    List<Rating> findAllByCustomerId(Long customerId);
+
+    @Query("SELECT r FROM Rating r WHERE r.id.productId = :productId ORDER BY r.createdAt DESC")
+    List<Rating> findAllByProductId(Long productId);
 }

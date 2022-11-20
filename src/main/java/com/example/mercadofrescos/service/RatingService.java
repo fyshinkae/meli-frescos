@@ -1,7 +1,9 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.rating.RatingByProductDTO;
 import com.example.mercadofrescos.dto.rating.RatingByUserDTO;
 import com.example.mercadofrescos.dto.rating.RatingDTO;
+import com.example.mercadofrescos.dto.rating.RatingProductDTO;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Rating;
 import com.example.mercadofrescos.model.User;
@@ -50,6 +52,18 @@ public class RatingService implements IRatingService {
     @Override
     public RatingByUserDTO getRatingByUser(Long customerId) {
         User user = this.userService.findById(customerId);
-        return RatingByUserDTO.convert(this.repo.findByCustomerId(user.getId()));
+        return RatingByUserDTO.convert(this.repo.findAllByCustomerId(user.getId()));
+    }
+
+    /**
+     * Obtém a lista de avaliações associadas a um productId
+     * @author Gabriel
+     * @param productId Identificação do produto que queremos saber as avaliações
+     * @return Todas as avaliações de um determinado productId;
+     */
+    @Override
+    public RatingByProductDTO getRatingByProduct(Long productId) {
+        Product product =  this.productService.findById(productId);
+        return RatingByProductDTO.convert(this.repo.findAllByProductId(product.getId()));
     }
 }
