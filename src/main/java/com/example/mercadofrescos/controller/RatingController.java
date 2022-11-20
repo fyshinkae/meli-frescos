@@ -20,7 +20,7 @@ public class RatingController {
     /**
      * Cria um Rating de um produto no banco de dados
      * @author Gabriel
-     * @param request
+     * @param request Json a ser mandado pelo usuário
      * @return Rating salvo no banco de dados e HTTP Status
      */
     @PostMapping
@@ -33,9 +33,9 @@ public class RatingController {
      * Obtém a lista de todos os ratings de um usuário
      * @author Gabriel
      * @param customerId
-     * @return Uma lista de Ratings do customerId e HTTP Statups
+     * @return Uma lista de Ratings do customerId e HTTP Status
      */
-    @GetMapping("/{customerId}")
+    @GetMapping("/customer/{customerId}")
     public ResponseEntity<RatingByUserDTO> getRatingByUser(@PathVariable Long customerId){
         RatingByUserDTO response = this.service.getRatingByUser(customerId);
         return new ResponseEntity<>(response, HttpStatus.OK);

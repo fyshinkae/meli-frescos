@@ -41,8 +41,15 @@ public class RatingService implements IRatingService {
         return RatingDTO.convert(this.repo.save(rating));
     }
 
+    /**
+     * Obtém a lista de avaliações associadas a um customerId
+     * @author Gabriel
+     * @param customerId Identificação do comprador que queremos saber as avaliações
+     * @return Todas as avaliações de um determinado customerId
+     */
     @Override
     public RatingByUserDTO getRatingByUser(Long customerId) {
-        return null;
+        User user = this.userService.findById(customerId);
+        return RatingByUserDTO.convert(this.repo.findByCustomerId(user.getId()));
     }
 }
