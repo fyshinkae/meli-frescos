@@ -39,7 +39,7 @@ public class AddressService implements IAdressService {
     public void deleteAdress(Long id) {
         Optional<Address> addressToDelete = repo.findById(id);
 
-        if (!addressToDelete.isEmpty()) {
+        if (addressToDelete.isPresent()) {
             throw new EntityNotFoundException("Address not found");
         }
         repo.delete(addressToDelete.get());
