@@ -38,17 +38,4 @@ public class PurchaseOrderRequestDTO {
         return response;
     }
 
-    /**
-     * Converte um PurchaseRequestDTO para um objeto PurchaseOrder com reserva
-     * @author Theus
-     * @param purchase DTO a ser convertido
-     * @return um objeto do tipo PurchaseOrder
-     */
-    public static PurchaseOrder convertToReservation(PurchaseOrderRequestDTO purchase) {
-        PurchaseOrder purchaseOrder = PurchaseOrderRequestDTO.convert(purchase);
-        purchaseOrder.setReservation(true);
-
-        return purchaseOrder;
-    }
-
 }

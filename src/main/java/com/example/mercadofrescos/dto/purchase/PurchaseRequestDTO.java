@@ -23,12 +23,13 @@ public class PurchaseRequestDTO {
     private StatusOrder orderStatus;
 
     private List<PurchaseItemDTO> products;
+
     private boolean reservation;
 
     /**
      * Converte um PurchaseRequestDTO para PurchaseOrder
      * @author Gabriel
-     * @param PurchaseRequestDTO DTO a ser convertido
+     * @param purchaseDTO DTO a ser convertido
      * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
      */
     public static PurchaseOrder convert(PurchaseRequestDTO purchaseDTO){

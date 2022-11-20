@@ -19,7 +19,6 @@ public class PurchaseItemService implements IPurchaseItemService {
      * @author Gabriel
      * @param purchaseItems uma lista de purchaseItem a ser salva na base de dados
      */
-
     public void savePurchaseItemList(List<PurchaseItem> purchaseItems) {
         this.repo.saveAll(purchaseItems);
     }

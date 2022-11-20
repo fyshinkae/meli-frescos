@@ -2,6 +2,7 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
+import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.User;
@@ -36,16 +37,16 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         User customer = this.userService.findById(purchase.getCustomer().getId());
         purchase.setCustomer(customer);
 
-        List<PurchaseItem> purchaseItemList = purchase.getItemList();
-
-        productService.validAllExists(
-                purchaseItemList.stream()
-                        .map(item -> item.getProduct().getId())
-                        .collect(Collectors.toList())
-        );
+        purchase.setItemList(purchase.getItemList()
+                .stream()
+                .peek((item) -> {
+                    Product product = productService.findById(item.getProduct().getId());
+                    item.setProduct(product);
+                    item.setPurchaseOrder(purchase);
+                }).collect(Collectors.toList()));
 
         PurchaseOrder purchaseCreated = purchaseOrderRepo.save(purchase);
-        purchaseItemRepo.saveAll(purchaseItemList);
+        purchaseItemRepo.saveAll(purchase.getItemList());
 
         return new PurchaseReservationResponseDTO(purchaseCreated);
     }

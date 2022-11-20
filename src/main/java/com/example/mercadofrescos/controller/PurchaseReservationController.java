@@ -2,6 +2,7 @@ package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseReservationRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
 import com.example.mercadofrescos.service.interfaces.IPurchaseReservationService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,8 +27,8 @@ public class PurchaseReservationController {
      * @return Retorna um objeto do modelo PurchaseReservationResponseDTO com os dados da reserva criada
      */
     @PostMapping
-    public ResponseEntity<PurchaseReservationResponseDTO> createReservation(@RequestBody PurchaseOrderRequestDTO purchase) {
-        PurchaseReservationResponseDTO purchaseResponse = service.createReservation(PurchaseOrderRequestDTO.convertToReservation(purchase));
+    public ResponseEntity<PurchaseReservationResponseDTO> createReservation(@Valid @RequestBody PurchaseReservationRequestDTO purchase) {
+        PurchaseReservationResponseDTO purchaseResponse = service.createReservation(PurchaseReservationRequestDTO.convert(purchase));
 
         return new ResponseEntity<>(purchaseResponse, HttpStatus.CREATED);
     }
