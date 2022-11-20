@@ -4,6 +4,7 @@ import com.example.mercadofrescos.dto.rating.RatingByProductDTO;
 import com.example.mercadofrescos.dto.rating.RatingByUserDTO;
 import com.example.mercadofrescos.dto.rating.RatingDTO;
 import com.example.mercadofrescos.dto.rating.RatingProductDTO;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Rating;
 import com.example.mercadofrescos.model.User;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +54,14 @@ public class RatingService implements IRatingService {
     @Override
     public RatingByUserDTO getRatingByUser(Long customerId) {
         User user = this.userService.findById(customerId);
-        return RatingByUserDTO.convert(this.repo.findAllByCustomerId(user.getId()));
+
+        List<Rating> ratings = this.repo.findAllByCustomerId(user.getId());
+
+        if(ratings.isEmpty()){
+            throw new NotFoundException("Ratings not found");
+        }
+
+        return RatingByUserDTO.convert(ratings);
     }
 
     /**
@@ -64,6 +73,15 @@ public class RatingService implements IRatingService {
     @Override
     public RatingByProductDTO getRatingByProduct(Long productId) {
         Product product =  this.productService.findById(productId);
-        return RatingByProductDTO.convert(this.repo.findAllByProductId(product.getId()));
+
+        List<Rating> ratings = this.repo.findAllByProductId(product.getId());
+
+        if(ratings.isEmpty()){
+            throw new NotFoundException("Ratings not found");
+        }
+
+        return RatingByProductDTO.convert(ratings);
     }
+
+
 }
