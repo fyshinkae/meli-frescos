@@ -11,4 +11,5 @@ public interface IPurchaseReservationService {
     PurchaseReservationResponseDTO createReservation(PurchaseOrder purchaseReservation);
     List<PurchaseRequestDTO> findAll();
     PurchaseReservationResponseDTO findById(Long id);
+    void deleteById(Long id);
 }

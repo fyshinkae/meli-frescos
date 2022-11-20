@@ -33,7 +33,7 @@ public class PurchaseOrder {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "purchaseOrder")
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
     private List<PurchaseItem> itemList;
 
     @Column(nullable = false)

@@ -77,6 +77,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
                 response.add(product);
             }
         }
+
         this.verifyErrors(productIdErrors);
 
         return response;
@@ -105,7 +106,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         Integer threeWeeks = 21;
         for(BatchStock batchStock : batches){
             if(batchStock.getProductQuantity() > purchaseQuantity
-                    && validateDueDate(batchStock.getDueDate(), threeWeeks)) {
+                    || validateDueDate(batchStock.getDueDate(), threeWeeks)) {
                 return batchStock;
             }
         }

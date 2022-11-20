@@ -6,9 +6,9 @@ import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.User;
-import com.example.mercadofrescos.repository.IPurchaseItemRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
+import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseReservationService;
 import com.example.mercadofrescos.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 public class PurchaseReservationService implements IPurchaseReservationService {
 
     private final IPurchaseOrderRepo purchaseOrderRepo;
+    private final IPurchaseOrderService purchaseOrderService;
     private final IUserService userService;
-    private final IPurchaseItemRepo purchaseItemRepo;
     private final IProductService productService;
 
     /**
@@ -47,7 +47,6 @@ public class PurchaseReservationService implements IPurchaseReservationService {
                 }).collect(Collectors.toList()));
 
         PurchaseOrder purchaseCreated = purchaseOrderRepo.save(purchase);
-        purchaseItemRepo.saveAll(purchase.getItemList());
 
         return new PurchaseReservationResponseDTO(purchaseCreated);
     }
@@ -76,5 +75,19 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         if (purchaseOrder.isEmpty()) throw new NotFoundException("Purchase order not found");
 
         return new PurchaseReservationResponseDTO(purchaseOrder.get());
+    }
+
+    /**
+     * Exclui uma reserva de pedido
+     * @author Theus
+     */
+    @Override
+    public void deleteById(Long id) {
+        PurchaseOrder purchaseOrder = this.purchaseOrderService.findById(id);
+
+        if (!purchaseOrder.getReservation())
+            throw new NotFoundException("Purchase order is not a reservation");
+
+        purchaseOrderRepo.delete(purchaseOrder);
     }
 }

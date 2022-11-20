@@ -57,4 +57,15 @@ public class PurchaseReservationController {
 
         return new ResponseEntity<>(purchaseOrder, HttpStatus.OK);
     }
+
+    /**
+     * Remove um pedido reservado
+     * @author Theus
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        service.deleteById(id);
+
+        return ResponseEntity.ok().build();
+    }
 }
