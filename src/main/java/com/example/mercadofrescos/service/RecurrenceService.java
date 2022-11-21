@@ -2,6 +2,7 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.purchase.RecurrenceOrderDTO;
 import com.example.mercadofrescos.dto.purchase.RecurrenceResponseDTO;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.RecurrenceOrder;
 import com.example.mercadofrescos.repository.IRecurrenceOrderRepo;
@@ -37,6 +38,8 @@ public class RecurrenceService implements IRecurrenceService {
     @Override
     public List<RecurrenceOrderDTO> getAllRecurrences() {
         List<RecurrenceOrderDTO> result = this.repo.findAll().stream().map(RecurrenceOrderDTO::new).collect(Collectors.toList());
+
+        if (result.isEmpty()) throw new NotFoundException("There are no registered recurrences");
         return result;
     }
 
