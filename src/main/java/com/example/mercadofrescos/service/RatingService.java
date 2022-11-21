@@ -137,11 +137,12 @@ public class RatingService implements IRatingService {
     @Override
     public List<RatingByUserDTO> getRatingByUsers() {
         List<Rating> ratings = this.repo.findAll();
-        HashMap<Long, List<Rating>> ratingsByUser = this.getHashMapRatingsByCustomer(ratings);
 
         if(ratings.isEmpty()){
             throw new NotFoundException("Ratings not found");
         }
+
+        HashMap<Long, List<Rating>> ratingsByUser = this.getHashMapRatingsByCustomer(ratings);
 
         List<RatingByUserDTO> response = new ArrayList<>();
         for(Long customerId : ratingsByUser.keySet()){
