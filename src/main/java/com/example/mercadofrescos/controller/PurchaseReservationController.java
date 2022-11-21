@@ -48,6 +48,7 @@ public class PurchaseReservationController {
     /**
      * Busca um pedido reservado
      * @author Theus
+     * @param id do pedido
      * @return Retorna um objeto do modelo PurchaseOrder
      */
     @GetMapping("/{id}")
@@ -60,6 +61,7 @@ public class PurchaseReservationController {
     /**
      * Remove um pedido reservado
      * @author Theus
+     * @param id do pedido
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
@@ -71,6 +73,7 @@ public class PurchaseReservationController {
     /**
      * Verifica a disponibilidade da reserva do pedido
      * @author Theus
+     * @param id do pedido
      */
     @GetMapping("/availability/{id}")
     public ResponseEntity<Void> verifyAvailability(@PathVariable Long id) {
@@ -82,6 +85,7 @@ public class PurchaseReservationController {
     /**
      * Finaliza a reserva do pedido
      * @author Theus
+     * @param id do pedido
      */
     @PostMapping("/finish/{id}")
     public ResponseEntity<PurchaseOrderRequestDTO> finishReservation(@PathVariable Long id) {

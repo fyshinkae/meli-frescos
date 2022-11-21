@@ -69,6 +69,7 @@ public class PurchaseReservationService implements IPurchaseReservationService {
     /**
      * Busca apenas um pedido reservado
      * @author Theus
+     * @param id do pedido
      * @return Retorna um objeto do modelo PurchaseRequestDTO ou uma exceção
      */
     @Override
@@ -83,6 +84,7 @@ public class PurchaseReservationService implements IPurchaseReservationService {
     /**
      * Exclui uma reserva de pedido
      * @author Theus
+     * @param id do pedido
      */
     @Override
     public void deleteById(Long id) {
@@ -97,6 +99,7 @@ public class PurchaseReservationService implements IPurchaseReservationService {
     /**
      * Verifica a disponibilidade da reserva de um pedido
      * @author Theus
+     * @param id do pedido
      */
     @Override
     public void verifyAvailability(Long id) {
@@ -105,6 +108,12 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         purchaseOrderService.getValidProductList(purchaseOrder.getItemList());
     }
 
+    /**
+     * Finaliza a reserva de um pedido
+     * @author Theus
+     * @param id do pedido
+     * @return um objeto do modelo PurchaseOrderRequestDTO
+     */
     @Override
     public PurchaseOrderRequestDTO finishReservation(Long id) {
         PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
@@ -120,6 +129,11 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         return PurchaseOrderRequestDTO.convert(purchaseUpdated);
     }
 
+    /**
+     * Atualiza a quantidade do produto no lote
+     * @author Theus
+     * @param purchaseItems uma lista dos produtos do pedido
+     */
     private void updateQntBatchStock(List<PurchaseItem> purchaseItems) {
         purchaseItems.forEach(purchaseItem -> {
             Set<BatchStock> batchStocks = purchaseItem.getProduct().getBatches();
