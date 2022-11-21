@@ -16,7 +16,7 @@ import java.util.List;
 public class RatingByProductDTO {
 
     private Long productId;
-    private BigDecimal average;
+    private BigDecimal averageRating;
     private List<RatingUserDTO> ratings;
 
     /**
@@ -25,15 +25,24 @@ public class RatingByProductDTO {
      * @param ratings uma lista de objetos do modelo de banco
      */
     public RatingByProductDTO(List<Rating> ratings){
-        this.average = new BigDecimal(0);
+        this.averageRating = new BigDecimal(0);
         this.ratings = new ArrayList<>();
 
         if(!this.ratings.isEmpty()){
             Product firstProduct = ratings.get(0).getProduct();
             this.productId = firstProduct.getId();
             this.ratings = RatingUserDTO.convert(ratings);
-            this.average = this.getRatingAverage(this.ratings);
+            this.averageRating = RatingByProductDTO.getRatingAverage(this.ratings);
         }
+    }
+
+    public RatingByProductDTO(Rating rating) {
+        this.productId = rating.getId().getProductId();
+        this.averageRating = rating.getRating();
+
+        List<RatingUserDTO> ratings = new ArrayList<>();
+        ratings.add(RatingUserDTO.convert(rating));
+        this.ratings = ratings;
     }
 
     /**
@@ -46,13 +55,17 @@ public class RatingByProductDTO {
         return new RatingByProductDTO(ratings);
     }
 
+    public static RatingByProductDTO convert(Rating rating){
+       return new RatingByProductDTO(rating);
+    }
+
     /**
      * Calcula a média das avaliações a partir de uma lista
      * @author Gabriel
      * @param ratings lista de avaliações
-     * @return a média da avaliações de uma lista
+     * @return a média das avaliações de uma lista
      */
-    private BigDecimal getRatingAverage(List<RatingUserDTO> ratings) {
+    public static BigDecimal getRatingAverage(List<RatingUserDTO> ratings) {
         BigDecimal sum = new BigDecimal(0);
 
         for(RatingUserDTO rating : ratings){
@@ -60,5 +73,17 @@ public class RatingByProductDTO {
         }
 
         return sum.divide(new BigDecimal(ratings.size()));
+    }
+
+    public static RatingByProductDTO merge(RatingByProductDTO ratingDTO, Rating rating) {
+        RatingByProductDTO response = new RatingByProductDTO();
+
+        List<RatingUserDTO> ratings = ratingDTO.getRatings();
+        ratings.add(RatingUserDTO.convert(rating));
+
+        response.setProductId(rating.getId().getProductId());
+        response.setAverageRating(RatingByProductDTO.getRatingAverage(ratings));
+
+        return response;
     }
 }
