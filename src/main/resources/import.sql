@@ -1,5 +1,3 @@
-USE meli_frescos_bd;
-
 INSERT INTO user(id, name, email, password, role) VALUES (1, 'sellerTest', 'seller_test@teste.com', '123456', 0);
 INSERT INTO user(id, name, email, password, role) VALUES (2, 'agentTest', 'agent_test@teste.com', '123456', 1);
 INSERT INTO user(id, name, email, password, role) VALUES (3, 'customerTest', 'customer_test@teste.com', '123456', 2);
@@ -31,14 +29,14 @@ INSERT INTO inbound_order(id, order_date, section_id) VALUES (2, '2022-04-25', 2
 INSERT INTO inbound_order(id, order_date, section_id) VALUES (3, '2022-04-25', 3);
 
 
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (1, 10, 15, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY),  '2023-01-01', '2023-01-01 00:00:00', 5, 1, 1);
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (2, 10, 15, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 1, 2);
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (3, 10, 15, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 1, 3);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (1, 10, 15, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY),  '2023-01-01', '2023-01-01 00:00:00', 5, 1, 1);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (2, 10, 15, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 1, 2);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (3, 10, 15, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 1, 3);
 
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (4, 10, 5, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 2, 4);
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (5, 10, 5, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 2, 5);
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (6, 10, 5, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 2, 6);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (4, 10, 5, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 2, 4);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (5, 10, 5, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 2, 5);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (6, 10, 5, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 2, 6);
 
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (7, 10, -1, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 3, 4);
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (8, 10, -1, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 3, 5);
-INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (9, 10, -1, DATE_ADD(CURRENT_DATE, INTERVAL 10 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 3, 6);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (7, 10, -1, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 3, 4);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (8, 10, -1, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 3, 5);
+INSERT INTO batch_stock(id, product_quantity, current_temperature, due_date, manufacturing_date, manufacturing_time, volume, inbound_order_id, product_id) VALUES (9, 10, -1, DATE_ADD(CURRENT_DATE, INTERVAL 30 DAY), '2023-01-01', '2023-01-01 00:00:00', 5, 3, 6);

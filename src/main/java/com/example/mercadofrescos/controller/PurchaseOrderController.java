@@ -27,6 +27,7 @@ public class PurchaseOrderController {
      */
     @PostMapping("/orders")
     public ResponseEntity<PurchasePriceDTO> createNewOrder(@RequestBody PurchaseOrderRequestDTO purchaseOrder) {
+        System.out.println("purchaseOrder => " + purchaseOrder);
         PurchasePriceDTO response = service.getCartAmount(PurchaseOrderRequestDTO.convert(purchaseOrder));
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
