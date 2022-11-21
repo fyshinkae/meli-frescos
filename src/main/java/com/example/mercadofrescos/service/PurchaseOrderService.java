@@ -4,6 +4,7 @@ import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
+import com.example.mercadofrescos.exception.InvalidStatusOrderCancel;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
@@ -175,17 +176,18 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      */
     public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
         PurchaseOrder purchaseOrder = this.findById(id);
-
         purchaseOrder.setStatusOrder(updateStatus);
-        purchaseOrder.setUpdatedAt(LocalDateTime.now());
 
+        if (purchaseOrder.getUpdatedAt() != null) {
+            LocalDateTime fiveMinutesLater = purchaseOrder.getUpdatedAt().plusMinutes(5);
+            StatusOrder statusOrder = purchaseOrder.getStatusOrder();
+            LocalDateTime localDateTime = LocalDateTime.now();
+            if (statusOrder.equals(StatusOrder.CANCELADO) && localDateTime.compareTo(fiveMinutesLater) > 0) {
+                throw new InvalidStatusOrderCancel("Timeout! you can't cancel this order");
+            }
+            System.out.println(fiveMinutesLater);
+        }
+        purchaseOrder.setUpdatedAt(LocalDateTime.now());
         return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }
-
-    //public PurchaseOrderRequestDTO cancelOrder(StatusOrder status, Long id) {
-    //    PurchaseOrder purchaseOrder = this.findById(id);
-    //    StatusOrder statusOrder = purchaseOrder.getStatusOrder();
-    //    statusOrder.compareTo(StatusOrder.FINALIZADO);
-        // if(purchaseOrder.getStatusOrder() == StatusOrder.FINALIZADO)
-    //}
 }

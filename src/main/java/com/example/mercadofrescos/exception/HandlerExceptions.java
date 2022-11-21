@@ -178,4 +178,16 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, status);
     }
 
+    @ExceptionHandler(InvalidStatusOrderCancel.class)
+    public ResponseEntity<ExceptionDetails> handlerInvalidStatusOrderCancel(InvalidStatusOrderCancel ex){
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Cancel an order")
+                .message(ex.getMessage())
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
 }
