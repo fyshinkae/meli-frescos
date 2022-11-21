@@ -1,12 +1,15 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
-import com.example.mercadofrescos.dto.purchase.ReservationAvailabilityResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
+import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.User;
+import com.example.mercadofrescos.model.enums.StatusOrder;
+import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +31,7 @@ public class PurchaseReservationService implements IPurchaseReservationService {
     private final IPurchaseOrderService purchaseOrderService;
     private final IUserService userService;
     private final IProductService productService;
+    private final IBatchStockRepo batchStockRepo;
 
     /**
      * Cria uma reserva de pedido
@@ -101,5 +106,27 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
 
         purchaseOrderService.getValidProductList(purchaseOrder.getItemList());
+    }
+
+    @Override
+    public PurchaseOrderRequestDTO finishReservation(Long id) {
+        PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
+
+        this.verifyAvailability(id);
+
+        purchaseOrder.getItemList().forEach(purchaseItem -> {
+            Set<BatchStock> batchStocks = purchaseItem.getProduct().getBatches();
+            batchStocks.forEach(item -> {
+                int currentQnt = item.getProductQuantity() - purchaseItem.getProductQuantity();
+                item.setProductQuantity(currentQnt);
+                batchStockRepo.save(item);
+            });
+        });
+
+        purchaseOrder.setReservation(false);
+        purchaseOrder.setStatusOrder(StatusOrder.FINALIZADO);
+        PurchaseOrder purchaseUpdated = purchaseOrderRepo.save(purchaseOrder);
+
+        return PurchaseOrderRequestDTO.convert(purchaseUpdated);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service.interfaces;
 
+import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
 import com.example.mercadofrescos.dto.purchase.ReservationAvailabilityResponseDTO;
@@ -14,4 +15,5 @@ public interface IPurchaseReservationService {
     PurchaseReservationResponseDTO findById(Long id);
     void deleteById(Long id);
     void verifyAvailability(Long id);
+    PurchaseOrderRequestDTO finishReservation(Long id);
 }

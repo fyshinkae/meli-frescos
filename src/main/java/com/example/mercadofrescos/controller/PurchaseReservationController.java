@@ -4,7 +4,6 @@ import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
-import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.service.interfaces.IPurchaseReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -78,5 +77,16 @@ public class PurchaseReservationController {
         service.verifyAvailability(id);
 
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * Finaliza a reserva do pedido
+     * @author Theus
+     */
+    @PostMapping("/finish/{id}")
+    public ResponseEntity<PurchaseOrderRequestDTO> finishReservation(@PathVariable Long id) {
+        PurchaseOrderRequestDTO data = service.finishReservation(id);
+
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 }
