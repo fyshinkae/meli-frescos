@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e582eb5f-46a5-46c8-8c85-83a962bf24df",
+		"_postman_id": "ccd6737c-ac67-41be-9799-bdce777e7768",
 		"name": "desafio-frescos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -366,6 +366,43 @@
 									"key": "orderBy",
 									"value": "DESC"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US6",
+			"item": [
+				{
+					"name": "Requisito 6 - atualida o StatusOrder para 'CANCELADO'",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderStatus\": \"CANCELADO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080//api/v1/fresh-products/orders/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"",
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"1"
 							]
 						}
 					},
