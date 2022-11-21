@@ -34,6 +34,8 @@ O arquivo com a coleção de endpoints está [aqui](https://raw.githubuserconten
 
 O arquivo com a coleção de endpoints do requisito 6 está [aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/matheus-ferreira-req6/postman/desafio-frescos.postman_collection.json)
 
+---
+
 ### Tabela de endpoints
 
 | Endpoint                                 | Verbo |                         Função                                                  |
