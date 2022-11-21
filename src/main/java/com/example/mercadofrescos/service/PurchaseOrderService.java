@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -157,7 +158,16 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      */
     public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
         PurchaseOrder purchaseOrder = this.findById(id);
+
         purchaseOrder.setStatusOrder(updateStatus);
+        purchaseOrder.setUpdatedAt(LocalDateTime.now());
         return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }
+
+    //public PurchaseOrderRequestDTO cancelOrder(StatusOrder status, Long id) {
+    //    PurchaseOrder purchaseOrder = this.findById(id);
+    //    StatusOrder statusOrder = purchaseOrder.getStatusOrder();
+    //    statusOrder.compareTo(StatusOrder.FINALIZADO);
+        // if(purchaseOrder.getStatusOrder() == StatusOrder.FINALIZADO)
+    //}
 }

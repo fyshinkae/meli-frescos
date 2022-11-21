@@ -1,5 +1,5 @@
 package com.example.mercadofrescos.model.enums;
 
 public enum StatusOrder {
-    ABERTO, FINALIZADO
+    ABERTO, FINALIZADO, CANCELAR
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -27,6 +28,9 @@ public class PurchaseOrder {
 
     @Enumerated(EnumType.STRING)
     private StatusOrder statusOrder;
+
+    @Column
+    private LocalDateTime updatedAt;
 
     @Column(nullable = false)
     private LocalDate date;
