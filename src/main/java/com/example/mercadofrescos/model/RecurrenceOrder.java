@@ -22,7 +22,7 @@ public class RecurrenceOrder {
     @Column(nullable = false)
     private LocalDate nextPurchase;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchaseOrderId")
     private PurchaseOrder purchaseOrder;
 }

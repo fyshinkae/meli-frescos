@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,17 @@ public class RecurrenceService implements IRecurrenceService {
 
         this.repo.save(order);
         return new RecurrenceResponseDTO(order);
+    }
+
+    @Override
+    public List<RecurrenceOrder> getAllRecurrences() {
+        List<RecurrenceOrder> result = this.repo.findAll();
+        // System.out.println(result);
+        return null;
+    }
+
+    @Override
+    public void deleteByID(Long id) {
+        this.repo.deleteById(id);
     }
 }
