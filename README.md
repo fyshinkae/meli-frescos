@@ -37,6 +37,7 @@ O arquivo com a coleção de endpoints do requisito 6 está [aqui](https://raw.g
 ---
 
 ### Diagrama de entidade e relacionamento
+
 Drawio [aqui](mercado-frescos.drawio)
 
 <br>
