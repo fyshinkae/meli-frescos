@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,9 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class RatingBySellerDTO {
     private Long sellerId;
-    private BigDecimal averageRating;
     private Reputation level;
-    private HashMap<Long, RatingByProductDTO> products;
+    private List<RatingByProductDTO> products;
 
     /**
      * Cria um DTO a partir de um objeto de modelo de banco
@@ -28,7 +28,6 @@ public class RatingBySellerDTO {
      */
     public RatingBySellerDTO(List<Rating> ratings, Long sellerId, Reputation level){
         this.sellerId = sellerId;
-        this.averageRating = new BigDecimal(0);
         this.level = level;
         this.initializeProducts(ratings);
     }
@@ -51,15 +50,18 @@ public class RatingBySellerDTO {
      * @param ratings uma lista de avaliações
      */
     private void initializeProducts(List<Rating> ratings){
-        this.products = new HashMap<>();
+        HashMap<Long, RatingByProductDTO> productsHashMap = new HashMap<>();
+        this.products = new ArrayList<>();
         for(Rating rating : ratings){
             Long productId = rating.getId().getProductId();
-            if(this.products.containsKey(productId)){
-                RatingByProductDTO ratingByProductDTO = this.products.get(productId);
-                this.products.put(productId, RatingByProductDTO.merge(ratingByProductDTO, rating));
+            if(productsHashMap.containsKey(productId)){
+                RatingByProductDTO ratingByProductDTO = productsHashMap.get(productId);
+                productsHashMap.put(productId, RatingByProductDTO.merge(ratingByProductDTO, rating));
             } else {
-                this.products.put(productId, RatingByProductDTO.convert(rating));
+                productsHashMap.put(productId, RatingByProductDTO.convert(rating));
             }
         }
+
+        this.products = new ArrayList<>(productsHashMap.values());
     }
 }

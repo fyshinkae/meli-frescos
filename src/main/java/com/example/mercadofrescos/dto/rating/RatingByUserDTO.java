@@ -15,7 +15,7 @@ public class RatingByUserDTO {
     private List<RatingProductDTO> ratings;
 
     public RatingByUserDTO(List<Rating> ratings){
-        if(!this.ratings.isEmpty()){
+        if(!ratings.isEmpty()){
             this.customerId = ratings.get(0).getId().getCustomerId();
             this.ratings = RatingProductDTO.convert(ratings);
         }

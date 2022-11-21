@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -232,7 +233,7 @@ public class RatingService implements IRatingService {
             sum = sum.add(rating.getRating());
         }
 
-        return sum.divide(new BigDecimal(ratings.size()));
+        return sum.divide(new BigDecimal(ratings.size()), 2, RoundingMode.HALF_UP);
     }
 
     /**

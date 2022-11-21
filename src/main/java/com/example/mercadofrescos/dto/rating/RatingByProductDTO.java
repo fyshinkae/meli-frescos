@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class RatingByProductDTO {
         this.averageRating = new BigDecimal(0);
         this.ratings = new ArrayList<>();
 
-        if(!this.ratings.isEmpty()){
+        if(!ratings.isEmpty()){
             Product firstProduct = ratings.get(0).getProduct();
             this.productId = firstProduct.getId();
             this.ratings = RatingUserDTO.convert(ratings);
@@ -83,7 +84,7 @@ public class RatingByProductDTO {
             sum  = sum.add(rating.getRating());
         }
 
-        return sum.divide(new BigDecimal(ratings.size()));
+        return sum.divide(new BigDecimal(ratings.size()), 2, RoundingMode.HALF_UP);
     }
 
     /**
@@ -101,6 +102,7 @@ public class RatingByProductDTO {
 
         response.setProductId(rating.getId().getProductId());
         response.setAverageRating(RatingByProductDTO.getRatingAverage(ratings));
+        response.setRatings(ratings);
 
         return response;
     }
