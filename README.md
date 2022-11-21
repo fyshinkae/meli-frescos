@@ -36,6 +36,11 @@ O arquivo com a coleção de endpoints do requisito 6 está [aqui](https://raw.g
 
 ---
 
+### Diagrama de entidade e relacionamento
+[aqui](mercado-frescos.drawio)
+
+---
+
 ### Tabela de endpoints
 
 | Endpoint                                 | Verbo |                         Função                                                  |
