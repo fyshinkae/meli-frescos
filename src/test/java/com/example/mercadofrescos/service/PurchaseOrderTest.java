@@ -5,6 +5,7 @@ import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
+import com.example.mercadofrescos.exception.InvalidStatusOrderCancel;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.mocks.*;
 import com.example.mercadofrescos.model.*;
@@ -27,6 +28,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -84,6 +86,7 @@ public class PurchaseOrderTest {
         purchaseOrder.setId(PurchaseOrderMock.purchaseOrderTest().getId());
         purchaseOrder.setCustomer(customer);
         purchaseOrder.setStatusOrder(PurchaseOrderMock.purchaseOrderTest().getStatusOrder());
+        purchaseOrder.setUpdatedAt(PurchaseOrderMock.purchaseOrderTest().getUpdatedAt());
         purchaseOrder.setDate(PurchaseOrderMock.purchaseOrderTest().getDate());
         purchaseOrder.setItemList(purchaseItemList);
     }
@@ -168,5 +171,38 @@ public class PurchaseOrderTest {
         assertThat(serviceReturn).isNotNull();
         assertThat(serviceReturn).isEqualTo(PurchaseOrderRequestDTO.convert(purchaseOrder));
 
+    }
+
+    @Test
+    @DisplayName("Testing cancel order by order id")
+    void updateStatusOrderToCancel_returnOrderCanceled_whenSuccess() {
+        StatusOrder status = StatusOrder.CANCELADO;
+        purchaseOrder.setStatusOrder(status);
+
+        Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(purchaseOrder));
+        Mockito.when(purchaseOrderRepo.save(purchaseOrder)).thenReturn(purchaseOrder);
+
+        PurchaseOrderRequestDTO serviceReturn = purchaseOrderService.updateOrderStatus(status, purchaseOrder.getId());
+
+        assertThat(serviceReturn).isNotNull();
+        assertThat(serviceReturn).isEqualTo(PurchaseOrderRequestDTO.convert(purchaseOrder));
+
+    }
+
+    @Test
+    @DisplayName("Testing exception error handler if timeout when update status order")
+    void updateStatusOrderToCancel_returnInvalidStatusOrderCancelHandle_whenSuccess() {
+        purchaseOrder.getStatusOrder();
+        LocalDateTime fiveMinutesLater = purchaseOrder.getUpdatedAt().plusMinutes(5);
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(purchaseOrder));
+
+        Throwable exception = assertThrows(InvalidStatusOrderCancel.class, () ->
+                purchaseOrderService.updateOrderStatus(StatusOrder.CANCELADO, purchaseOrder.getId()));
+
+        Assertions.assertEquals(
+                exception.getMessage(), ("Timeout! you can't cancel this order")
+        );
     }
 }
