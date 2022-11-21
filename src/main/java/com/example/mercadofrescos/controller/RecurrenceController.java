@@ -25,9 +25,8 @@ public class RecurrenceController {
     }
 
     @GetMapping
-    public ResponseEntity getRecurrenceOrders() {
-        List<RecurrenceOrder> response = service.getAllRecurrences();
-        System.out.println("AQUIII -> " + response);
+    public ResponseEntity<List<RecurrenceOrderDTO>> getRecurrenceOrders() {
+        List<RecurrenceOrderDTO> response = service.getAllRecurrences();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

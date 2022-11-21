@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,10 +35,9 @@ public class RecurrenceService implements IRecurrenceService {
     }
 
     @Override
-    public List<RecurrenceOrder> getAllRecurrences() {
-        List<RecurrenceOrder> result = this.repo.findAll();
-        // System.out.println(result);
-        return null;
+    public List<RecurrenceOrderDTO> getAllRecurrences() {
+        List<RecurrenceOrderDTO> result = this.repo.findAll().stream().map(RecurrenceOrderDTO::new).collect(Collectors.toList());
+        return result;
     }
 
     @Override

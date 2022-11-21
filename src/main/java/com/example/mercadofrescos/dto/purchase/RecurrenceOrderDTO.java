@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.dto.purchase;
 
+import com.example.mercadofrescos.model.RecurrenceOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,5 +12,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class RecurrenceOrderDTO {
     private Long orderId;
+    private LocalDate nextPurchase;
+
+    public RecurrenceOrderDTO(RecurrenceOrder recurrenceOrder) {
+        this.setOrderId(recurrenceOrder.getId());
+        this.setNextPurchase(recurrenceOrder.getNextPurchase());
+    }
     // private LocalDate nextPurchase;
 }

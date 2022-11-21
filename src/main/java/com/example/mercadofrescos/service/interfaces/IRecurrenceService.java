@@ -9,7 +9,7 @@ import java.util.List;
 public interface IRecurrenceService {
     RecurrenceResponseDTO createRecurrence(RecurrenceOrderDTO recurrenceOrder);
 
-    List<RecurrenceOrder> getAllRecurrences();
+    List<RecurrenceOrderDTO> getAllRecurrences();
 
     void deleteByID(Long id);
 }
