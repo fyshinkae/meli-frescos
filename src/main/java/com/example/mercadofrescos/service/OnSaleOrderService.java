@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.purchase.OnSalePriceDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
@@ -65,7 +66,7 @@ public class OnSaleOrderService implements IOnSaleOrderService {
      * @return Retorna o preço total da ordem de compra já com o desconto aplicado
      */
     @Override
-    public PurchasePriceDTO getCartOnSale(PurchaseOrder purchaseOrder) {
+    public OnSalePriceDTO getCartOnSale(PurchaseOrder purchaseOrder) {
         double totalCartOnSale = 0d;
         BigDecimal singleCartOnSale;
 
@@ -106,7 +107,7 @@ public class OnSaleOrderService implements IOnSaleOrderService {
 
         this.savePurchaseOrder(purchaseOrder);
 
-        return new PurchasePriceDTO(totalCartOnSale);
+        return new OnSalePriceDTO(totalCartOnSale);
     }
 
     /**

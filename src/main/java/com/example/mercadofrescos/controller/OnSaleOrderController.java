@@ -1,9 +1,6 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
-import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
-import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
-import com.example.mercadofrescos.dto.purchase.StatusOrderDTO;
+import com.example.mercadofrescos.dto.purchase.*;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.service.interfaces.IOnSaleOrderService;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +24,8 @@ public class OnSaleOrderController {
      * @return retorna a soma do lote com o desconto aplicado
      */
     @PostMapping
-    public ResponseEntity<PurchasePriceDTO> newOrderOnSale(@RequestBody PurchaseOrderRequestDTO onSaleOrder) {
-        PurchasePriceDTO response = service.getCartOnSale(PurchaseOrderRequestDTO.convert(onSaleOrder));
+    public ResponseEntity<OnSalePriceDTO> newOrderOnSale(@RequestBody PurchaseOrderRequestDTO onSaleOrder) {
+        OnSalePriceDTO response = service.getCartOnSale(PurchaseOrderRequestDTO.convert(onSaleOrder));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
