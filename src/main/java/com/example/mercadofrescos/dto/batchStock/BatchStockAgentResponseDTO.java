@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.batchStock;
 
 import com.example.mercadofrescos.model.BatchStock;
 import lombok.AllArgsConstructor;
@@ -13,8 +13,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BatchStockAgentResponseDTO {
+
     private Long batchNumber;
+
     private Integer currentQuantity;
+
     private LocalDate dueDate;
 
     /**

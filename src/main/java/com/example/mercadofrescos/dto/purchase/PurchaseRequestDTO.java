@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.purchase;
 
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchaseRequestDTO {
+
     private LocalDate date;
 
     private Long id, buyerId;
@@ -23,9 +24,14 @@ public class PurchaseRequestDTO {
 
     private List<PurchaseItemDTO> products;
 
+    /**
+     * Converte um PurchaseRequestDTO para PurchaseOrder
+     * @author Gabriel
+     * @param PurchaseRequestDTO DTO a ser convertido
+     * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
+     */
     public static PurchaseOrder convert(PurchaseRequestDTO purchaseDTO){
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-
         purchaseOrder.setDate(purchaseDTO.getDate());
         purchaseOrder.setId(purchaseDTO.getId());
         purchaseOrder.setStatusOrder(purchaseDTO.getOrderStatus());
@@ -37,7 +43,7 @@ public class PurchaseRequestDTO {
         List<PurchaseItem> items = new ArrayList<>();
         for(PurchaseItemDTO purchaseItem : purchaseDTO.getProducts()){
             PurchaseItem convertedPurchaseItem = PurchaseItemDTO.convert(purchaseItem);
-            convertedPurchaseItem.setPurchaseOrderId(purchaseOrder);
+            convertedPurchaseItem.setPurchaseOrder(purchaseOrder);
             items.add(convertedPurchaseItem);
         }
 
@@ -45,19 +51,29 @@ public class PurchaseRequestDTO {
 
         return purchaseOrder;
     }
+
+    /**
+     * Converte um PurchaseOrder para PurchaseRequestDTO
+     * @author Giovanna
+     * @param PurchaseOrder DTO a ser convertido
+     * @return um objeto do tipo PurchaseOrder gerado a partir de um DTO
+     */
     public static PurchaseRequestDTO convert(PurchaseOrder purchaseOrder){
         PurchaseRequestDTO response = new PurchaseRequestDTO();
+
         response.setId(purchaseOrder.getId());
         response.setBuyerId(purchaseOrder.getCustomer().getId());
         response.setDate(purchaseOrder.getDate());
         response.setOrderStatus(purchaseOrder.getStatusOrder());
+
         List<PurchaseItemDTO> items = new ArrayList<>();
         for(PurchaseItem purchaseItem : purchaseOrder.getItemList()){
             PurchaseItemDTO products = PurchaseItemDTO.convert(purchaseItem);
             items.add(products);
         }
-        response.setProducts(items);
-        return response;
 
+        response.setProducts(items);
+
+        return response;
     }
 }

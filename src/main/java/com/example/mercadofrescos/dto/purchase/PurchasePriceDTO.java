@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.purchase;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PurchasePriceDTO {
+
     @JsonProperty("totalPrice")
     private Double totalPrice;
 }

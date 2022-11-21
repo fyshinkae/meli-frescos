@@ -1,9 +1,9 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.BatchStockAgentResponseDTO;
-import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
-import com.example.mercadofrescos.dto.ProductDTO;
-import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.dto.batchStock.BatchStockAgentResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductAgentResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductDTO;
+import com.example.mercadofrescos.dto.product.ProductResponseDTO;
 import com.example.mercadofrescos.exception.InvalidQueryParamException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.exception.ProductsListNotFoundException;
@@ -62,7 +62,7 @@ public class ProductServiceTest {
 
         Mockito.when(repo.findAll()).thenReturn(productList);
 
-        List<ProductResponseDTO> result = productService.findAllProducts();
+        List<ProductResponseDTO> result = productService.findAll();
 
         assertThat(result).isNotNull();
         assertThat(result).size().isEqualTo(1);
@@ -79,7 +79,7 @@ public class ProductServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.getName()).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getPrice()).isEqualTo(new BigDecimal(100.0));
+        assertThat(result.getPrice()).isEqualTo(new BigDecimal("100.0"));
         assertThat(result.getCategory()).isEqualTo(this.product.getCategory());
     }
 
@@ -94,7 +94,7 @@ public class ProductServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.getName()).isNotNull();
         assertThat(result.getId()).isEqualTo(1L);
-        assertThat(result.getPrice()).isEqualTo(new BigDecimal(100.0));
+        assertThat(result.getPrice()).isEqualTo(new BigDecimal("100.0"));
         assertThat(result.getCategory()).isEqualTo(this.product.getCategory());
     }
 
@@ -104,7 +104,7 @@ public class ProductServiceTest {
         Mockito.when(repo.findAll())
                 .thenThrow(NotFoundException.class);
 
-        assertThatThrownBy(() -> productService.findAllProducts())
+        assertThatThrownBy(() -> productService.findAll())
                 .isInstanceOf(NotFoundException.class);
     }
 
@@ -114,7 +114,7 @@ public class ProductServiceTest {
         Mockito.when(repo.findAll())
                 .thenReturn(new ArrayList<>());
 
-        assertThatThrownBy(() -> productService.findAllProducts())
+        assertThatThrownBy(() -> productService.findAll())
                 .isInstanceOf(NotFoundException.class);
     }
 

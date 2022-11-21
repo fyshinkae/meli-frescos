@@ -1,6 +1,6 @@
 package com.example.mercadofrescos.mocks;
 
-import com.example.mercadofrescos.dto.PurchaseItemResponseDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.model.PurchaseItem;
 import com.example.mercadofrescos.model.PurchaseOrder;
 
@@ -13,8 +13,8 @@ public class PurchaseItemMock {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
 
         purchaseItem.setId(1L);
-        purchaseItem.setProductId(ProductMock.productTest());
-        purchaseItem.setPurchaseOrderId(purchaseOrder);
+        purchaseItem.setProduct(ProductMock.productTest());
+        purchaseItem.setPurchaseOrder(purchaseOrder);
         purchaseItem.setProductQuantity(10);
 
         return purchaseItem;

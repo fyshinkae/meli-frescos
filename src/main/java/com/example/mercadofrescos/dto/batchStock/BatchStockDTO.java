@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.batchStock;
 
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.Product;
@@ -20,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BatchStockDTO {
+
     private Long batchNumber;
 
     @NotNull

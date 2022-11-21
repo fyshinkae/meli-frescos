@@ -23,6 +23,7 @@ public class UserService implements IUserService {
     @Override
     public User findById(Long id) {
         Optional<User> user = repo.findById(id);
+
         return user.orElseThrow(() -> new NotFoundException("User not found"));
     }
 }

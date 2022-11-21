@@ -1,8 +1,8 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.ProductAgentResponseDTO;
-import com.example.mercadofrescos.dto.ProductDTO;
-import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductAgentResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductDTO;
+import com.example.mercadofrescos.dto.product.ProductResponseDTO;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,8 +24,9 @@ public class ProductController {
      * @return HTTP status e a lista de todos os produtos
      */
     @GetMapping
-    public ResponseEntity<List<ProductResponseDTO>> getAll(){
-        List<ProductResponseDTO> products = service.findAllProducts();
+    public ResponseEntity<List<ProductResponseDTO>> findAll(){
+        List<ProductResponseDTO> products = service.findAll();
+
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -35,7 +36,7 @@ public class ProductController {
      * @return lista de produtos filtrado e HTTP status
      */
     @GetMapping("/list")
-    public ResponseEntity<List<ProductDTO>> getAllByCategory(
+    public ResponseEntity<List<ProductDTO>> findByCategory(
             @RequestParam(required = false, name = "category") String category
     ) {
         List<ProductDTO> filterByCategory = service.findByCategory(category);

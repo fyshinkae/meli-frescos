@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.product;
 
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.Product;
@@ -16,7 +16,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WarehouseProductsDTO {
+
     private Long warehouseCode;
+
     private int totalQuantity;
 
     /**

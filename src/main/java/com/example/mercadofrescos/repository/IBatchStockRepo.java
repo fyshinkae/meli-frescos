@@ -10,4 +10,9 @@ import java.util.List;
 public interface IBatchStockRepo extends JpaRepository<BatchStock, Long> {
     @Query("SELECT b FROM BatchStock b WHERE b.product.category = :category")
     List<BatchStock> getBatchStocksByCategory(Category category);
+
+    @Query("SELECT b FROM BatchStock b " +
+            "JOIN InboundOrder i ON b.inboundOrder.id = i.id " +
+            "WHERE i.section.id = :sectionId")
+    List<BatchStock> getBatchStocksBySectionId(Long sectionId);
 }

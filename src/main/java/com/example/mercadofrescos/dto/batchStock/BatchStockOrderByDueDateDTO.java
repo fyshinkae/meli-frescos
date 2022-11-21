@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.batchStock;
 
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.enums.Category;
@@ -14,10 +14,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BatchStockOrderByDueDateDTO {
+
     private Long batchNumber;
+
     private Long productId;
+
     private Category productTypeId;
+
     private LocalDate dueDate;
+
     private Integer quantity;
 
     public BatchStockOrderByDueDateDTO(BatchStock batchStock) {

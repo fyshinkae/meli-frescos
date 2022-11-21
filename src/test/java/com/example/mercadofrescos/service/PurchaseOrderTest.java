@@ -1,9 +1,9 @@
 package com.example.mercadofrescos.service;
 
 
-import com.example.mercadofrescos.dto.PurchaseItemResponseDTO;
-import com.example.mercadofrescos.dto.PurchaseOrderRequestDTO;
-import com.example.mercadofrescos.dto.PurchasePriceDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
+import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
+import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.mocks.*;
@@ -32,7 +32,6 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PurchaseOrderTest {
@@ -76,8 +75,8 @@ public class PurchaseOrderTest {
         product.setCategory(ProductMock.productTest().getCategory());
 
         purchaseItem.setId(PurchaseItemMock.puchaseItemTest().getId());
-        purchaseItem.setProductId(product);
-        purchaseItem.setPurchaseOrderId(purchaseOrder);
+        purchaseItem.setProduct(product);
+        purchaseItem.setPurchaseOrder(purchaseOrder);
         purchaseItem.setProductQuantity(PurchaseItemMock.puchaseItemTest().getProductQuantity());
 
         purchaseItemList.add(purchaseItem);
@@ -115,7 +114,7 @@ public class PurchaseOrderTest {
 
         product.setBatches(batches);
 
-        purchaseItem.setProductId(product);
+        purchaseItem.setProduct(product);
 
         purchaseItemList.clear();
         purchaseItemList.add(purchaseItem);
@@ -128,35 +127,6 @@ public class PurchaseOrderTest {
 
         Assertions.assertEquals(
                 exception.getMessage(), ("Products " + "[1]" + " is not available")
-        );
-    }
-
-    @Test
-    @DisplayName("Testing return exceptions when have products with expirated date")
-    void newOrder_returnException_whenHaveExpiratedDate() {
-        BatchStock batch = new BatchStock();
-        Set<BatchStock> batches = new HashSet<>();
-
-        batch.setId(1L);
-        batch.setProductQuantity(100);
-        batch.setDueDate(LocalDate.now());
-        batches.add(batch);
-
-        product.setBatches(batches);
-
-        purchaseItem.setProductId(product);
-
-        purchaseItemList.clear();
-        purchaseItemList.add(purchaseItem);
-        purchaseOrder.setItemList(purchaseItemList);
-
-        Mockito.when(productService.findById(ArgumentMatchers.anyLong())).thenReturn(product);
-
-        Throwable exception = assertThrows(InvalidPurchaseException.class, () ->
-                purchaseOrderService.getCartAmount(purchaseOrder));
-
-        Assertions.assertEquals(
-                exception.getMessage(), ("Products " + "[1]" + " close to expiration")
         );
     }
 

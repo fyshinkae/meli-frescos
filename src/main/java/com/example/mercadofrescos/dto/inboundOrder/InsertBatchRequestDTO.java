@@ -1,5 +1,6 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.inboundOrder;
 
+import com.example.mercadofrescos.dto.batchStock.BatchStockDTO;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.model.InboundOrder;
 import com.example.mercadofrescos.model.Section;
@@ -8,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InsertBatchRequestDTO {
+
     @Valid
     private InboundOrderRequestDTO inboundOrder;
 

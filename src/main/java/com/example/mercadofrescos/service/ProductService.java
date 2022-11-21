@@ -1,9 +1,10 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.*;
+import com.example.mercadofrescos.dto.batchStock.BatchStockAgentResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductAgentResponseDTO;
 import com.example.mercadofrescos.exception.InvalidQueryParamException;
-import com.example.mercadofrescos.dto.ProductDTO;
-import com.example.mercadofrescos.dto.ProductResponseDTO;
+import com.example.mercadofrescos.dto.product.ProductDTO;
+import com.example.mercadofrescos.dto.product.ProductResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.BatchStock;
 import com.example.mercadofrescos.exception.ProductsListNotFoundException;
@@ -29,7 +30,7 @@ public class ProductService implements IProductService {
      * @return Retorna a lista de todos os produtos
      */
     @Override
-    public List<ProductResponseDTO> findAllProducts() {
+    public List<ProductResponseDTO> findAll() {
         List<Product> products = repo.findAll();
 
         List<ProductResponseDTO> response = new ArrayList<>();

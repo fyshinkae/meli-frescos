@@ -151,12 +151,12 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
 
         String message = "Malformed JSON, see documentation to send correct JSON";
 
-            ExceptionDetails details = ExceptionDetails.builder()
-                    .title("Invalid values")
-                    .message(message)
-                    .status(status.value())
-                    .timestamps(LocalDateTime.now())
-                    .build();
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Invalid values")
+                .message(message)
+                .status(status.value())
+                .timestamps(LocalDateTime.now())
+                .build();
 
         return new ResponseEntity<>(details, status);
     }

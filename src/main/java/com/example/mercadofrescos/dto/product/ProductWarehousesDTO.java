@@ -1,4 +1,4 @@
-package com.example.mercadofrescos.dto;
+package com.example.mercadofrescos.dto.product;
 
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.Warehouse;
@@ -16,7 +16,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductWarehousesDTO {
+
     private Long productId;
+
     private List<WarehouseProductsDTO> warehouses;
 
     /**

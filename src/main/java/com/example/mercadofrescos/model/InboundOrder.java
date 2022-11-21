@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class InboundOrder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
