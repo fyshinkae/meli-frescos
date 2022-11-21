@@ -1,9 +1,6 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
-import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
-import com.example.mercadofrescos.dto.purchase.PurchaseReservationRequestDTO;
-import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
+import com.example.mercadofrescos.dto.purchase.*;
 import com.example.mercadofrescos.service.interfaces.IPurchaseReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -76,10 +73,10 @@ public class PurchaseReservationController {
      * @param id do pedido
      */
     @GetMapping("/availability/{id}")
-    public ResponseEntity<Void> verifyAvailability(@PathVariable Long id) {
-        service.verifyAvailability(id);
+    public ResponseEntity<CheckAvailabilityResponseDTO> verifyAvailability(@PathVariable Long id) {
+        CheckAvailabilityResponseDTO data = service.verifyAvailability(id);
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     /**

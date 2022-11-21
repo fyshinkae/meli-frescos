@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.purchase.CheckAvailabilityResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
@@ -102,10 +103,12 @@ public class PurchaseReservationService implements IPurchaseReservationService {
      * @param id do pedido
      */
     @Override
-    public void verifyAvailability(Long id) {
+    public CheckAvailabilityResponseDTO verifyAvailability(Long id) {
         PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
 
         purchaseOrderService.getValidProductList(purchaseOrder.getItemList());
+
+        return new CheckAvailabilityResponseDTO(purchaseOrder);
     }
 
     /**

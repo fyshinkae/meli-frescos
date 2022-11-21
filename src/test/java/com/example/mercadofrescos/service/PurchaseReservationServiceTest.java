@@ -1,8 +1,7 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.purchase.PurchaseItemDTO;
-import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
-import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
+import com.example.mercadofrescos.dto.purchase.*;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.mocks.*;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.PurchaseItem;
@@ -12,8 +11,8 @@ import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
-import com.example.mercadofrescos.service.interfaces.IPurchaseReservationService;
 import com.example.mercadofrescos.service.interfaces.IUserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,13 +23,15 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 public class PurchaseReservationServiceTest {
@@ -101,10 +102,60 @@ public class PurchaseReservationServiceTest {
         assertThat(response.getId()).isEqualTo(1);
         assertThat(response.getCreatedAt()).isEqualTo(purchaseOrder.getDate());
         assertThat(response.getItems()).isEqualTo(purchaseItemsResponse);
+        assertThat(response.getTotalPrice()).isEqualTo(BigDecimal.valueOf(1000.0));
     }
 
     @Test
     void findAll_returnAllReservation_whenSuccess() {
-        List<PurchaseItemDTO> purchaseItems = ArrayList
+        List<PurchaseRequestDTO> purchaseItems = List.of(PurchaseRequestDTO.convert(purchaseOrder));
+        List<PurchaseOrder> purchaseOrders = List.of(purchaseOrder);
+
+        Mockito.when(purchaseOrderRepo.findAllReservation()).thenReturn(purchaseOrders);
+
+        List<PurchaseRequestDTO> response = purchaseReservationService.findAll();
+
+        assertThat(response).isNotNull();
+        assertThat(response).isEqualTo(purchaseItems);
+    }
+
+    @Test
+    void findById_returnReservation_whenSuccess() {
+        Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(purchaseOrder));
+
+        PurchaseReservationResponseDTO response = purchaseReservationService.findById(purchaseOrder.getId());
+
+        assertThat(response).isNotNull();
+        assertThat(response.getTotalPrice()).isEqualTo(BigDecimal.valueOf(1000.0));
+        assertThat(response.getId()).isEqualTo(purchaseOrder.getId());
+        assertThat(response.getCreatedAt()).isEqualTo(purchaseOrder.getDate());
+        assertThat(response.getItems()).isEqualTo(purchaseItemsResponse);
+    }
+
+    @Test
+    void findById_returnException_whenNonExistentPurchaseOrder() {
+        Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(purchaseOrder));
+        Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(NotFoundException.class, () ->
+                purchaseReservationService.findById(purchaseOrder.getId()));
+
+        Assertions.assertEquals(
+                exception.getMessage(), ("Purchase order not found")
+        );
+    }
+
+    @Test
+    void verifyAvailability_returnAvailability_whenSuccess() {
+        Mockito.when(purchaseOrderService.findById(ArgumentMatchers.anyLong())).thenReturn(purchaseOrder);
+
+        List<AvailabilityDTO> itemsResponse = purchaseOrder.getItemList().stream().map(AvailabilityDTO::new).collect(Collectors.toList());
+
+        CheckAvailabilityResponseDTO response = purchaseReservationService.verifyAvailability(purchaseOrder.getId());
+
+        assertThat(response).isNotNull();
+        assertThat(response.getTotalPrice()).isEqualTo(BigDecimal.valueOf(1000.0));
+        assertThat(response.getId()).isEqualTo(purchaseOrder.getId());
+        assertThat(response.getItems()).isEqualTo(itemsResponse);
+        assertThat(response.getBuyerId()).isEqualTo(purchaseOrder.getCustomer().getId());
     }
 }

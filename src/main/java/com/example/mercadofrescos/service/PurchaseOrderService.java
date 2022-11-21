@@ -104,9 +104,9 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private BatchStock getValidBatchStockByCapacityAndDueDate(Product product, int purchaseQuantity){
         Set<BatchStock> batches = product.getBatches();
         Integer threeWeeks = 21;
-        for(BatchStock batchStock : batches){
-            if(batchStock.getProductQuantity() > purchaseQuantity
-                    || validateDueDate(batchStock.getDueDate(), threeWeeks)) {
+        for(BatchStock batchStock : batches) {
+            if(batchStock.getProductQuantity() >= purchaseQuantity
+                    && validateDueDate(batchStock.getDueDate(), threeWeeks)) {
                 return batchStock;
             }
         }

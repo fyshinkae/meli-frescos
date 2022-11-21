@@ -168,6 +168,5 @@ public class PurchaseOrderTest {
 
         assertThat(serviceReturn).isNotNull();
         assertThat(serviceReturn).isEqualTo(PurchaseOrderRequestDTO.convert(purchaseOrder));
-
     }
 }
