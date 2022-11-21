@@ -68,4 +68,15 @@ public class PurchaseReservationController {
 
         return ResponseEntity.ok().build();
     }
+
+    /**
+     * Verifica a disponibilidade da reserva do pedido
+     * @author Theus
+     */
+    @GetMapping("/availability/{id}")
+    public ResponseEntity<Void> verifyAvailability(@PathVariable Long id) {
+        service.verifyAvailability(id);
+
+        return ResponseEntity.ok().build();
+    }
 }

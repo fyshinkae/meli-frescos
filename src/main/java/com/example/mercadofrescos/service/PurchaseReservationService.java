@@ -2,6 +2,7 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
+import com.example.mercadofrescos.dto.purchase.ReservationAvailabilityResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Product;
 import com.example.mercadofrescos.model.PurchaseOrder;
@@ -89,5 +90,16 @@ public class PurchaseReservationService implements IPurchaseReservationService {
             throw new NotFoundException("Purchase order is not a reservation");
 
         purchaseOrderRepo.delete(purchaseOrder);
+    }
+
+    /**
+     * Verifica a disponibilidade da reserva de um pedido
+     * @author Theus
+     */
+    @Override
+    public void verifyAvailability(Long id) {
+        PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
+
+        purchaseOrderService.getValidProductList(purchaseOrder.getItemList());
     }
 }

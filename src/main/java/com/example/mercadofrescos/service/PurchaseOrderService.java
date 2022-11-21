@@ -64,7 +64,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
      * @param purchaseItems Lista de produtos recebida pelo request do usuário
      * @return Uma lista de produtos validada
      */
-    private List<Product> getValidProductList(List<PurchaseItem> purchaseItems){
+    public List<Product> getValidProductList(List<PurchaseItem> purchaseItems) {
         List<Product> response = new ArrayList<>();
         List<Long> productIdErrors = new ArrayList<>();
 
