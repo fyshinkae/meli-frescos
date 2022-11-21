@@ -1,8 +1,10 @@
 package com.example.mercadofrescos.controller;
 
 import com.example.mercadofrescos.dto.rating.RatingByProductDTO;
+import com.example.mercadofrescos.dto.rating.RatingBySellerDTO;
 import com.example.mercadofrescos.dto.rating.RatingByUserDTO;
 import com.example.mercadofrescos.dto.rating.RatingDTO;
+import com.example.mercadofrescos.model.enums.Reputation;
 import com.example.mercadofrescos.service.interfaces.IRatingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -51,6 +53,19 @@ public class RatingController {
     @GetMapping("/products/{productId}")
     public ResponseEntity<RatingByProductDTO> getRatingByProduct(@PathVariable Long productId){
         RatingByProductDTO response = this.service.getRatingByProduct(productId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Obtém a lista dos vendedores com informações relacionadas a avaliações
+     * @param reputation filtra os vendedores pela reputação
+     * @return Uma lista de vendedores com informações de avaliações e HTTP Status
+     */
+    @GetMapping("/sellers")
+    public ResponseEntity<List<RatingBySellerDTO>> getRatingBySeller(
+            @RequestParam(required = false) Reputation reputation
+            ){
+        List<RatingBySellerDTO> response = this.service.getRatingBySeller(reputation);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
