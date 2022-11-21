@@ -1,9 +1,6 @@
 package com.example.mercadofrescos.controller;
 
-import com.example.mercadofrescos.dto.rating.RatingByProductDTO;
-import com.example.mercadofrescos.dto.rating.RatingBySellerDTO;
-import com.example.mercadofrescos.dto.rating.RatingByUserDTO;
-import com.example.mercadofrescos.dto.rating.RatingDTO;
+import com.example.mercadofrescos.dto.rating.*;
 import com.example.mercadofrescos.model.enums.Reputation;
 import com.example.mercadofrescos.service.interfaces.IRatingService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +30,17 @@ public class RatingController {
     }
 
     /**
+     * Obtém a lista de todos as avaliações dos compradores
+     * @author Gabriel
+     * @return Uma lista de avaliações de todos os usuários e HTTP Status
+     */
+    @GetMapping("/customers")
+    public ResponseEntity<List<RatingByUserDTO>> getRatingByUsers(){
+        List<RatingByUserDTO> response = this.service.getRatingByUsers();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
      * Obtém a lista de todos as avaliações de um usuário
      * @author Gabriel
      * @param customerId Id do comprador
@@ -41,6 +49,20 @@ public class RatingController {
     @GetMapping("/customers/{customerId}")
     public ResponseEntity<RatingByUserDTO> getRatingByUser(@PathVariable Long customerId){
         RatingByUserDTO response = this.service.getRatingByUser(customerId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Obtém uma avaliação de um produto específico dado por um usuário
+     * @param customerId Id do comprador
+     * @param productId Id do produto
+     * @return Uma avaliação do customerId de um productId e HTTP Status
+     */
+    @GetMapping("/customers/{customerId}/products/{productId}")
+    public ResponseEntity<RatingByUserDTO> getRatingByUserAndProduct(
+            @PathVariable Long customerId,
+            @PathVariable Long productId){
+        RatingByUserDTO response = this.service.getRatingByUserAndProduct(customerId, productId);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

@@ -18,4 +18,8 @@ public interface IRatingService {
     RatingByProductDTO getRatingByProduct(Long productId);
 
     List<RatingBySellerDTO> getRatingBySeller(Reputation reputation);
+
+    RatingByUserDTO getRatingByUserAndProduct(Long customerId, Long productId);
+
+    List<RatingByUserDTO> getRatingByUsers();
 }

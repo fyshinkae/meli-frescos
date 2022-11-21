@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -112,6 +113,62 @@ public class RatingService implements IRatingService {
     }
 
     /**
+     * Obtém a avaliação de um usuário de um produto específico
+     * @author Gabriel
+     * @param customerId Id do comprador
+     * @param productId Id do produto
+     * @return a avaliação de um usuário de um produto específico
+     */
+    @Override
+    public RatingByUserDTO getRatingByUserAndProduct(Long customerId, Long productId) {
+        RatingByUserDTO userRatings = this.getRatingByUser(customerId);
+        List<RatingProductDTO> ratings = userRatings.getRatings();
+        List<RatingProductDTO> filteredRatings = this.getFilteredRatingProductDTO(ratings, productId);
+        userRatings.setRatings(filteredRatings);
+        return userRatings;
+    }
+
+    /**
+     * Obtém uma lista de todos as avaliações de todos os usuários
+     * @author Gabriel
+     * @return uma lista de todos as avaliações de todos os usuários
+     */
+    @Override
+    public List<RatingByUserDTO> getRatingByUsers() {
+        List<Rating> ratings = this.repo.findAll();
+        HashMap<Long, List<Rating>> ratingsByUser = this.getHashMapRatingsByCustomer(ratings);
+
+        if(ratings.isEmpty()){
+            throw new NotFoundException("Ratings not found");
+        }
+
+        List<RatingByUserDTO> response = new ArrayList<>();
+        for(Long customerId : ratingsByUser.keySet()){
+            response.add(RatingByUserDTO.convert(ratingsByUser.get(customerId)));
+        }
+
+        return response;
+    }
+
+    /**
+     * Filtra a lista de RatingProductDTO por productId
+     * @author Gabriel
+     * @param ratings uma lista de DTOs
+     * @param productId Id do produto
+     * @return Retorna uma lista com um único produto
+     */
+    private List<RatingProductDTO> getFilteredRatingProductDTO(List<RatingProductDTO> ratings, Long productId){
+        List<RatingProductDTO> filteredRatings = ratings.stream()
+                .filter(rating -> rating.getProductId() == productId)
+                .collect(Collectors.toList());
+
+        if(filteredRatings.isEmpty()){
+            throw new NotFoundException("Ratings not found");
+        }
+        return filteredRatings;
+    }
+
+    /**
      *Obtém a reputação a partir de uma lista de avaliações
      * @author Gabriel
      * @param ratings uma lista de avaliações
@@ -199,6 +256,29 @@ public class RatingService implements IRatingService {
         }
 
         return ratingsBySeller;
+    }
+
+    /**
+     * Obtém um HashMap onde a chave é o id do comprador e o valor é a lista de avaliações
+     * @author Gabriel
+     * @param ratings Lista com todas as avaliações
+     * @return um HashMap
+     */
+    private HashMap<Long, List<Rating>> getHashMapRatingsByCustomer(List<Rating> ratings){
+        HashMap<Long, List<Rating>> ratingsByCustomer = new HashMap<>();
+
+        for(Rating rating : ratings){
+            Long customerId = rating.getId().getCustomerId();
+            if(ratingsByCustomer.containsKey(customerId)){
+                ratingsByCustomer.get(customerId).add(rating);
+            } else {
+                List<Rating> customerRatings = new ArrayList<>();
+                customerRatings.add(rating);
+                ratingsByCustomer.put(customerId, customerRatings);
+            }
+        }
+
+        return ratingsByCustomer;
     }
 
 
