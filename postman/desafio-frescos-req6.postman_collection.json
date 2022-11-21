@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "8c6316df-c851-4fa7-9edb-1bc8b6c89f57",
+		"name": "Meli-frescos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create reservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"buyerId\": 2,\n    \"date\": \"2022-11-09\",\n    \"products\": [\n        {\n            \"productId\": 2,\n            \"quantity\": 50\n        },\n        {\n            \"productId\": 4,\n            \"quantity\": 20\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base}}/api/v1/purchase/reservation",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"purchase",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAll Reservation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/v1/purchase/reservation",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"purchase",
+						"reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById reservation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/v1/purchase/reservation/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"purchase",
+						"reservation",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete reservation",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/v1/purchase/reservation/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"purchase",
+						"reservation",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check availability reservation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/v1/purchase/reservation/availability/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"purchase",
+						"reservation",
+						"availability",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "finishReservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base}}/api/v1/purchase/reservation/finish/1",
+					"host": [
+						"{{base}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"purchase",
+						"reservation",
+						"finish",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
