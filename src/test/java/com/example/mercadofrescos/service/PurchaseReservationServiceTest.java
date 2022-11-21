@@ -3,10 +3,8 @@ package com.example.mercadofrescos.service;
 import com.example.mercadofrescos.dto.purchase.*;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.mocks.*;
-import com.example.mercadofrescos.model.Product;
-import com.example.mercadofrescos.model.PurchaseItem;
-import com.example.mercadofrescos.model.PurchaseOrder;
-import com.example.mercadofrescos.model.User;
+import com.example.mercadofrescos.model.*;
+import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
@@ -157,5 +155,29 @@ public class PurchaseReservationServiceTest {
         assertThat(response.getId()).isEqualTo(purchaseOrder.getId());
         assertThat(response.getItems()).isEqualTo(itemsResponse);
         assertThat(response.getBuyerId()).isEqualTo(purchaseOrder.getCustomer().getId());
+    }
+
+    @Test
+    void finishReservation_returnReservationFinish_whenSuccess() {
+        Mockito.when(purchaseOrderService.findById(ArgumentMatchers.anyLong())).thenReturn(purchaseOrder);
+        Mockito.when(batchStockRepo.save(ArgumentMatchers.any())).thenReturn(new BatchStock());
+
+        purchaseOrder.setReservation(false);
+        purchaseOrder.setStatusOrder(StatusOrder.FINALIZADO);
+        Mockito.when(purchaseOrderRepo.save(ArgumentMatchers.any())).thenReturn(purchaseOrder);
+
+        PurchaseOrderRequestDTO response = purchaseReservationService.finishReservation(purchaseOrder.getId());
+        List<PurchaseItemDTO>  purchaseItemDTOS = purchaseOrder.getItemList()
+                .stream()
+                .map(PurchaseItemDTO::convert)
+                .collect(Collectors.toList());
+
+        assertThat(response).isNotNull();
+        assertThat(response.getPurchaseOrder().getDate()).isEqualTo(purchaseOrder.getDate());
+        assertThat(response.getPurchaseOrder().getId()).isEqualTo(purchaseOrder.getId());
+        assertThat(response.getPurchaseOrder().getBuyerId()).isEqualTo(purchaseOrder.getCustomer().getId());
+        assertThat(response.getPurchaseOrder().getOrderStatus()).isEqualTo(StatusOrder.FINALIZADO);
+        assertThat(response.getPurchaseOrder().getProducts()).isEqualTo(purchaseItemDTOS);
+        assertThat(response.getPurchaseOrder().isReservation()).isEqualTo(false);
     }
 }
