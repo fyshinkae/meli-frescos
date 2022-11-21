@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.purchase.PurchaseItemDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
 import com.example.mercadofrescos.mocks.*;
@@ -100,5 +101,10 @@ public class PurchaseReservationServiceTest {
         assertThat(response.getId()).isEqualTo(1);
         assertThat(response.getCreatedAt()).isEqualTo(purchaseOrder.getDate());
         assertThat(response.getItems()).isEqualTo(purchaseItemsResponse);
+    }
+
+    @Test
+    void findAll_returnAllReservation_whenSuccess() {
+        List<PurchaseItemDTO> purchaseItems = ArrayList
     }
 }
