@@ -20,10 +20,11 @@ public class RatingBySellerDTO {
     private HashMap<Long, RatingByProductDTO> products;
 
     /**
+     * Cria um DTO a partir de um objeto de modelo de banco
      * @author Gabriel
-     * @param ratings
-     * @param sellerId
-     * @param level
+     * @param ratings uma lista de avaliações de modelo de banco
+     * @param sellerId Id do vendedor
+     * @param level reputação do vendedor
      */
     public RatingBySellerDTO(List<Rating> ratings, Long sellerId, Reputation level){
         this.sellerId = sellerId;
@@ -33,20 +34,21 @@ public class RatingBySellerDTO {
     }
 
     /**
-     *
+     * Converte um objeto de modelo de banco para um objeto DTO
      * @author Gabriel
-     * @param ratings
-     * @param sellerId
-     * @param level
-     * @return
+     * @param ratings uma lista de avaliações de modelo de banco
+     * @param sellerId Id do vendedor
+     * @param level reputação do vendedor
+     * @return um objeto DTO
      */
     public static RatingBySellerDTO convert(List<Rating> ratings, Long sellerId, Reputation level){
         return new RatingBySellerDTO(ratings, sellerId, level);
     }
 
     /**
+     * Inicializa o HashMap de produtos
      * @author Gabriel
-     * @param ratings
+     * @param ratings uma lista de avaliações
      */
     private void initializeProducts(List<Rating> ratings){
         this.products = new HashMap<>();

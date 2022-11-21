@@ -36,6 +36,11 @@ public class RatingByProductDTO {
         }
     }
 
+    /**
+     * Cria um DTO a partir de um objeto de modelo de banco
+     * @author Gabriel
+     * @param rating um objeto de modelo de banco
+     */
     public RatingByProductDTO(Rating rating) {
         this.productId = rating.getId().getProductId();
         this.averageRating = rating.getRating();
@@ -55,6 +60,12 @@ public class RatingByProductDTO {
         return new RatingByProductDTO(ratings);
     }
 
+    /**
+     * Converte um objeto de modelo de banco para um DTO
+     * @author Gabriel
+     * @param rating um objeto de modelo de banco
+     * @return um objeto DTO
+     */
     public static RatingByProductDTO convert(Rating rating){
        return new RatingByProductDTO(rating);
     }
@@ -75,6 +86,13 @@ public class RatingByProductDTO {
         return sum.divide(new BigDecimal(ratings.size()));
     }
 
+    /**
+     * Realiza o merge entre o DTO e o rating de modelo de banco
+     * @author Gabriel
+     * @param ratingDTO DTO original
+     * @param rating a avaliação a ser mergeada ao DTO
+     * @return Um DTO com a avaliação de modelo de banco mergeada
+     */
     public static RatingByProductDTO merge(RatingByProductDTO ratingDTO, Rating rating) {
         RatingByProductDTO response = new RatingByProductDTO();
 
