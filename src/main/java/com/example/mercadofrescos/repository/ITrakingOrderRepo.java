@@ -1,6 +1,13 @@
 package com.example.mercadofrescos.repository;
 
+import com.example.mercadofrescos.model.TrackingOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ITrakingOrderRepo<Appointment> extends JpaRepository<Appointment, Long> {
+import java.util.List;
+
+@Repository
+public interface ITrakingOrderRepo extends JpaRepository<TrackingOrder, Long> {
+    // Derived Query JPA
+    List<TrackingOrder> findAllByPurchaseOrder_user_id(Long purchaseOrder_user_id);
 }
