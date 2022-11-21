@@ -29,6 +29,9 @@ Qualidade e Segurança).
 ### Collection do Postman
 
 O arquivo com a coleção de endpoints está [aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/main/postman/desafio-frescos.postman_collection.json). Caso precise de instruções consulte a [documentação do Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+
+---
+
 O arquivo com a coleção de endpoints do requisito 6 está [aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/matheus-ferreira-req6/postman/desafio-frescos.postman_collection.json)
 
 ### Tabela de endpoints
