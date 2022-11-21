@@ -4,10 +4,7 @@ import com.example.mercadofrescos.dto.purchase.PurchaseOrderRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseRequestDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseReservationResponseDTO;
 import com.example.mercadofrescos.exception.NotFoundException;
-import com.example.mercadofrescos.model.BatchStock;
-import com.example.mercadofrescos.model.Product;
-import com.example.mercadofrescos.model.PurchaseOrder;
-import com.example.mercadofrescos.model.User;
+import com.example.mercadofrescos.model.*;
 import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
@@ -113,8 +110,18 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         PurchaseOrder purchaseOrder = purchaseOrderService.findById(id);
 
         this.verifyAvailability(id);
+        this.updateQntBatchStock(purchaseOrder.getItemList());
 
-        purchaseOrder.getItemList().forEach(purchaseItem -> {
+        purchaseOrder.setReservation(false);
+        purchaseOrder.setStatusOrder(StatusOrder.FINALIZADO);
+
+        PurchaseOrder purchaseUpdated = purchaseOrderRepo.save(purchaseOrder);
+
+        return PurchaseOrderRequestDTO.convert(purchaseUpdated);
+    }
+
+    private void updateQntBatchStock(List<PurchaseItem> purchaseItems) {
+        purchaseItems.forEach(purchaseItem -> {
             Set<BatchStock> batchStocks = purchaseItem.getProduct().getBatches();
             batchStocks.forEach(item -> {
                 int currentQnt = item.getProductQuantity() - purchaseItem.getProductQuantity();
@@ -122,11 +129,5 @@ public class PurchaseReservationService implements IPurchaseReservationService {
                 batchStockRepo.save(item);
             });
         });
-
-        purchaseOrder.setReservation(false);
-        purchaseOrder.setStatusOrder(StatusOrder.FINALIZADO);
-        PurchaseOrder purchaseUpdated = purchaseOrderRepo.save(purchaseOrder);
-
-        return PurchaseOrderRequestDTO.convert(purchaseUpdated);
     }
 }
