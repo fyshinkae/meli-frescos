@@ -86,6 +86,7 @@ public class PurchaseOrderTest {
         purchaseOrder.setStatusOrder(PurchaseOrderMock.purchaseOrderTest().getStatusOrder());
         purchaseOrder.setDate(PurchaseOrderMock.purchaseOrderTest().getDate());
         purchaseOrder.setItemList(purchaseItemList);
+        purchaseOrder.setReservation(false);
     }
 
     @Test

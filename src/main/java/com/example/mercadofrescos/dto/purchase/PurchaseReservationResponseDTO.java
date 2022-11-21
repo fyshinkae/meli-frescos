@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PurchaseReservationResponseDTO {
     private Long id;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private BigDecimal totalPrice;
     private List<PurchaseItemResponseDTO> items;
 
@@ -29,7 +30,7 @@ public class PurchaseReservationResponseDTO {
      */
     public PurchaseReservationResponseDTO(PurchaseOrder purchase) {
         this.id = purchase.getId();
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
         this.items = purchase.getItemList().stream()
                 .map(PurchaseItemResponseDTO::new)
                 .collect(Collectors.toList());
