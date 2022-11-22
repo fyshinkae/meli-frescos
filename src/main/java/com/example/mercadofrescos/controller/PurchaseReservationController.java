@@ -64,7 +64,7 @@ public class PurchaseReservationController {
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     /**
