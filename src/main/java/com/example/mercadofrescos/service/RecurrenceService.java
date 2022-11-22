@@ -27,10 +27,10 @@ public class RecurrenceService implements IRecurrenceService {
         PurchaseOrder purchaseOrder = this.purchaseOrderService.findById(recurrenceOrder.getOrderId());
 
         RecurrenceOrder order = new RecurrenceOrder();
-        LocalDate date = LocalDate.from(purchaseOrder.getDate()).plusMonths(1);
-        order.setNextPurchase(date);
+        LocalDate date = LocalDate.now();
+        order.setCreatedAt(date);
+        order.setDayOfMonth(recurrenceOrder.getDayOfMonth());
         order.setPurchaseOrder(purchaseOrder);
-
         this.repo.save(order);
         return new RecurrenceResponseDTO(order);
     }

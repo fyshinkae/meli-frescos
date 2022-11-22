@@ -1,6 +1,5 @@
 package com.example.mercadofrescos.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +19,10 @@ public class RecurrenceOrder {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate nextPurchase;
+    private Long dayOfMonth;
+
+    @Column(nullable = false)
+    private LocalDate createdAt;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchaseOrderId")
