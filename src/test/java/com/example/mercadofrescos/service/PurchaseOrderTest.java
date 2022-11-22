@@ -12,6 +12,7 @@ import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.repository.IBatchStockRepo;
 import com.example.mercadofrescos.repository.IProductRepo;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
+import com.example.mercadofrescos.repository.ITrakingOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IProductService;
 import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
 import com.example.mercadofrescos.service.interfaces.IUserService;
@@ -53,6 +54,9 @@ public class PurchaseOrderTest {
     @Mock
     IPurchaseItemService purchaseItemService;
 
+    @Mock
+    ITrakingOrderRepo trakingOrderRepo;
+
     @InjectMocks
     PurchaseOrderService purchaseOrderService;
 
@@ -61,6 +65,7 @@ public class PurchaseOrderTest {
     private final PurchaseOrder purchaseOrder = new PurchaseOrder();
     private final PurchaseItem purchaseItem = new PurchaseItem();
     private final List<PurchaseItem> purchaseItemList = new ArrayList<>();
+    private TrackingOrder trackingOrder = new TrackingOrder();
 
     @BeforeEach
     @DisplayName("Test Purchase Order Service")
@@ -86,6 +91,8 @@ public class PurchaseOrderTest {
         purchaseOrder.setStatusOrder(PurchaseOrderMock.purchaseOrderTest().getStatusOrder());
         purchaseOrder.setDate(PurchaseOrderMock.purchaseOrderTest().getDate());
         purchaseOrder.setItemList(purchaseItemList);
+
+        trackingOrder = TrackingOrderMock.trackingOrderTest();
     }
 
     @Test
@@ -109,15 +116,16 @@ public class PurchaseOrderTest {
 
         batch.setId(1L);
         batch.setProductQuantity(1);
-        batch.setDueDate(LocalDate.parse("2023-10-20", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        batch.setDueDate(LocalDate.parse("2020-10-20", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         batches.add(batch);
 
         product.setBatches(batches);
 
         purchaseItem.setProduct(product);
-
+        purchaseItem.setProductQuantity(500);
         purchaseItemList.clear();
         purchaseItemList.add(purchaseItem);
+
         purchaseOrder.setItemList(purchaseItemList);
 
         Mockito.when(productService.findById(ArgumentMatchers.anyLong())).thenReturn(product);
@@ -162,6 +170,7 @@ public class PurchaseOrderTest {
 
         Mockito.when(purchaseOrderRepo.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(purchaseOrder));
         Mockito.when(purchaseOrderRepo.save(purchaseOrder)).thenReturn(purchaseOrder);
+        Mockito.when(trakingOrderRepo.findTrackingOrderByPurchaseOrderId(purchaseOrder.getId())).thenReturn(trackingOrder);
 
         PurchaseOrderRequestDTO serviceReturn = purchaseOrderService.updateOrderStatus(status, purchaseOrder.getId());
 
