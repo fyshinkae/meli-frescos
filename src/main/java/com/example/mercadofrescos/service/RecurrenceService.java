@@ -44,7 +44,7 @@ public class RecurrenceService implements IRecurrenceService {
     }
 
     @Override
-    public RecurrenceResponseDTO updateRecurrence(RecurrenceOrderDTO recurrenceOrder, Long id) {
+    public RecurrenceResponseDTO updateRecurrence(RecurrenceOrder recurrenceOrder, Long id) {
         RecurrenceOrder recurrenceUpdate = this.repo.findById(id).orElseThrow(() -> new NotFoundException("Recurrence Not Found"));
         recurrenceUpdate.setDayOfMonth(recurrenceOrder.getDayOfMonth());
         this.repo.save(recurrenceUpdate);
