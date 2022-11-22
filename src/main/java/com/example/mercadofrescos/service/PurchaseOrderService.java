@@ -105,7 +105,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         Integer threeWeeks = 21;
         for(BatchStock batchStock : batches){
             if(batchStock.getProductQuantity() > purchaseQuantity
-                    && validateDueDate(batchStock.getDueDate(), threeWeeks)) {
+                    || validateDueDate(batchStock.getDueDate(), threeWeeks)) {
                 return batchStock;
             }
         }

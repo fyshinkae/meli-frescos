@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class RatingController {
      * @return Avaliação salva no banco de dados e HTTP Status
      */
     @PostMapping
-    public ResponseEntity<RatingDTO> createRating(@RequestBody RatingDTO request){
+    public ResponseEntity<RatingDTO> createRating(@Valid @RequestBody RatingDTO request){
         RatingDTO response = this.service.createRating(RatingDTO.convert(request));
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

@@ -22,8 +22,8 @@ public class RatingDTO {
     private Long productId;
 
     @NotNull
-    @DecimalMin(value = "5")
-    @DecimalMax(value = "1")
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "5")
     private BigDecimal rating;
 
     /**

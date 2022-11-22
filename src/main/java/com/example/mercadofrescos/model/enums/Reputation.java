@@ -3,8 +3,8 @@ package com.example.mercadofrescos.model.enums;
 import java.math.BigDecimal;
 
 public enum Reputation {
-    GREEN(10, new BigDecimal(4.5)),
-    YELLOW(5, new BigDecimal(4)),
+    GREEN(5, new BigDecimal(4.5)),
+    YELLOW(3, new BigDecimal(4)),
     RED(0, new BigDecimal(0));
 
     private final int minimumNumberOfRatings;
