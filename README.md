@@ -6,6 +6,10 @@
 </p>
 
 ### Requisito 6 - Gabriel Viana Teixeira
+
+#### Banco de dados
+<img alt="Diagrama" src="https://github.com/fyshinkae/meli-frescos/blob/gabriel-viana-req6/docs/diagrama.png">
+
 User Story Code: ml-us-6-06
 User Story Name: ml-rating-products-01
 
