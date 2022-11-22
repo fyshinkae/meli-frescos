@@ -22,9 +22,20 @@ Qualidade e Segurança).
 * [Requisito 5](https://drive.google.com/file/d/1eREsXg-O1IBD2SeKmRxlMHjyt8GsLYTs/view?usp=sharing)
 * [Requisito 6](https://drive.google.com/file/d/1il0kj0iGrPnVuko06dqxelyTiHcrkB6c/view?usp=sharing)
 
+### Diagrama do Projeto
+<img src="Diagrama_Base.png"/>
+
+---
+### Links Requisito 6:
+- [Anderson Alves](https://github.com/fyshinkae/meli-frescos/tree/feature/requisito-6/anderson)
+- [Felipe Shinkae](https://github.com/fyshinkae/meli-frescos/tree/feature/shinkae)
+- [Gabriel Viana](https://github.com/fyshinkae/meli-frescos/tree/gabriel-viana-req6)
+- [Giovanna Eliz](https://github.com/fyshinkae/meli-frescos/tree/giovanna-eliz-req6)
+- [Matheus Alves (Ma)](https://github.com/fyshinkae/meli-frescos/tree/matheus-alves-req-6)
+- [Matheus Ferreira (Theus)](https://github.com/fyshinkae/meli-frescos/tree/matheus-ferreira-req6)
 ---
 
-## Instruções para instalação
+### Instruções para instalação
 Para iniciar o projeto é necessario o Docker.
 Dentro do diretório raiz do projeto, executar o comando abaixo:
 ```sh
@@ -34,35 +45,22 @@ Após, iniciar o projeto com o comando:
 ```sh
 mvn spring-boot:run
 ```
-
-## Endpoints
+---
 
 ### Collection do Postman
 
 O arquivo com a coleção de endpoints está [aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/main/postman/desafio-frescos.postman_collection.json). Caso precise de instruções consulte a [documentação do Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
 
-
-### Tabela de endpoints
-
-| Endpoint                                 | Verbo |                         Função                                                  |
-|:-----------------------------------------|:-----:|:-------------------------------------------------------:                        |
-| /api/v1/fresh-products/inboundorder      |  POST | Insere uma ordem de entrada contendo uma lista de lotes                         |
-| /api/v1/fresh-products/inboundorder      |  PUT  | Atualiza os lotes no estoque                                                    |
-| /api/v1/fresh-products                   |  GET  | Lista todos os produtos (Visão do comprador)                                    |
-| /api/v1/fresh-products/list              |  GET  | Lista todos os produtos aceitando um filtro de categoria (Visão do comprador)   |  
-| /api/v1/fresh-products/agent/list        |  GET  | Lista todos os produtos, aceitando filtros (Visão do Representante)             |
-
-
 ---
-
 ### Equipe 7
 
 - [Anderson Alves](https://github.com/andmalves)
 - [Felipe Shinkae](https://github.com/fyshinkae)
 - [Gabriel Viana](https://github.com/gabvteixeira)
 - [Giovanna Eliz](https://github.com/giovannaelizs)
-- [Matheus Ferreira (Theus)](https://github.com/matheusFerreira-meli)
 - [Matheus Alves (Ma)](https://github.com/matheusaralves)
+- [Matheus Ferreira (Theus)](https://github.com/matheusFerreira-meli)
+
 
 
 ---
