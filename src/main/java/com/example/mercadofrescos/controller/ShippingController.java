@@ -19,12 +19,21 @@ public class ShippingController {
 
     private final IShippingService service;
 
-
+    /**
+     * Controller para listar todos os shippings
+     * @author Felipe Shinkae
+     * @return lista com todos os shippings
+     */
     @GetMapping("")
     public ResponseEntity<List<Shipping>> findAll() {
         return ResponseEntity.ok().body(this.service.findAll());
     }
 
+    /**
+     * Controller para atualizar o shipping pelo id do purchaseOrder
+     * @author Felipe Shinkae
+     * @return retorna o Shipping atualizado
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Shipping> update(
             @PathVariable Long id, @RequestBody ShippingRequestDTO shipping) {

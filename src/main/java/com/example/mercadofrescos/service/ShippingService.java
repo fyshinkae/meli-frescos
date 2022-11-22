@@ -15,6 +15,14 @@ public class ShippingService implements IShippingService {
 
     private final IShippingRepo repo;
 
+
+    /**
+     * Metodo para aualizar o status de shipping
+     * @author Felipe Shinkae
+     * @param id trackingOrder id para alteração
+     * @param shipping objeto de shipping para atualização
+     * @return retorna objeto shipping alterado
+     */
     @Override
     public Shipping update(Long id, Shipping shipping) {
 
@@ -27,6 +35,11 @@ public class ShippingService implements IShippingService {
         return repo.save(shippingObj);
     }
 
+    /**
+     * Método para listar de todos os shipping criados
+     * @author Felipe Shinkae
+     * @return Retorna lista de todos shipping
+     */
     @Override
     public List<Shipping> findAll() {
         List<Shipping> shippingList = repo.findAll();

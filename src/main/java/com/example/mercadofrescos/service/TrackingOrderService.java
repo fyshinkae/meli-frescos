@@ -24,6 +24,12 @@ public class TrackingOrderService implements ITrackingOrderService {
     private final ITrakingOrderRepo repo;
     private final IPurchaseOrderService orderService;
 
+    /**
+     * Metodo de criação de trackingOrder
+     * @author Felipe Shinkae
+     * @param trackingOrder ojbeto para criação do TrackingORder
+     * @return DTO do objeto criado
+     */
     @Override
     public TrackingOrderResponseDTO create(TrackingOrderRequestDTO trackingOrder) {
         TrackingOrder validator = repo.findTrackingOrderByPurchaseOrderId(trackingOrder.getPurchaseOrderId());
@@ -47,12 +53,23 @@ public class TrackingOrderService implements ITrackingOrderService {
         return TrackingOrderResponseDTO.converter(repo.save(newTracking));
     }
 
+    /**
+     * metodo para retornar trackingOrder pela id
+     * @author Felipe Shinkae
+     * @param id trackingOrder id
+     * @return retorna trackingOrder conforme o id
+     */
     @Override
     public TrackingOrder findTrackingOrderById(Long id) {
         return this.repo.findById(id).orElseThrow(
                 () -> new NotFoundException("Tracking order not found"));
     }
 
+    /**
+     * Metodo para retornar todas as trackingOrders
+     * @author Felipe Shinkae
+     * @return Retorna todas as trackingOrders geradas
+     */
     @Override
     public List<TrackingOrder> findAllTrackingOrder() {
         List<TrackingOrder> list = repo.findAll();
