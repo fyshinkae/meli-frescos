@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e582eb5f-46a5-46c8-8c85-83a962bf24df",
+		"_postman_id": "97c48917-465b-4fff-9331-78c50d5a279b",
 		"name": "desafio-frescos",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23737899"
 	},
 	"item": [
 		{
@@ -366,6 +367,150 @@
 									"key": "orderBy",
 									"value": "DESC"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US6 - Gabriel",
+			"item": [
+				{
+					"name": "Requisito 6 - Cria avaliação de um produto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customerId\": 1,\n\t\"productId\": 1,\n\t\"rating\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - Obtém a lista de todos as avaliações dos compradores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings/customers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - Obtém a lista de todos as avaliações de um usuário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings/customers/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - Obtém uma avaliação de um produto específico dado por um usuário",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings/customers/1/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings",
+								"customers",
+								"1",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - Obtém a lista de todas as avaliações de um produto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings/products/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - Obtém a lista dos vendedores com informações relacionadas a avaliações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings/sellers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings",
+								"sellers"
 							]
 						}
 					},
