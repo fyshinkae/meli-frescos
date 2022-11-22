@@ -6,12 +6,11 @@ import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
 import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.enums.StatusOrder;
+import com.example.mercadofrescos.model.enums.StatusShipping;
 import com.example.mercadofrescos.repository.IPurchaseOrderRepo;
 import com.example.mercadofrescos.model.*;
-import com.example.mercadofrescos.service.interfaces.IProductService;
-import com.example.mercadofrescos.service.interfaces.IPurchaseItemService;
-import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
-import com.example.mercadofrescos.service.interfaces.IUserService;
+import com.example.mercadofrescos.repository.ITrakingOrderRepo;
+import com.example.mercadofrescos.service.interfaces.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     private final IUserService userService;
     private final IProductService productService;
     private final IPurchaseItemService purchaseItemService;
+    private final ITrakingOrderRepo trakingOrderRepo;
 
     /**
      * Calcula o valor total dos itens do carrinho
@@ -176,7 +176,18 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         PurchaseOrder purchaseOrder = this.findById(id);
         purchaseOrder.setStatusOrder(updateStatus);
 
+        PurchaseOrder savePurchaseOrder = purchaseOrderRepo.save(purchaseOrder);
+        this.validatorStatus(purchaseOrder);
 
-        return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
+        return PurchaseOrderRequestDTO.convert(savePurchaseOrder);
+    }
+
+    public void validatorStatus(PurchaseOrder purchaseOrder) {
+        TrackingOrder trackingOrder = trakingOrderRepo.findTrackingOrderByPurchaseOrderId(purchaseOrder.getId());
+
+        if (purchaseOrder.getStatusOrder() == StatusOrder.FINALIZADO) {
+            trackingOrder.getShipping().setStatusShipping(StatusShipping.CLOSED);
+            trakingOrderRepo.save(trackingOrder);
+        }
     }
 }

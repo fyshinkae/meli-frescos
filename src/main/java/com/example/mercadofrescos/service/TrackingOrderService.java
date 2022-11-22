@@ -6,8 +6,10 @@ import com.example.mercadofrescos.model.Address;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.Shipping;
 import com.example.mercadofrescos.model.TrackingOrder;
+import com.example.mercadofrescos.model.enums.StatusOrder;
 import com.example.mercadofrescos.model.enums.StatusShipping;
 import com.example.mercadofrescos.repository.ITrakingOrderRepo;
+import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import com.example.mercadofrescos.service.interfaces.ITrackingOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
 public class TrackingOrderService implements ITrackingOrderService {
 
     private final ITrakingOrderRepo repo;
-    private final PurchaseOrderService orderService;
+    private final IPurchaseOrderService orderService;
 
     @Override
     public TrackingOrderResponseDTO create(TrackingOrderRequestDTO trackingOrder) {
@@ -54,4 +56,14 @@ public class TrackingOrderService implements ITrackingOrderService {
         trackingOrderById.setTrackingDate(trackingOrder.getTrackingDate());
         return TrackingOrderResponseDTO.converter(repo.save(trackingOrderById));
     }
+
+//    @Override
+//    public void validatorStatus(PurchaseOrder purchaseOrder) {
+//        TrackingOrder trackingOrder = repo.findTrackingOrderByPurchaseOrderId(purchaseOrder.getId());
+//
+//        if (purchaseOrder.getStatusOrder() == StatusOrder.FINALIZADO) {
+//            trackingOrder.getShipping().setStatusShipping(StatusShipping.CLOSED);
+//            repo.save(trackingOrder);
+//        }
+//    }
 }

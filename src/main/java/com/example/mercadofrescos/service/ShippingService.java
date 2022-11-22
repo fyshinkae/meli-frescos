@@ -1,15 +1,12 @@
 package com.example.mercadofrescos.service;
 
-import com.example.mercadofrescos.dto.shipping.ShippingRequestDTO;
 import com.example.mercadofrescos.model.Shipping;
 import com.example.mercadofrescos.repository.IShippingRepo;
 import com.example.mercadofrescos.service.interfaces.IShippingService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service

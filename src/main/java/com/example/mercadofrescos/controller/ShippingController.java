@@ -20,7 +20,7 @@ public class ShippingController {
     private final IShippingService service;
 
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<Shipping>> findAll() {
         return ResponseEntity.ok().body(this.service.findAll());
     }
@@ -38,5 +38,6 @@ public class ShippingController {
 
         return ResponseEntity.ok().body(shippingUpdate);
     }
+
 
 }
