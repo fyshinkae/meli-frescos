@@ -178,6 +178,11 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         PurchaseOrder purchaseOrder = this.findById(id);
         purchaseOrder.setStatusOrder(updateStatus);
 
+         /**
+         * Altera o 'orderStatus' para 'CANCELADO'
+         * @author Giovanna - requisito 6
+         * @param updateStatus status da order
+         */
         if (purchaseOrder.getUpdatedAt() != null) {
             LocalDateTime fiveMinutesLater = purchaseOrder.getUpdatedAt().plusMinutes(5);
             StatusOrder statusOrder = purchaseOrder.getStatusOrder();
