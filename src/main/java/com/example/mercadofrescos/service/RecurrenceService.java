@@ -23,8 +23,8 @@ public class RecurrenceService implements IRecurrenceService {
 
     private final IPurchaseOrderService purchaseOrderService;
     @Override
-    public RecurrenceResponseDTO createRecurrence(RecurrenceOrderDTO recurrenceOrder) {
-        PurchaseOrder purchaseOrder = this.purchaseOrderService.findById(recurrenceOrder.getOrderId());
+    public RecurrenceResponseDTO createRecurrence(RecurrenceOrder recurrenceOrder) {
+        PurchaseOrder purchaseOrder = this.purchaseOrderService.findById(recurrenceOrder.getId());
 
         RecurrenceOrder order = new RecurrenceOrder();
         LocalDate date = LocalDate.now();

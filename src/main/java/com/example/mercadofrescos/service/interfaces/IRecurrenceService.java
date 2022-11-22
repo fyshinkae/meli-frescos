@@ -7,7 +7,7 @@ import com.example.mercadofrescos.model.RecurrenceOrder;
 import java.util.List;
 
 public interface IRecurrenceService {
-    RecurrenceResponseDTO createRecurrence(RecurrenceOrderDTO recurrenceOrder);
+    RecurrenceResponseDTO createRecurrence(RecurrenceOrder recurrenceOrder);
 
     List<RecurrenceOrderDTO> getAllRecurrences();
 
