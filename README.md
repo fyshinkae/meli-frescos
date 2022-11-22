@@ -5,6 +5,33 @@
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/fyshinkae/meli-frescos">
 </p>
 
+### Requisito 6 - Gabriel Viana Teixeira
+User Story Code: ml-us-6-06
+User Story Name: ml-rating-products-01
+
+COMO comprador
+QUERO poder avaliar os produtos dos vendedores
+PARA apontar os melhores produtos do marketplace 6
+
+CENÁRIO 1: Considerando que os produtos estejam registrados em alguma warehouse
+DADO QUE comprador esteja cadastrado
+E o produto esteja cadastrado
+E a nota do produto seja um número de 1 a 5
+QUANDO o comprador adiciona uma nota a um produto
+ENTÃO uma nota é adicionada ao produto
+
+VALIDAÇÃO
+▪ A nota do produto não pode ser nula.
+
+| HTTP | Plantilla URI                                                               | Descripción                                                                      | US-code   |
+|------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------|-----------|
+| POST | /api/v1/fresh-products/ratings                                              | Cadastra um novo produto. Devolver o status "201 CREATED"                        | ml-us6-06 |
+| GET  | /api/v1/fresh-products/ratings/ consumers                                   | Obtém a lista de avaliações associadas aos consumidores                          | ml-us6-06 |
+| GET  | /api/v1/fresh-products/ratings/ consumers/{consumerId}                      | Obtém a lista de avaliações associadas ao consumidor do consumerId               | ml-us6-06 |
+| GET  | /api/v1/fresh-products/ratings/ consumers/{consumerId}/products/{productId} | Obtém a avaliação do consumidor do consumerId em relação ao produto do productId | ml-us6-06 |
+| GET  | /api/v1/fresh-products/ratings/ products/{productId}                        | Obtém a lista de avaliações associadas ao produto do productId                   | ml-us6-06 |
+| GET  | /api/v1/fresh-products/ratings/ sellers                                     | Obtém a lista de avaliações associada a cada vendedor                            | ml-us6-06 |
+
 
 ### Objetivo
 O objetivo deste projeto final é implementar uma API REST no âmbito do slogan e aplicar
