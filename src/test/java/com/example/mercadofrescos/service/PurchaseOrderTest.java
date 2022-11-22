@@ -109,13 +109,13 @@ public class PurchaseOrderTest {
 
         batch.setId(1L);
         batch.setProductQuantity(1);
-        batch.setDueDate(LocalDate.parse("2023-10-20", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        batch.setDueDate(LocalDate.parse("2020-10-20", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         batches.add(batch);
 
         product.setBatches(batches);
 
         purchaseItem.setProduct(product);
-
+        purchaseItem.setProductQuantity(500);
         purchaseItemList.clear();
         purchaseItemList.add(purchaseItem);
         purchaseOrder.setItemList(purchaseItemList);
