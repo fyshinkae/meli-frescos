@@ -141,6 +141,8 @@ public class PurchaseReservationService implements IPurchaseReservationService {
         purchaseItems.forEach(purchaseItem -> {
             Set<BatchStock> batchStocks = purchaseItem.getProduct().getBatches();
             batchStocks.forEach(item -> {
+                if (purchaseItem.getProductQuantity() > item.getProductQuantity()) return;
+
                 int currentQnt = item.getProductQuantity() - purchaseItem.getProductQuantity();
                 item.setProductQuantity(currentQnt);
                 batchStockRepo.save(item);
