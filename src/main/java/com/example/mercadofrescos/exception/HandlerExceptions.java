@@ -178,4 +178,16 @@ public class HandlerExceptions extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(details, status);
     }
 
+    @ExceptionHandler(InvalidCreateTrackingException.class)
+    public ResponseEntity<ExceptionDetails> InvalidCreateTrackingException(InvalidCreateTrackingException ex) {
+        ExceptionDetails details = ExceptionDetails.builder()
+                .title("Invalid Tracking Order creation")
+                .message(ex.getMessage())
+                .timestamps(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
 }

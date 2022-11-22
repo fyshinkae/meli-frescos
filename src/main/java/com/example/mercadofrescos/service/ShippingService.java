@@ -1,12 +1,12 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Shipping;
 import com.example.mercadofrescos.repository.IShippingRepo;
 import com.example.mercadofrescos.service.interfaces.IShippingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -19,7 +19,7 @@ public class ShippingService implements IShippingService {
     public Shipping update(Long id, Shipping shipping) {
 
         Shipping shippingObj = this.repo.findById(id).orElseThrow(
-                () -> new RuntimeException("Shipping Not Found"));
+                () -> new NotFoundException("Shipping Not Found"));
 
         shippingObj.setStatusShipping(shipping.getStatusShipping());
         shippingObj.setDescription(shipping.getDescription());
@@ -32,7 +32,7 @@ public class ShippingService implements IShippingService {
         List<Shipping> shippingList = repo.findAll();
 
         if (shippingList.isEmpty()){
-            throw new EntityNotFoundException("Shipping not found");
+            throw new NotFoundException("Shipping not found");
         }
         return  shippingList;
     }

@@ -2,6 +2,8 @@ package com.example.mercadofrescos.service;
 
 import com.example.mercadofrescos.dto.tracking.TrackingOrderRequestDTO;
 import com.example.mercadofrescos.dto.tracking.TrackingOrderResponseDTO;
+import com.example.mercadofrescos.exception.InvalidCreateTrackingException;
+import com.example.mercadofrescos.exception.NotFoundException;
 import com.example.mercadofrescos.model.Address;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.Shipping;
@@ -14,8 +16,12 @@ import com.example.mercadofrescos.service.interfaces.ITrackingOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +32,11 @@ public class TrackingOrderService implements ITrackingOrderService {
 
     @Override
     public TrackingOrderResponseDTO create(TrackingOrderRequestDTO trackingOrder) {
+        TrackingOrder validator = repo.findTrackingOrderByPurchaseOrderId(trackingOrder.getPurchaseOrderId());
+
+        if (validator != null) {
+            throw new InvalidCreateTrackingException("Tracking order already exists");
+        }
 
         TrackingOrder newTracking = new TrackingOrder();
 
@@ -36,7 +47,6 @@ public class TrackingOrderService implements ITrackingOrderService {
 
         PurchaseOrder purchaseOrder = orderService.findById(trackingOrder.getPurchaseOrderId());
         newTracking.setPurchaseOrder(purchaseOrder);
-
         Address address = purchaseOrder.getCustomer().getAddress();
         newTracking.setAddress(address);
 
@@ -44,26 +54,19 @@ public class TrackingOrderService implements ITrackingOrderService {
     }
 
     @Override
-    @Transactional
-    public TrackingOrderResponseDTO update(Long id, TrackingOrder trackingOrder) {
-        TrackingOrder trackingOrderById = this.repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Does not exits Appointment"));
-
-        if (trackingOrderById.getShipping().getStatusShipping() != StatusShipping.PREPARING) {
-            throw new RuntimeException("Order cannot be updated");
-        }
-
-        trackingOrderById.setTrackingDate(trackingOrder.getTrackingDate());
-        return TrackingOrderResponseDTO.converter(repo.save(trackingOrderById));
+    public TrackingOrder findTrackingOrderById(Long id) {
+        return this.repo.findById(id).orElseThrow(
+                () -> new NotFoundException("Tracking order not found"));
     }
 
-//    @Override
-//    public void validatorStatus(PurchaseOrder purchaseOrder) {
-//        TrackingOrder trackingOrder = repo.findTrackingOrderByPurchaseOrderId(purchaseOrder.getId());
-//
-//        if (purchaseOrder.getStatusOrder() == StatusOrder.FINALIZADO) {
-//            trackingOrder.getShipping().setStatusShipping(StatusShipping.CLOSED);
-//            repo.save(trackingOrder);
-//        }
-//    }
+    @Override
+    public List<TrackingOrder> findAllTrackingOrder() {
+        List<TrackingOrder> list = repo.findAll();
+
+        if (list.isEmpty()){
+            throw new NotFoundException("There is no Tracking Order list");
+        }
+
+        return list;
+    }
 }

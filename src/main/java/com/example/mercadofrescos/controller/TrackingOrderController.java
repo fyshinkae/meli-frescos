@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,4 +26,23 @@ public class TrackingOrderController {
         TrackingOrderResponseDTO newTrackingOrder = service.create(trackingOrder);
         return new ResponseEntity<>(newTrackingOrder, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TrackingOrderResponseDTO> findTrackingOrderById(@PathVariable Long id) {
+        TrackingOrder order = service.findTrackingOrderById(id);
+        return new ResponseEntity<>(TrackingOrderResponseDTO.converter(order), HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<TrackingOrderResponseDTO>> findAllTrackingOrder() {
+        List<TrackingOrderResponseDTO> listResponse = new ArrayList<>();
+        List<TrackingOrder> order = service.findAllTrackingOrder();
+
+        for (TrackingOrder trackingOrder : order) {
+            listResponse.add(TrackingOrderResponseDTO.converter(trackingOrder));
+        }
+
+        return new ResponseEntity<>(listResponse, HttpStatus.OK);
+    }
+
 }
