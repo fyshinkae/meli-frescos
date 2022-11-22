@@ -18,8 +18,9 @@ public class RecurrenceController {
 
     private final IRecurrenceService service;
 
-    @PostMapping
-    public ResponseEntity<RecurrenceResponseDTO> createRecurrenceFromOrder(@RequestBody RecurrenceOrderDTO recurrenceOrder) {
+    @PostMapping("/{id}")
+    public ResponseEntity<RecurrenceResponseDTO> createRecurrenceFromOrder(@RequestBody RecurrenceOrderDTO recurrenceOrder, @PathVariable Long id) {
+        recurrenceOrder.setOrderId(id);
         RecurrenceResponseDTO response = service.createRecurrence(recurrenceOrder);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -27,6 +28,13 @@ public class RecurrenceController {
     @GetMapping
     public ResponseEntity<List<RecurrenceOrderDTO>> getRecurrenceOrders() {
         List<RecurrenceOrderDTO> response = service.getAllRecurrences();
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateRecurrenceOrder(@RequestBody RecurrenceOrderDTO recurrenceOrder, @PathVariable Long id) {
+        recurrenceOrder.setOrderId(id);
+        RecurrenceResponseDTO response = service.createRecurrence(recurrenceOrder);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
