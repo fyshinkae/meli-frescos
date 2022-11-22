@@ -11,5 +11,7 @@ public interface IRecurrenceService {
 
     List<RecurrenceOrderDTO> getAllRecurrences();
 
+    RecurrenceResponseDTO updateRecurrence(RecurrenceOrderDTO recurrenceOrder, Long id);
+
     void deleteByID(Long id);
 }

@@ -34,7 +34,7 @@ public class RecurrenceController {
     @PutMapping("/{id}")
     public ResponseEntity updateRecurrenceOrder(@RequestBody RecurrenceOrderDTO recurrenceOrder, @PathVariable Long id) {
         recurrenceOrder.setOrderId(id);
-        RecurrenceResponseDTO response = service.createRecurrence(recurrenceOrder);
+        RecurrenceResponseDTO response = service.updateRecurrence(recurrenceOrder, id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
