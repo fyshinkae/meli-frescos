@@ -24,6 +24,17 @@ Qualidade e Segurança).
 
 ---
 
+## Instruções para instalação
+Para iniciar o projeto é necessario o Docker.
+Dentro do diretório raiz do projeto, executar o comando abaixo:
+```sh
+docker-compose up -d 
+```
+Após, iniciar o projeto com o comando:
+```sh
+mvn spring-boot:run
+```
+
 ## Endpoints
 
 ### Collection do Postman
