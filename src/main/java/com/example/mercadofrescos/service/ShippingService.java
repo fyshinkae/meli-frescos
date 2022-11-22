@@ -1,23 +1,26 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.shipping.ShippingRequestDTO;
 import com.example.mercadofrescos.model.Shipping;
 import com.example.mercadofrescos.repository.IShippingRepo;
 import com.example.mercadofrescos.service.interfaces.IShippingService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ShippingService implements IShippingService {
 
     private final IShippingRepo repo;
 
     @Override
     public Shipping update(Long id, Shipping shipping) {
+
         Shipping shippingObj = this.repo.findById(id).orElseThrow(
                 () -> new RuntimeException("Shipping Not Found"));
 

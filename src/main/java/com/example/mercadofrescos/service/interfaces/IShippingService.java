@@ -1,5 +1,6 @@
 package com.example.mercadofrescos.service.interfaces;
 
+import com.example.mercadofrescos.dto.shipping.ShippingRequestDTO;
 import com.example.mercadofrescos.model.Shipping;
 
 import java.util.List;

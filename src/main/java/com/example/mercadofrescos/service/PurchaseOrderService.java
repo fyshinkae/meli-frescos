@@ -105,7 +105,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
         Integer threeWeeks = 21;
         for(BatchStock batchStock : batches){
             if(batchStock.getProductQuantity() > purchaseQuantity
-                    && validateDueDate(batchStock.getDueDate(), threeWeeks)) {
+                    || validateDueDate(batchStock.getDueDate(), threeWeeks)) {
                 return batchStock;
             }
         }
@@ -175,6 +175,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     public PurchaseOrderRequestDTO updateOrderStatus(StatusOrder updateStatus, Long id) {
         PurchaseOrder purchaseOrder = this.findById(id);
         purchaseOrder.setStatusOrder(updateStatus);
+
 
         return PurchaseOrderRequestDTO.convert(purchaseOrderRepo.save(purchaseOrder));
     }

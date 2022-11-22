@@ -1,5 +1,7 @@
 package com.example.mercadofrescos.service;
 
+import com.example.mercadofrescos.dto.tracking.TrackingOrderRequestDTO;
+import com.example.mercadofrescos.dto.tracking.TrackingOrderResponseDTO;
 import com.example.mercadofrescos.model.Address;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.Shipping;
@@ -7,67 +9,41 @@ import com.example.mercadofrescos.model.TrackingOrder;
 import com.example.mercadofrescos.model.enums.StatusShipping;
 import com.example.mercadofrescos.repository.ITrakingOrderRepo;
 import com.example.mercadofrescos.service.interfaces.ITrackingOrderService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TrackingOrderService implements ITrackingOrderService {
 
     private final ITrakingOrderRepo repo;
     private final PurchaseOrderService orderService;
 
     @Override
-    public List<TrackingOrder> findAllByPurchaseOrder(Long userId) {
-        List<TrackingOrder> ordersByUserId = repo.findAllByPurchaseOrder_user_id(userId);
+    public TrackingOrderResponseDTO create(TrackingOrderRequestDTO trackingOrder) {
 
-        if (ordersByUserId.isEmpty()) {
-            throw new EntityNotFoundException("Tracking order not found");
-        }
-        return ordersByUserId;
-    }
+        TrackingOrder newTracking = new TrackingOrder();
 
-    @Override
-    public List<TrackingOrder> findAllUser() {
-        List<TrackingOrder> orders = repo.findAll();
-
-        if (orders.isEmpty()) {
-            throw new EntityNotFoundException("Tracking order not found");
-        }
-        return orders;
-
-    }
-
-    @Override
-    public Optional<TrackingOrder> findUserById(Long id) {
-        Optional<TrackingOrder> orderById = repo.findById(id);
-
-        if (orderById.isEmpty()) {
-            throw new EntityNotFoundException("Tracking order not found");
-        }
-        return orderById;
-    }
-
-    @Override
-    public TrackingOrder create(TrackingOrder trackingOrder) {
         Shipping shipping = new Shipping();
-        trackingOrder.setShipping(shipping);
+        newTracking.setShipping(shipping);
 
-        PurchaseOrder purchaseOrder = orderService.findById(trackingOrder.getPurchaseOrder().getId());
+        newTracking.setTrackingDate(LocalDateTime.now());
+
+        PurchaseOrder purchaseOrder = orderService.findById(trackingOrder.getPurchaseOrderId());
+        newTracking.setPurchaseOrder(purchaseOrder);
+
         Address address = purchaseOrder.getCustomer().getAddress();
-        trackingOrder.setAddress(address);
+        newTracking.setAddress(address);
 
-        return repo.save(trackingOrder);
-    };
+        return TrackingOrderResponseDTO.converter(repo.save(newTracking));
+    }
 
     @Override
     @Transactional
-    public TrackingOrder update(Long id, TrackingOrder trackingOrder) {
+    public TrackingOrderResponseDTO update(Long id, TrackingOrder trackingOrder) {
         TrackingOrder trackingOrderById = this.repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Does not exits Appointment"));
 
@@ -75,15 +51,7 @@ public class TrackingOrderService implements ITrackingOrderService {
             throw new RuntimeException("Order cannot be updated");
         }
 
-        Address address = trackingOrderById.getAddress();
-        address.setNumber(trackingOrder.getAddress().getNumber());
-        address.setStreet(trackingOrder.getAddress().getStreet());
-        address.setRegion(trackingOrder.getAddress().getRegion());
-        address.setZipcode(trackingOrder.getAddress().getZipcode());
-
         trackingOrderById.setTrackingDate(trackingOrder.getTrackingDate());
-        trackingOrderById.setAddress(address);
-
-        return repo.save(trackingOrderById);
+        return TrackingOrderResponseDTO.converter(repo.save(trackingOrderById));
     }
 }

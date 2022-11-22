@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ITrakingOrderRepo extends JpaRepository<TrackingOrder, Long> {
     // Derived Query JPA
-    List<TrackingOrder> findAllByPurchaseOrder_user_id(Long purchaseOrder_user_id);
+    List<TrackingOrder> findAllByPurchaseOrder_customer_id(Long purchaseOrder_customer_id);
 }
