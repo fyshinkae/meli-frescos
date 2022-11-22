@@ -372,6 +372,116 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "US6 - Compra recorrente",
+			"item": [
+				{
+					"name": "Requisito 6 - cadastrar pedido recorrente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dayOfMonth\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/recurrence/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"recurrence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - listar pedidos recorrentes do dia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/recurrence",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"recurrence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - editar data de recorrência",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"dayOfMonth\": 25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/recurrence/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"recurrence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - deletar recorrência por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/orders/recurrence/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"recurrence",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
