@@ -1,4 +1,5 @@
 package com.example.mercadofrescos.service;
+import com.example.mercadofrescos.dto.purchase.OnSalePriceDTO;
 import com.example.mercadofrescos.dto.purchase.PurchaseItemResponseDTO;
 import com.example.mercadofrescos.dto.purchase.PurchasePriceDTO;
 import com.example.mercadofrescos.exception.InvalidPurchaseException;
@@ -91,7 +92,7 @@ public class OnSaleOrderServiceTest {
         Mockito.when(productService.findById(ArgumentMatchers.anyLong())).thenReturn(product);
         Mockito.when(purchaseOrderRepo.save(purchaseOrder)).thenReturn(purchaseOrder);
         Mockito.doNothing().when(purchaseItemService).savePurchaseItemList(purchaseOrder.getItemList());
-        PurchasePriceDTO serviceReturn = onSaleOrderService.getCartOnSale(purchaseOrder);
+        OnSalePriceDTO serviceReturn = onSaleOrderService.getCartOnSale(purchaseOrder);
 
         assertThat(serviceReturn).isNotNull();
         assertThat(serviceReturn.getTotalPrice()).isEqualTo(1000);

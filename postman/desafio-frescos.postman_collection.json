@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e582eb5f-46a5-46c8-8c85-83a962bf24df",
+		"_postman_id": "8ed540a5-9e0c-4c57-a783-d8bd962cda9b",
 		"name": "desafio-frescos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -295,7 +295,7 @@
 			"name": "US5",
 			"item": [
 				{
-					"name": "Requisto 5 - Obtenha todos os lotes armazenados em um setor de um armazém ordenados por sua data de vencimento",
+					"name": "Requisito 5 - Obtenha todos os lotes armazenados em um setor de um armazém ordenados por sua data de vencimento",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -366,6 +366,87 @@
 									"key": "orderBy",
 									"value": "DESC"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "US6 Matheus Alves",
+			"item": [
+				{
+					"name": "Requisito 6 - registrar um pedido promocional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"purchaseOrder\": {\n\t\t\"date\": \"2022-11-09\",\n\t\t\"buyerId\": \"1\",\n\t\t\"orderStatus\": \"ABERTO\",\n\t\t\"products\": [\n\t\t\t{\n\t\t\t\t\"productId\": \"1\",\n\t\t\t\t\"quantity\": \"2\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"productId\": \"1\",\n\t\t\t\t\"quantity\": \"2\"\n\t\t\t}\n\t\t]\n\t}\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders-on-sale",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders-on-sale"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - listar todos os produtos do pedido promocional",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders-on-sale/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders-on-sale",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - modificar um pedido promocional existente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderStatus\": \"FINALIZADO\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders-on-sale/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders-on-sale",
+								"1"
 							]
 						}
 					},
