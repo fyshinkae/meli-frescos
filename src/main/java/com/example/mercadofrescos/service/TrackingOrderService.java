@@ -8,20 +8,14 @@ import com.example.mercadofrescos.model.Address;
 import com.example.mercadofrescos.model.PurchaseOrder;
 import com.example.mercadofrescos.model.Shipping;
 import com.example.mercadofrescos.model.TrackingOrder;
-import com.example.mercadofrescos.model.enums.StatusOrder;
-import com.example.mercadofrescos.model.enums.StatusShipping;
 import com.example.mercadofrescos.repository.ITrakingOrderRepo;
 import com.example.mercadofrescos.service.interfaces.IPurchaseOrderService;
 import com.example.mercadofrescos.service.interfaces.ITrackingOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
