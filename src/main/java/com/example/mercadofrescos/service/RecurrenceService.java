@@ -22,6 +22,13 @@ public class RecurrenceService implements IRecurrenceService {
     private final IRecurrenceOrderRepo repo;
 
     private final IPurchaseOrderService purchaseOrderService;
+
+    /**
+     * Cria uma recorrência de compra existente
+     * @author Anderson Alves
+     * @param recurrenceOrder parâmetro do usuário contendo informações sobre recorrência
+     * @return  a recurrenceOrder criada
+     */
     @Override
     public RecurrenceResponseDTO createRecurrence(RecurrenceOrder recurrenceOrder) {
         PurchaseOrder purchaseOrder = this.purchaseOrderService.findById(recurrenceOrder.getId());
@@ -35,6 +42,11 @@ public class RecurrenceService implements IRecurrenceService {
         return new RecurrenceResponseDTO(order);
     }
 
+    /**
+     * Retorna uma lista com todas recorrências
+     * @author Anderson Alves
+     * @return  a lista de recurrenceOrder
+     */
     @Override
     public List<RecurrenceOrderDTO> getAllRecurrences() {
         List<RecurrenceOrderDTO> result = this.repo.findAll().stream().map(RecurrenceOrderDTO::new).collect(Collectors.toList());
@@ -43,6 +55,12 @@ public class RecurrenceService implements IRecurrenceService {
         return result;
     }
 
+    /**
+     * Atualiza/modifica o dia de uma recorrência
+     * @author Anderson Alves
+     * @param recurrenceOrder parâmetro do usuário contendo informações do recurrenceOrder e o id da Order
+     * @return  retorna recurrenceResponse
+     */
     @Override
     public RecurrenceResponseDTO updateRecurrence(RecurrenceOrder recurrenceOrder, Long id) {
         RecurrenceOrder recurrenceUpdate = this.repo.findById(id).orElseThrow(() -> new NotFoundException("Recurrence Not Found"));
@@ -51,6 +69,11 @@ public class RecurrenceService implements IRecurrenceService {
         return new RecurrenceResponseDTO(recurrenceUpdate);
     }
 
+    /**
+     * Deleta uma compra recorrente
+     * @author Anderson Alves
+     * @param id da recurrenceOrder para ser apagada
+     */
     @Override
     public void deleteByID(Long id) {
         this.repo.deleteById(id);

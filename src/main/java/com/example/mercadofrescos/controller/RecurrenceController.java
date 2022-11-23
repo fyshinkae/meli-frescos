@@ -18,6 +18,12 @@ public class RecurrenceController {
 
     private final IRecurrenceService service;
 
+    /**
+     * Retorna a compra recorrente criada
+     * @author Anderson Alves
+     * @param recurrenceOrder
+     * @return retorna a 'recurrenceOrder' criada
+     */
     @PostMapping("/{id}")
     public ResponseEntity<RecurrenceResponseDTO> createRecurrenceFromOrder(@RequestBody RecurrenceOrder recurrenceOrder, @PathVariable Long id) {
         recurrenceOrder.setId(id);
@@ -25,12 +31,23 @@ public class RecurrenceController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    /**
+     * Retorna uma lista de compras recorrentes
+     * @author Anderson Alves
+     * @return retorna uma lista de 'recurrenceOrder'
+     */
     @GetMapping
     public ResponseEntity<List<RecurrenceOrderDTO>> getRecurrenceOrders() {
         List<RecurrenceOrderDTO> response = service.getAllRecurrences();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Edita uma compra recorrente especificada pelo ID
+     * @author Anderson Alves
+     * @param recurrenceOrder, id
+     * @return retorna uma 'recurrenceOrder' atualizada
+     */
     @PutMapping("/{id}")
     public ResponseEntity updateRecurrenceOrder(@RequestBody RecurrenceOrder recurrenceOrder, @PathVariable Long id) {
         recurrenceOrder.setId(id);
@@ -38,6 +55,12 @@ public class RecurrenceController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Deleta uma compra recorrente
+     * @author Anderson Alves
+     * @param id
+     * @return retorna status 200
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity deleteRecurrence(@PathVariable Long id) {
         service.deleteByID(id);
