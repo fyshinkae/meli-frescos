@@ -7,23 +7,19 @@
 
 
 ### Objetivo
-O objetivo deste projeto final é implementar uma API REST no âmbito do slogan e aplicar
-os conteúdos trabalhados durante o BOOTCAMP MELI. (Git, Java, Spring, Banco de Dados,
-Qualidade e Segurança).
+Este projeto tem o objetivo de adicionar uma nova funcionalidade de acompanhamento de transporte para produtos frescos,
+congelados e refrigerados do Mercado Livre através de uma API REST em Java com Spring Boot e suas respectivas
+dependências.
 
 * [Enunciado Base](https://drive.google.com/file/d/1Oha8lfWwiXB6cYHB32Ppi3cB3hYWKVvE/view?usp=sharing)
 
-### Especificações de Requisitos
+### Especificações do Requisito 6
 
-* [Requisito 1](https://drive.google.com/file/d/1FpDBHMdlxCwSTP6txExJIgOgcAG8ujTD/view?usp=sharing)
-* [Requisito 2](https://drive.google.com/file/d/1oJgq7YcNL_KmGG-drmxEjrpRkfGsj5ft/view?usp=sharing)
-* [Requisito 3](https://drive.google.com/file/d/1peHIPZG7TJ-83FOewkoL6YqQVwSUIPcr/view?usp=sharing)
-* [Requisito 4](https://drive.google.com/file/d/1OC5XIy1PsnX8ulTfackc-a0w17pw2wyz/view?usp=sharing)
-* [Requisito 5](https://drive.google.com/file/d/1eREsXg-O1IBD2SeKmRxlMHjyt8GsLYTs/view?usp=sharing)
-* [Requisito 6](https://drive.google.com/file/d/1il0kj0iGrPnVuko06dqxelyTiHcrkB6c/view?usp=sharing)
+* [Requisito 6 (base)](https://drive.google.com/file/d/1il0kj0iGrPnVuko06dqxelyTiHcrkB6c/view?usp=sharing)
+* [Requisito 6](https://drive.google.com/file/d/1AiZqBqJ-eLgPS38uKzSjNclZEy4UkQj5/view?usp=sharing)
 
 ### Diagrama do Projeto
-<img src="Diagrama_Base.png"/>
+<img src="Diagrama_REQ06.png" alt="Diagrama"/>
 
 ---
 ### Links Requisito 6:
@@ -47,11 +43,29 @@ mvn spring-boot:run
 ```
 ---
 
-### Collection do Postman
+### Postman
 
-O arquivo com a coleção de endpoints está [aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/main/postman/desafio-frescos.postman_collection.json). Caso precise de instruções consulte a [documentação do Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
+O Documento sobre a API do postman está 
+[aqui](https://documenter.getpostman.com/view/23680860/2s8YsnWbGm).
+
+O arquivo com a coleção de endpoints está 
+[aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/main/postman/desafio-frescos.postman_collection.json).
+
+**Caso precise de instruções consulte a 
+[documentação do Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/)**
 
 ---
+
+## Documentação
+
+Link da documentação deo Swagger:
+
+```sh
+http://localhost:8080/swagger-ui.html
+```
+
+---
+
 ### Equipe 7
 
 - [Anderson Alves](https://github.com/andmalves)
@@ -60,8 +74,6 @@ O arquivo com a coleção de endpoints está [aqui](https://raw.githubuserconten
 - [Giovanna Eliz](https://github.com/giovannaelizs)
 - [Matheus Alves (Ma)](https://github.com/matheusaralves)
 - [Matheus Ferreira (Theus)](https://github.com/matheusFerreira-meli)
-
-
 
 ---
 Feito com 💛 

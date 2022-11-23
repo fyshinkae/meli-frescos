@@ -1,15 +1,28 @@
 {
 	"info": {
-		"_postman_id": "e582eb5f-46a5-46c8-8c85-83a962bf24df",
-		"name": "desafio-frescos",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "12b9ef09-c77b-4fdb-a86a-7934dd239301",
+		"name": "Bootcamp Backend Java - Projeto Integrador",
+		"description": "## Objetivo\n\nO objetivo deste projeto final é implementar uma API REST no âmbito do slogan e aplicar os conteúdos trabalhados durante o BOOTCAMP MELI. (Git, Java, Spring, Banco de Dados, Qualidade e Segurança).\n\n---\n\n## Diagrama Base do Projeto\n\n<img src=\"https://content.pstmn.io/68ca377a-b883-4f64-840b-4287706577b4/aW1hZ2UucG5n\" width=\"698\" height=\"713\">\n\n---\n\n## Instruções para Instalação\n\nPara iniciar o projeto é necessário o Docker. Dentro do diretório raiz do projeto, executar o comando abaixo:\n\n```\ndocker-compose up -d \n\n```\n\nApós, iniciar o projeto com o comando:\n\n```\nmvn spring-boot:run\n\n```\n\n---\n\n## Equipe 7\n\n- Anderson Alves\n- Felipe Shinkae\n- Giovanna Eliz\n- Matheus Alvez (Ma)\n- Matheus Ferreira (Theus)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23680860"
 	},
 	"item": [
 		{
-			"name": "US1",
+			"name": "US1 - [ml-insert-batch-in-fulfillment-warehouse-01]",
 			"item": [
 				{
-					"name": "Requisito 1 - cadastrar lote",
+					"name": "Requisito 1 - Cadastrar lote",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -36,7 +49,66 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"inboundOrder\": {\n        \"orderDate\": \"2022-11-09\",\n        \"sectionCode\": 2,\n        \"warehouseCode\": 1,\n        \"batchStock\": [\n            {\n                \"productId\": 1,\n                \"currentTemperature\": 20,\n                \"productQuantity\": 50,\n                \"manufacturingDate\": \"2022-11-09\",\n                \"manufacturingTime\": \"2022-11-09 12:00:00\",\n                \"volume\": 50,\n                \"dueDate\": \"2022-12-10\",\n                \"price\": 20.00\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"inboundorder",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:50:32 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"batchStock\": [\n        {\n            \"batchNumber\": 10,\n            \"productId\": 1,\n            \"currentTemperature\": 20,\n            \"volume\": 50,\n            \"productQuantity\": 50,\n            \"manufacturingTime\": \"2022-11-09 12:00:00\",\n            \"manufacturingDate\": \"2022-11-09\",\n            \"dueDate\": \"2022-12-10\",\n            \"price\": 10\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Requisito 1 - editar lote",
@@ -66,12 +138,72 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"inboundOrder\": {\n\t\t\"orderDate\": \"2022-11-09\",\n\t\t\"sectionCode\": 2,\n\t\t\"warehouseCode\": 1,\n\t\t\"batchStock\": [\n\t\t\t{\n\t\t\t\t\"batchNumber\": 10,\n\t\t\t\t\"productId\": 1,\n\t\t\t\t\"currentTemperature\": 20,\n\t\t\t\t\"productQuantity\": 50,\n\t\t\t\t\"manufacturingDate\": \"2022-11-09\",\n\t\t\t\t\"manufacturingTime\": \"2022-11-09 12:00:00\",\n\t\t\t\t\"volume\": 30,\n\t\t\t\t\"dueDate\": \"2022-12-10\",\n\t\t\t\t\"price\": 20.00\n\t\t\t}\n\t\t]\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/inboundorder/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"inboundorder",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:53:20 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"batchStock\": [\n        {\n            \"batchNumber\": 10,\n            \"productId\": 1,\n            \"currentTemperature\": 20,\n            \"volume\": 30,\n            \"productQuantity\": 50,\n            \"manufacturingTime\": \"2022-11-09 12:00:00\",\n            \"manufacturingDate\": \"2022-11-09\",\n            \"dueDate\": \"2022-12-10\",\n            \"price\": 10\n        }\n    ]\n}"
+						}
+					]
 				}
-			]
+			],
+			"description": "### [Documentação Requisito 1](https://drive.google.com/file/d/1FpDBHMdlxCwSTP6txExJIgOgcAG8ujTD/view?usp=sharing)"
 		},
 		{
-			"name": "US2",
+			"name": "US2 - [ml-add-products-to-cart-01]",
 			"item": [
 				{
 					"name": "Requisito 2 - listar todos produtos",
@@ -91,7 +223,56 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:53:39 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"name\": \"FRUTA 1\",\n        \"category\": \"FRESH\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"FRUTA 2\",\n        \"category\": \"FRESH\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"FRUTA 2\",\n        \"category\": \"FRESH\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"CARNE 1\",\n        \"category\": \"REFRIGERATED\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"CARNE 2\",\n        \"category\": \"REFRIGERATED\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"CARNE 3\",\n        \"category\": \"REFRIGERATED\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"PEIXE 1\",\n        \"category\": \"FROZEN\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"PEIXE 2\",\n        \"category\": \"FROZEN\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    },\n    {\n        \"name\": \"PEIXE 3\",\n        \"category\": \"FROZEN\",\n        \"price\": 10,\n        \"seller\": {\n            \"name\": \"sellerTest\",\n            \"email\": \"seller_test@teste.com\"\n        }\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Requisito 2 - listar produtos por categoria",
@@ -112,12 +293,68 @@
 							"query": [
 								{
 									"key": "category",
-									"value": "RF"
+									"value": "RF",
+									"description": "Sigla para Section Category(FS=FRESH; RF=REFRIGERATED; FR=FROZEN)"
 								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/list?category=RF",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"list"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "RF"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:54:07 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 4,\n        \"name\": \"CARNE 1\",\n        \"price\": 10,\n        \"category\": \"REFRIGERATED\"\n    },\n    {\n        \"id\": 5,\n        \"name\": \"CARNE 2\",\n        \"price\": 10,\n        \"category\": \"REFRIGERATED\"\n    },\n    {\n        \"id\": 6,\n        \"name\": \"CARNE 3\",\n        \"price\": 10,\n        \"category\": \"REFRIGERATED\"\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Requisito 2 - registrar pedido",
@@ -147,7 +384,66 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n\t\"purchaseOrder\": {\n\t\t\"buyerId\": \"1\",\n\t\t\"orderStatus\": \"ABERTO\",\n\t\t\"products\": [\n\t\t\t{\n\t\t\t\t\"productId\": \"1\",\n\t\t\t\t\"quantity\": \"1\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"productId\": \"2\",\n\t\t\t\t\"quantity\": \"3\"\n\t\t\t}\n\t\t]\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:54:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"totalPrice\": 40\n}"
+						}
+					]
 				},
 				{
 					"name": "Requisito 2 - mostrar produtos de um pedido",
@@ -168,7 +464,57 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:54:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"productId\": 1,\n        \"quantity\": 1\n    },\n    {\n        \"productId\": 2,\n        \"quantity\": 3\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Requisito 2 - modificar pedido existente",
@@ -198,12 +544,72 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderStatus\": \"FINALIZADO\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:56:21 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"purchaseOrder\": {\n        \"date\": \"2022-11-22\",\n        \"id\": 1,\n        \"buyerId\": 1,\n        \"orderStatus\": \"FINALIZADO\",\n        \"products\": [\n            {\n                \"productId\": 1,\n                \"quantity\": 1\n            },\n            {\n                \"productId\": 2,\n                \"quantity\": 3\n            }\n        ]\n    }\n}"
+						}
+					]
 				}
-			]
+			],
+			"description": "### [Documentação Requisito 2](https://drive.google.com/file/d/1oJgq7YcNL_KmGG-drmxEjrpRkfGsj5ft/view?usp=sharing)"
 		},
 		{
-			"name": "US3",
+			"name": "US3 - [ml-check-product-location-in-warehouse-01]",
 			"item": [
 				{
 					"name": "Requisito 3 - listar todos lotes do produto",
@@ -225,12 +631,69 @@
 							"query": [
 								{
 									"key": "productId",
-									"value": "1"
+									"value": "1",
+									"description": "ID de Produto"
 								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/agent/list?productId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"agent",
+										"list"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:57:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"section\": {\n        \"sectionCode\": 2,\n        \"warehouseCode\": 1\n    },\n    \"productId\": 1,\n    \"batchStock\": [\n        {\n            \"batchNumber\": 10,\n            \"currentQuantity\": 50,\n            \"dueDate\": \"2022-12-10\"\n        },\n        {\n            \"batchNumber\": 1,\n            \"currentQuantity\": 10,\n            \"dueDate\": \"2022-12-02\"\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Requisito 3 - listar todos lotes do produto com ordenação",
@@ -252,21 +715,84 @@
 							"query": [
 								{
 									"key": "productId",
-									"value": "1"
+									"value": "1",
+									"description": "ID de Produto"
 								},
 								{
 									"key": "order",
-									"value": "L"
+									"value": "L",
+									"description": "Ordenaçao (L=Lote; Q=Quantidade Atual; D=Data de Vencimento)"
 								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/agent/list?productId=1&order=L",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"agent",
+										"list"
+									],
+									"query": [
+										{
+											"key": "productId",
+											"value": "1"
+										},
+										{
+											"key": "order",
+											"value": "L"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:57:37 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"section\": {\n        \"sectionCode\": 1,\n        \"warehouseCode\": 1\n    },\n    \"productId\": 1,\n    \"batchStock\": [\n        {\n            \"batchNumber\": 1,\n            \"currentQuantity\": 10,\n            \"dueDate\": \"2022-12-02\"\n        },\n        {\n            \"batchNumber\": 10,\n            \"currentQuantity\": 50,\n            \"dueDate\": \"2022-12-10\"\n        }\n    ]\n}"
+						}
+					]
 				}
-			]
+			],
+			"description": "### [Documentação Requisito 3](https://drive.google.com/file/d/1peHIPZG7TJ-83FOewkoL6YqQVwSUIPcr/view?usp=sharing)"
 		},
 		{
-			"name": "US4",
+			"name": "US4 = [ml-check-product-stock-in-warehouses-04]",
 			"item": [
 				{
 					"name": "Requisito 4 - quantidade total de produtos por armazém",
@@ -287,12 +813,63 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/warehouse/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"warehouse",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:57:50 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"productId\": 1,\n    \"warehouses\": [\n        {\n            \"warehouseCode\": 1,\n            \"totalQuantity\": 60\n        }\n    ]\n}"
+						}
+					]
 				}
-			]
+			],
+			"description": "### [Documentação Requisito 4](https://drive.google.com/file/d/1OC5XIy1PsnX8ulTfackc-a0w17pw2wyz/view?usp=sharing)"
 		},
 		{
-			"name": "US5",
+			"name": "US5 - [ml-check-batch-stock-due-date-01]",
 			"item": [
 				{
 					"name": "Requisto 5 - Obtenha todos os lotes armazenados em um setor de um armazém ordenados por sua data de vencimento",
@@ -313,16 +890,77 @@
 							"query": [
 								{
 									"key": "sectionId",
-									"value": "2"
+									"value": "2",
+									"description": "sectionId"
 								},
 								{
 									"key": "days",
-									"value": "120"
+									"value": "120",
+									"description": "Dias de vencimento"
 								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/due-date?sectionId=2&days=120",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"due-date"
+									],
+									"query": [
+										{
+											"key": "sectionId",
+											"value": "2"
+										},
+										{
+											"key": "days",
+											"value": "120"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:58:01 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"batchStock\": [\n        {\n            \"batchNumber\": 10,\n            \"productId\": 1,\n            \"productTypeId\": \"FRESH\",\n            \"dueDate\": \"2022-12-10\",\n            \"quantity\": 50\n        },\n        {\n            \"batchNumber\": 4,\n            \"productId\": 4,\n            \"productTypeId\": \"REFRIGERATED\",\n            \"dueDate\": \"2022-12-02\",\n            \"quantity\": 10\n        },\n        {\n            \"batchNumber\": 5,\n            \"productId\": 5,\n            \"productTypeId\": \"REFRIGERATED\",\n            \"dueDate\": \"2022-12-02\",\n            \"quantity\": 10\n        },\n        {\n            \"batchNumber\": 6,\n            \"productId\": 6,\n            \"productTypeId\": \"REFRIGERATED\",\n            \"dueDate\": \"2022-12-02\",\n            \"quantity\": 10\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Requisito 5 - Obtenha uma lista de lotes dentro do prazo de validade solicitado, que pertencem a uma determinada categoria de produto",
@@ -356,20 +994,655 @@
 							"query": [
 								{
 									"key": "category",
-									"value": "FS"
+									"value": "FS",
+									"description": "Sigla para Section Category(FS=FRESH; RF=REFRIGERATED; FR=FROZEN)"
 								},
 								{
 									"key": "days",
-									"value": "10"
+									"value": "10",
+									"description": "Dias de Vencimento"
 								},
 								{
 									"key": "orderBy",
-									"value": "DESC"
+									"value": "DESC",
+									"description": "Ordenação (DESC=DESCENDENTE; ASC=ASCENDENTE)"
 								}
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/due-date/list?category=FS&days=10&orderBy=DESC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"due-date",
+										"list"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "FS"
+										},
+										{
+											"key": "days",
+											"value": "10"
+										},
+										{
+											"key": "orderBy",
+											"value": "DESC"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:58:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"batchStock\": [\n        {\n            \"batchNumber\": 1,\n            \"productId\": 1,\n            \"productTypeId\": \"FRESH\",\n            \"dueDate\": \"2022-12-02\",\n            \"quantity\": 10\n        },\n        {\n            \"batchNumber\": 2,\n            \"productId\": 2,\n            \"productTypeId\": \"FRESH\",\n            \"dueDate\": \"2022-12-02\",\n            \"quantity\": 10\n        },\n        {\n            \"batchNumber\": 3,\n            \"productId\": 3,\n            \"productTypeId\": \"FRESH\",\n            \"dueDate\": \"2022-12-02\",\n            \"quantity\": 10\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"description": "### [Documentação Requisito 5](https://drive.google.com/file/d/1eREsXg-O1IBD2SeKmRxlMHjyt8GsLYTs/view)"
+		},
+		{
+			"name": "US6 - [ml-tracking-order-01]",
+			"item": [
+				{
+					"name": "Requisito 6 - criando ordem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"purchaseOrder\": {\n        \"buyerId\": \"1\",\n        \"orderStatus\": \"ABERTO\",\n        \"products\": [\n            {\n                \"productId\": \"1\",\n                \"quantity\": \"5\"\n            },\n            {\n                \"productId\": \"2\",\n                \"quantity\": \"5\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"purchaseOrder\": {\n        \"buyerId\": \"1\",\n        \"orderStatus\": \"ABERTO\",\n        \"products\": [\n            {\n                \"productId\": \"3\",\n                \"quantity\": \"5\"\n            },\n            {\n                \"productId\": \"4\",\n                \"quantity\": \"5\"\n            }\n        ]\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Nov 2022 23:59:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"totalPrice\": 100\n}"
+						}
+					]
+				},
+				{
+					"name": "Requisito 6 - criando trackingOrder Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"purchaseOrderId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders/tracking",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"tracking"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"purchaseOrderId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/tracking",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"tracking"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2022 00:01:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"purchaseOrderId\": 1,\n    \"trackingDate\": \"2022-11-22T20:01:18.791003\",\n    \"shippingId\": 1,\n    \"address\": {\n        \"id\": 3,\n        \"street\": \"Av das Naçoes\",\n        \"number\": \"1024\",\n        \"region\": \"São Paulo\",\n        \"zipcode\": \"79600000\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Requisito 6 - modificando o shipping status Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"statusShipping\": \"SHIPPED\",\n    \"description\": \"Your order has been shipped by transporter\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders/shipping/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"shipping",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"statusShipping\": \"SHIPPED\",\n    \"description\": \"Your order has been shipped by transporter\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/shipping/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"shipping",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2022 00:01:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"statusShipping\": \"SHIPPED\",\n    \"description\": \"Your order has been shipped by transporter\",\n    \"updateDate\": \"2022-11-22T20:01:18.79098\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Requisito 6 - mostrando todos shipping Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders/shipping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"shipping"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/shipping/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"shipping",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2022 00:02:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"statusShipping\": \"SHIPPED\",\n        \"description\": \"Your order has been shipped by transporter\",\n        \"updateDate\": \"2022-11-22T20:01:18.79098\"\n    },\n    {\n        \"id\": 2,\n        \"statusShipping\": \"PREPARING\",\n        \"description\": \"Your order has been received\",\n        \"updateDate\": \"2022-11-22T20:02:16.277216\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Requisito 6 - mostrando trackingOrderById Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders/shipping",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"shipping"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/shipping",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"shipping"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2022 00:02:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"statusShipping\": \"SHIPPED\",\n        \"description\": \"Your order has been shipped by transporter\",\n        \"updateDate\": \"2022-11-22T20:01:18.79098\"\n    },\n    {\n        \"id\": 2,\n        \"statusShipping\": \"PREPARING\",\n        \"description\": \"Your order has been received\",\n        \"updateDate\": \"2022-11-22T20:02:16.277216\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Requisito 6 - finalizando ordem Copy",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderStatus\": \"FINALIZADO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/fresh-products/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Exemplo",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"orderStatus\": \"FINALIZADO\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/v1/fresh-products/orders/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"fresh-products",
+										"orders",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Nov 2022 00:02:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"purchaseOrder\": {\n        \"date\": \"2022-11-22\",\n        \"id\": 1,\n        \"buyerId\": 1,\n        \"orderStatus\": \"FINALIZADO\",\n        \"products\": [\n            {\n                \"productId\": 3,\n                \"quantity\": 5\n            },\n            {\n                \"productId\": 4,\n                \"quantity\": 5\n            }\n        ]\n    }\n}"
+						}
+					]
 				}
 			]
 		}
