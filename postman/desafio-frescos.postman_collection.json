@@ -378,35 +378,6 @@
 			"name": "US6 - Gabriel",
 			"item": [
 				{
-					"name": "Requisito 6 - Cria avaliação de um produto",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"customerId\": 1,\n\t\"productId\": 1,\n\t\"rating\": 5\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base_url}}/api/v1/fresh-products/ratings",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"fresh-products",
-								"ratings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Requisito 6 - Obtém a lista de todos as avaliações dos compradores",
 					"request": {
 						"method": "GET",
@@ -511,6 +482,35 @@
 								"fresh-products",
 								"ratings",
 								"sellers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Requisito 6 - Cria Rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"customerId\": 1,\n\t\"productId\": 2,\n\t\"rating\": -1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/fresh-products/ratings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"ratings"
 							]
 						}
 					},
