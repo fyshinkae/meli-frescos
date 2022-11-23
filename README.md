@@ -35,7 +35,7 @@ Qualidade e Segurança).
 - [Matheus Ferreira (Theus)](https://github.com/fyshinkae/meli-frescos/tree/matheus-ferreira-req6)
 ---
 
-### Instruções para execução
+### Instruções para rodar a aplicação
 
 :warning: É necessário ter o [Docker](https://docs.docker.com/engine/install/) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados.
 
@@ -54,6 +54,13 @@ mvn spring-boot:run
 O arquivo com a coleção de endpoints está [aqui](https://raw.githubusercontent.com/fyshinkae/meli-frescos/main/postman/desafio-frescos.postman_collection.json). Caso precise de instruções consulte a [documentação do Postman](https://learning.postman.com/docs/getting-started/importing-and-exporting-data/).
 
 ---
+
+### Documentação da API
+
+O projeto foi documentado com Swagger. A documentação pode ser acessada [aqui](http://localhost:8080/swagger-ui.html).
+
+---
+
 ### Equipe 7
 
 - [Anderson Alves](https://github.com/andmalves)
