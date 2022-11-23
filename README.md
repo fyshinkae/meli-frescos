@@ -35,13 +35,15 @@ Qualidade e Segurança).
 - [Matheus Ferreira (Theus)](https://github.com/fyshinkae/meli-frescos/tree/matheus-ferreira-req6)
 ---
 
-### Instruções para instalação
-Para iniciar o projeto é necessario o Docker.
-Dentro do diretório raiz do projeto, executar o comando abaixo:
+### Instruções para execução
+
+:warning: É necessário ter o [Docker](https://docs.docker.com/engine/install/) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados.
+
+Dentro do diretório raiz do projeto, execute o comando abaixo:
 ```sh
 docker-compose up -d 
 ```
-Após, iniciar o projeto com o comando:
+Logo após, inicie o projeto com o comando:
 ```sh
 mvn spring-boot:run
 ```
