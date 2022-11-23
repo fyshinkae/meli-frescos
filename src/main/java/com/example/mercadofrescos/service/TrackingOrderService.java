@@ -40,7 +40,7 @@ public class TrackingOrderService implements ITrackingOrderService {
 
         TrackingOrder newTracking = new TrackingOrder();
 
-        Shipping shipping = new Shipping();
+        Shipping shipping = new Shipping(); // Já define o shipping inicial
         newTracking.setShipping(shipping);
 
         newTracking.setTrackingDate(LocalDateTime.now());
